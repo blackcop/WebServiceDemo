@@ -15,7 +15,6 @@
 		<cxf.version>2.6.1</cxf.version>
 	</properties>
 
-
 	<dependencies>
 
 		<!-- Spring framework -->
@@ -96,7 +95,6 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.apache.cxf</groupId>

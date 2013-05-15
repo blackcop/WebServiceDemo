@@ -1,15 +1,11 @@
 package org.example.ws.bean;
 
 // default package
-// Generated 2013-5-15 12:37:00 by Hibernate Tools 3.4.0.CR1
+// Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,35 +15,22 @@ import javax.persistence.Table;
 @Table(name = "picture", catalog = "shixun")
 public class Picture implements java.io.Serializable {
 
-	private int pictId;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer pictId;
 	private String file;
 	private Integer name;
 	private Integer pictureSetId;
-	private Set commercials = new HashSet(0);
-
-	public Picture() {
-	}
-
-	public Picture(int pictId) {
-		this.pictId = pictId;
-	}
-
-	public Picture(int pictId, String file, Integer name, Integer pictureSetId,
-			Set commercials) {
-		this.pictId = pictId;
-		this.file = file;
-		this.name = name;
-		this.pictureSetId = pictureSetId;
-		this.commercials = commercials;
-	}
 
 	@Id
 	@Column(name = "pict_id", unique = true, nullable = false)
-	public int getPictId() {
+	public Integer getPictId() {
 		return this.pictId;
 	}
 
-	public void setPictId(int pictId) {
+	public void setPictId(Integer pictId) {
 		this.pictId = pictId;
 	}
 
@@ -76,15 +59,6 @@ public class Picture implements java.io.Serializable {
 
 	public void setPictureSetId(Integer pictureSetId) {
 		this.pictureSetId = pictureSetId;
-	}
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "picture")
-	public Set getCommercials() {
-		return this.commercials;
-	}
-
-	public void setCommercials(Set commercials) {
-		this.commercials = commercials;
 	}
 
 }

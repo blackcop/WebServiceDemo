@@ -8,7 +8,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -52,6 +57,8 @@ public class Account implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "account_coupons", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "account_id", nullable = false, updatable = false) })
 	public Set<Coupon> getCoupons() {
 		return coupons;
 	}
@@ -60,6 +67,8 @@ public class Account implements java.io.Serializable {
 		this.coupons = coupons;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "favorite", catalog = "shixun", joinColumns = { @JoinColumn(name = "comm_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "account_id", nullable = false, updatable = false) })
 	public Set<Commercial> getCommercials() {
 		return commercials;
 	}
@@ -68,6 +77,8 @@ public class Account implements java.io.Serializable {
 		this.commercials = commercials;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "group_set", catalog = "shixun", joinColumns = { @JoinColumn(name = "act_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "group_id", nullable = false, updatable = false) })
 	public Set<Association> getAssociations() {
 		return associations;
 	}

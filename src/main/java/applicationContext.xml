@@ -16,6 +16,64 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- 指定连接数据库的驱动 -->
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://192.168.0.131:3306/shixun"></property>
+		<property name="username" value="buynow"></property>
+		<property name="password" value="buynow"></property>
+		<property name="maxActive" value="100"></property>
+		<property name="maxIdle" value="30"></property>
+		<property name="maxWait" value="500"></property>
+	</bean>
+	<!-- 配置sessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>org.example.ws.bean.Account</value>
+				<value>org.example.ws.bean.Association</value>
+				<value>org.example.ws.bean.Commercial</value>
+				<value>org.example.ws.bean.Coupon</value>
+				<value>org.example.ws.bean.Facility</value>
+				<value>org.example.ws.bean.Picture</value>
+				<value>org.example.ws.bean.PictureSet</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Dao配置 -->
+	<bean id="AccountDao" class="org.example.ws.dao.impl.AccountDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="AssociationDao" class="org.example.ws.dao.impl.AssociationDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="CommercialDao" class="org.example.ws.dao.impl.CommercialDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="CouponDao" class="org.example.ws.dao.impl.CouponDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="FacilityDao" class="org.example.ws.dao.impl.FacilityDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="PictureDao" class="org.example.ws.dao.impl.PictureDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="PictureSetDao" class="org.example.ws.dao.impl.PictureSetDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
 	<bean id="HelloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
 	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
 		<jaxrs:serviceBeans>

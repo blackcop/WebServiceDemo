@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -88,6 +90,7 @@ public class Association implements java.io.Serializable {
 		this.activity = activity;
 	}
 
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "associations")
 	public Set<Account> getAccounts() {
 		return accounts;
 	}

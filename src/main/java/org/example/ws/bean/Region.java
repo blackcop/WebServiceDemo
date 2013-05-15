@@ -1,13 +1,9 @@
 package org.example.ws.bean;
 
-
 // default package
-// Generated 2013-5-15 12:37:00 by Hibernate Tools 3.4.0.CR1
+// Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -18,25 +14,31 @@ import javax.persistence.Table;
 @Table(name = "region", catalog = "shixun")
 public class Region implements java.io.Serializable {
 
-	private RegionId id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public Region() {
+	private String region1;
+
+	private String region2;
+
+	@Column(name = "region1", length = 20)
+	public String getRegion1() {
+		return region1;
 	}
 
-	public Region(RegionId id) {
-		this.id = id;
+	public void setRegion1(String region1) {
+		this.region1 = region1;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "region1", column = @Column(name = "region1", length = 20)),
-			@AttributeOverride(name = "region2", column = @Column(name = "region2", length = 40)) })
-	public RegionId getId() {
-		return this.id;
+	@Column(name = "region2", length = 40)
+	public String getRegion2() {
+		return region2;
 	}
 
-	public void setId(RegionId id) {
-		this.id = id;
+	public void setRegion2(String region2) {
+		this.region2 = region2;
 	}
 
 }

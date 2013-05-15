@@ -2,8 +2,7 @@ package org.example.ws.service;
 
 import java.util.List;
 
-import shixun.livestreet.db.pojo.Coupon;
-import shixun.livestreet.pojo.CouponInfo;
+import org.example.ws.pojo.CouponInfo;
 
 public interface CouponService {
 

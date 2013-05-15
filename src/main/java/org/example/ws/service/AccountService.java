@@ -2,10 +2,10 @@ package org.example.ws.service;
 
 import java.util.List;
 
-import shixun.livestreet.db.pojo.Association;
-import shixun.livestreet.db.pojo.Coupon;
-import shixun.livestreet.pojo.CouponInfoOfAccount;
-import shixun.livestreet.pojo.FavoriteInfo;
+import org.example.ws.bean.Association;
+import org.example.ws.bean.Coupon;
+import org.example.ws.pojo.CouponInfoOfAccount;
+import org.example.ws.pojo.FavoriteInfo;
 
 public interface AccountService {
 

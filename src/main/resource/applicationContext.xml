@@ -36,6 +36,9 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
 			</props>
 		</property>
 		<property name="annotatedClasses">
@@ -52,36 +55,36 @@
 	</bean>
 
 	<!-- Dao配置 -->
-	<bean id="AccountDao" class="org.example.ws.dao.impl.AccountDaoImpl">
+	<bean id="accountDao" class="org.example.ws.dao.impl.AccountDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="AssociationDao" class="org.example.ws.dao.impl.AssociationDaoImpl">
+	<bean id="associationDao" class="org.example.ws.dao.impl.AssociationDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="CommercialDao" class="org.example.ws.dao.impl.CommercialDaoImpl">
+	<bean id="commercialDao" class="org.example.ws.dao.impl.CommercialDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="CouponDao" class="org.example.ws.dao.impl.CouponDaoImpl">
+	<bean id="couponDao" class="org.example.ws.dao.impl.CouponDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="FacilityDao" class="org.example.ws.dao.impl.FacilityDaoImpl">
+	<bean id="facilityDao" class="org.example.ws.dao.impl.FacilityDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="PictureDao" class="org.example.ws.dao.impl.PictureDaoImpl">
+	<bean id="pictureDao" class="org.example.ws.dao.impl.PictureDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="PictureSetDao" class="org.example.ws.dao.impl.PictureSetDaoImpl">
+	<bean id="pictureSetDao" class="org.example.ws.dao.impl.PictureSetDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<bean id="HelloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
+	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
 	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
 		<jaxrs:serviceBeans>
-			<ref bean="HelloWorldRestBean" />
+			<ref bean="helloWorldRestBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
-	<jaxws:server id="HelloWorldService"
+	<jaxws:server id="helloWorldService"
 		serviceClass="org.example.ws.service.HelloWorldService" address="/helloworld">
 		<jaxws:serviceBean>
 			<bean class="org.example.ws.service.impl.HelloWorldServiceImpl" />

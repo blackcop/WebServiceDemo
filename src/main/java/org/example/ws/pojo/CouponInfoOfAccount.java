@@ -1,5 +1,8 @@
 package org.example.ws.pojo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "CouponInfoOfAccount")
 public class CouponInfoOfAccount {
 
 	private String commercialName;

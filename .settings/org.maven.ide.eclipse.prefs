@@ -1,4 +1,4 @@
-activeProfiles=
+activeProfiles=nexus
 eclipse.preferences.version=1
 fullBuildGoals=process-test-resources
 resolveWorkspaceProjects=true

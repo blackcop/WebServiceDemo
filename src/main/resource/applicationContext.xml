@@ -16,6 +16,8 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
+	<context:component-scan 
+		base-package="org.example.ws" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<!-- 指定连接数据库的驱动 -->
@@ -90,4 +92,11 @@
 			<bean class="org.example.ws.service.impl.HelloWorldServiceImpl" />
 		</jaxws:serviceBean>
 	</jaxws:server>
+	
+	<bean id="AccountServiceBean" class="org.example.ws.service.impl.AccountServiceImpl" />
+	<jaxrs:server id="AccountService" address="/accountservice">
+		<jaxrs:serviceBeans>
+			<ref bean="AccountServiceBean" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
 </beans>   

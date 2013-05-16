@@ -6,166 +6,142 @@ import java.util.List;
 public interface GenericDAO<T, ID extends Serializable> {
 
 	/**
-	 * @declare ¸ù¾İ¶ÔÏóid»ñµÃÒ»¸ö¶ÔÏó
+	 * æ ¹æ®IDè·å–ä¸€ä¸ªå¯¹è±¡,è·å–æœ€æ–°
 	 * 
-	 * @example
+	 * @param id
+	 * @return
+	 */
+	T getObjectById(ID id);
+
+	/**
+	 * æ ¹æ®IDè·å–ä¸€ä¸ªå¯¹è±¡
+	 * 
 	 * @param id
 	 * @return
 	 */
 	T loadObjectById(ID id);
 
 	/**
-	 * @declare ±£´æÒ»Ìõ¼ÇÂ¼
+	 * ä¿å­˜å¯¹è±¡
 	 * 
-	 * @example
 	 * @param entity
 	 * @return
 	 */
 	T save(T entity);
 
 	/**
-	 * @declare ±£´æÒ»ÌõĞÂµÄ¼ÇÂ¼»òÕß¸úĞÂÒ»ÌõĞÂµÄ¼ÇÂ¼
+	 * å¦‚æœå¯¹è±¡å­˜åœ¨åˆ™æ›´æ–°è¯¥å¯¹è±¡ï¼Œå¦‚æœä¸å­˜åœ¨ï¼Œåˆ™ä¿å­˜è¯¥å¯¹è±¡
 	 * 
-	 * @example
 	 * @param entity
 	 * @return
 	 */
 	T saveOrUpdate(T entity);
 
 	/**
-	 * @declare ¸üĞÂÒ»Ìõ¼ÇÂ¼
+	 * æ›´æ–°å¯¹è±¡æ•°æ®
 	 * 
-	 * @example
 	 * @param entity
 	 * @return
 	 */
 	T update(T entity);
 
 	/**
-	 * @declare Ö´ĞĞ del »òÕß updateÓï¾ä
+	 * æ‰§è¡ŒSQL/HQLåˆ é™¤æˆ–æ›´æ–°è¯­å¥ï¼Œå½“isHql=trueçš„æ—¶å€™ï¼Œæ‰§è¡Œhqlï¼Œå½“isHql=sqlçš„æ—¶å€™ï¼Œæ‰§è¡Œsqlã€‚
 	 * 
-	 * @example delete from Article article where article.r__id>0
-	 * @example update Article article set article.author = 'admin' where r__id
-	 *          in (0,1,2,3,4)
-	 * @param hql
+	 * @param cmd
 	 * @param isHql
-	 *            True->Ö´ĞĞHql False->Ö´ĞĞSql
+	 *            true-->cmd:hql false-->cmd:sql
 	 */
-	void executeDelOrUpdateHql(String hql, boolean isHql);
+	void executeDelOrUpdateCmd(String cmd, boolean isHql);
 
 	/**
-	 * @declare É¾³ıÒ»¸ö¶ÔÏóÊµÌå
+	 * åˆ é™¤è¯¥å¯¹è±¡
 	 * 
-	 * @example
 	 * @param entity
 	 */
 	void delete(T entity);
 
 	/**
-	 * @declare ²éÑ¯³öËùÓĞµÄ¶ÔÏó¼¯ºÏ
+	 * è·å–æ˜¯æ‰€æœ‰çš„å¯¹è±¡
 	 * 
-	 * @example
+	 * @return
 	 */
 	List<T> findAll();
 
 	/**
-	 * @declare1 ¸ù¾İÌõ¼şÁĞ³ö¶ÔÏóÊµÌå¼¯ºÏµÄÇ°¼¸ÌõÊı¾İ
-	 * @example
-	 * @param cmd
-	 * @param params
-	 * @param page
-	 * @param count
+	 * æ‰§è¡ŒHQLæŸ¥è¯¢è¯­å¥ï¼Œè¿”å›ä»firstResultåˆ°firstResult+maxResults-1çš„å¯¹è±¡åˆ—è¡¨
+	 * 
+	 * @param hql
+	 * @param firstResult
+	 *            ç¬¬å‡ ä¸ªå¼€å§‹
+	 * @param maxResults
+	 *            è·å–å‡ ä¸ª
 	 * @return
 	 */
-	List<T> findAllByLength(final String hql, final int offset, final int length);
+	List<T> findListByLength(String hql, int firstResult, int maxResults);
 
 	/**
-	 * @declare: ´ø²ÎÊı¸ù¾İhqlÓï¾ä²éÕÒlength³¤¶ÈµÄ¼¯ºÏ
+	 * æ‰§è¡ŒHQLæŸ¥è¯¢è¯­å¥ï¼Œè¿”å›ä»firstResultåˆ°firstResult+maxResults-1çš„å¯¹è±¡åˆ—è¡¨
+	 * 
 	 * @param hql
 	 * @param params
-	 * @param offset
-	 * @param length
+	 * @param firstResult
+	 *            ç¬¬å‡ ä¸ªå¼€å§‹
+	 * @param maxResults
+	 *            è·å–å‡ ä¸ª
 	 * @return
 	 */
-	List<T> findAllByLengthCmd(String hql, Object[] params, int offset,
-			int length);
+	List<T> findListByLengthAndParams(String hql, Object[] params,
+			int firstResult, int maxResults);
 
 	/**
-	 * @declare1 ¸ù¾İÌõ¼şÁĞ³ö¶ÔÏóÊµÌå¼¯ºÏ
-	 * @declare2 Èç¹ûPage>0 £¬countµÄÉèÖÃ²ÅÓÖÓÃ Èç¹ûPage=0Ôò·µ»ØÇ°Á½¸ö²ÎÊı²é³öµÄList¶ÔÏó
+	 * æ‰§è¡ŒHQLæŸ¥è¯¢è¯­å¥ï¼Œ è·å–ç¬¬pageNumé¡µçš„æ•°æ®ï¼ŒpageSizeè¡¨ç¤ºä¸€é¡µå…±æœ‰å¤šå°‘æ¡æ•°æ®
 	 * 
-	 * @example from Article as article where article.r__id = ?
-	 * @param cmd
+	 * @param hql
+	 * @param pageNum
+	 *            è·å–ç¬¬å‡ é¡µçš„æ•°æ®
+	 * @param pageSize
+	 *            ä¸€é¡µæœ€å¤šæœ‰å‡ æ¡æ•°æ®
+	 * @return
+	 */
+	List<T> findListByPage(String hql, int pageNum, int pageSize);
+
+	/**
+	 * æ‰§è¡ŒHQLæŸ¥è¯¢è¯­å¥ï¼Œ è·å–ç¬¬pageNumé¡µçš„æ•°æ®ï¼ŒpageSizeè¡¨ç¤ºä¸€é¡µå…±æœ‰å¤šå°‘æ¡æ•°æ®
+	 * 
+	 * @param hql
 	 * @param params
-	 * @param page
-	 * @param count
+	 * @param pageNum
+	 *            è·å–ç¬¬å‡ é¡µçš„æ•°æ®
+	 * @param pageSize
+	 *            ä¸€é¡µæœ€å¤šæœ‰å‡ æ¡æ•°æ®
 	 * @return
 	 */
-	List<T> findListByCmd(String cmd, Object[] params, int page, int count);
+	List<T> findListByPageAndParams(String hql, Object[] params, int pageNum,
+			int pageSize);
 
 	/**
-	 * @declare-HQL ¸ù¾İ¶¯Ì¬queryHqlÀ´ÁĞ³ö¶ÔÏóÊµÌå¼¯ºÏ
-	 * 
-	 * @example-HQL from Article as article where article.author like '%¿Óµù%'
-	 * 
-	 * @example-SQL select category,content_body,create_dt»òÕß* from Article as
-	 *              article where article.author = '¿Óµù' //±íÃûÎªÊı¾İ¿âÖĞµÄÃû³Æ
-	 * @param queryHql
-	 * @param isHql
-	 * @param page
-	 * @param count
-	 * @return
-	 */
-	List<Object> findListByDynHql(String queryHql, boolean isHql, int page,
-			int count);
-
-	/**
-	 * @declare ¸ù¾İ¶¯Ì¬hql/sql»ñÈ¡·µ»ØÊµÌåÀà¶ÔÏó
-	 * 
-	 * @example from Article as article where article.author = 'ÁõÓñ»ª' and ...
-	 * @example select count(*) from Article as article
-	 * @example
-	 * @param queryHql
-	 * @param isHql
-	 * @return
-	 */
-	Object queryByDynHql(String queryHql, boolean isHql);
-
-	/**
-	 * @declare: ¸ù¾İcmd¶ÔÓ¦Óï¾ä²éÕÒÊµÌå
-	 * 
-	 * @example from Article as article where article.author = ?
-	 * @param cmd
-	 * @param params
-	 * @return
-	 */
-	Object queryByCmd(String cmd, Object[] params);
-
-	/**
-	 * ·ÖÒ³²éÕÒ
-	 */
-	// PageModel<T> queryPage(String cmd, Object[] params, int offset, int
-	// pagesize);
-
-	/**
-	 * ·ÖÒ³²éÕÒ
-	 */
-	// PageModel<T> queryPageBySQL(String cmd, Object[] params, int offset,int
-	// pagesize);
-
-	/**
-	 * »ñÈ¡²éÑ¯¼ÇÂ¼×ÜÊıµÄhql
+	 * é€šè¿‡hqlæŸ¥è¯¢è¯­å¥ï¼ŒæŸ¥è¯¢å¯¹è±¡
 	 * 
 	 * @param hql
 	 * @return
 	 */
-	String getCountHql(String hql);
+	T queryByHql(String hql);
 
 	/**
-	 * ²éÑ¯¼ÇÂ¼×ÜÊı
+	 * é€šè¿‡hqlæŸ¥è¯¢è¯­å¥ï¼ŒæŸ¥è¯¢å¯¹è±¡
 	 * 
 	 * @param hql
+	 * @param params
 	 * @return
 	 */
-	public Long getCount(String hql);
+	T queryByHqlAndParams(String hql, Object[] params);
+
+	void refresh(T entity);
+
+	void evict(T entity);
+
+	void clear();
+
+	void flush();
 }

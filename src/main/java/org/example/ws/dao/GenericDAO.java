@@ -13,13 +13,13 @@ public interface GenericDAO<T, ID extends Serializable> {
 	 */
 	T getObjectById(ID id);
 
-	/**
-	 * 根据ID获取一个对象
-	 * 
-	 * @param id
-	 * @return
-	 */
-	T loadObjectById(ID id);
+//	/**
+//	 * 根据ID获取一个对象
+//	 * 
+//	 * @param id
+//	 * @return
+//	 */
+//	T loadObjectById(ID id);
 
 	/**
 	 * 保存对象
@@ -53,6 +53,9 @@ public interface GenericDAO<T, ID extends Serializable> {
 	 *            true-->cmd:hql false-->cmd:sql
 	 */
 	void executeDelOrUpdateCmd(String cmd, boolean isHql);
+
+	void executeDelOrUpdateCmdAndParams(String cmd, Object[] params,
+			boolean isHql);
 
 	/**
 	 * 删除该对象

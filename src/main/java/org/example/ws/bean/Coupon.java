@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -107,6 +109,7 @@ public class Coupon implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "coupons")
+	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", referencedColumnName = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "account_id",  referencedColumnName = "act_id",nullable = false, updatable = false) })
 	public Set<Account> getAccounts() {
 		return accounts;
 	}

@@ -144,5 +144,10 @@
 			<artifactId>cxf-bundle-jaxrs</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>1.7.2</version>
+		</dependency>
 	</dependencies>
 </project>

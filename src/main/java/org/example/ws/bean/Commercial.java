@@ -10,7 +10,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,6 +45,7 @@ public class Commercial implements java.io.Serializable {
 	private String region2;
 	private Double latitude;
 	private Double longitude;
+	
 	private Double commercialcol;
 	private String phonenumber;
 	private Date opentime;
@@ -48,6 +53,7 @@ public class Commercial implements java.io.Serializable {
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "comm_id", unique = true, nullable = false)
 	public Integer getCommId() {
 		return this.commId;
@@ -204,6 +210,7 @@ public class Commercial implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "commercials")
+	@JoinTable(name = "favorite", catalog = "shixun", joinColumns = {@JoinColumn(name = "comm_id",  referencedColumnName = "comm_id",  nullable = false, updatable = false) }, inverseJoinColumns = {  @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
 	public Set<Account> getAccounts() {
 		return accounts;
 	}

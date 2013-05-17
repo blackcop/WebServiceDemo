@@ -9,6 +9,11 @@ import org.example.ws.pojo.PictureDetail;
 
 public interface CommercialService {
 
+	/**
+	 * 发布优惠券
+	 * 
+	 * @param coupon
+	 */
 	public void publishCoupon(Coupon coupon);
 
 	public CommercialDetail getDetail(int commercialId);
@@ -16,4 +21,7 @@ public interface CommercialService {
 	public List<PictureDetail> getPictureSetDetail(int pictureSetId);
 
 	public List<CommercialDetail> filterCommercial(Filter filter);
+
+	public List<Coupon> getCoupons();
+
 }

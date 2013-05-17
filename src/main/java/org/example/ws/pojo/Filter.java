@@ -1,7 +1,5 @@
 package org.example.ws.pojo;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.core.MediaType;
 
 public class Filter {
 

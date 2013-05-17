@@ -33,11 +33,11 @@ public class HibernateBaseDaoImpl<T, ID extends Serializable> extends
 				id);
 	}
 
-//	@Override
-//	public T loadObjectById(ID id) {
-//		return (T) this.getHibernateTemplate().load(this.getPersistentClass(),
-//				id);
-//	}
+	// @Override
+	// public T loadObjectById(ID id) {
+	// return (T) this.getHibernateTemplate().load(this.getPersistentClass(),
+	// id);
+	// }
 
 	@Override
 	public T save(T entity) {
@@ -103,6 +103,25 @@ public class HibernateBaseDaoImpl<T, ID extends Serializable> extends
 		List<T> list = this.getHibernateTemplate().loadAll(
 				this.getPersistentClass());
 		org.hibernate.Hibernate.initialize(list);
+		return list;
+	}
+
+	@Override
+	public List<T> findListByParams(final String hql, final Object[] params) {
+		List<T> list = getHibernateTemplate().executeFind(
+				new HibernateCallback() {
+					public Object doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = session.createQuery(hql);
+						if (params != null) {
+							for (int i = 0; i < params.length; i++) {
+								query.setParameter(i, params[i]);
+							}
+						}
+						List<T> list = query.list();
+						return list;
+					}
+				});
 		return list;
 	}
 

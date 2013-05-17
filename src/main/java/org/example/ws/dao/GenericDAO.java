@@ -13,13 +13,13 @@ public interface GenericDAO<T, ID extends Serializable> {
 	 */
 	T getObjectById(ID id);
 
-//	/**
-//	 * 根据ID获取一个对象
-//	 * 
-//	 * @param id
-//	 * @return
-//	 */
-//	T loadObjectById(ID id);
+	// /**
+	// * 根据ID获取一个对象
+	// *
+	// * @param id
+	// * @return
+	// */
+	// T loadObjectById(ID id);
 
 	/**
 	 * 保存对象
@@ -70,6 +70,14 @@ public interface GenericDAO<T, ID extends Serializable> {
 	 * @return
 	 */
 	List<T> findAll();
+
+	/**
+	 * 
+	 * @param hql
+	 * @param params
+	 * @return
+	 */
+	List<T> findListByParams(String hql, Object[] params);
 
 	/**
 	 * 执行HQL查询语句，返回从firstResult到firstResult+maxResults-1的对象列表

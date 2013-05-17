@@ -71,11 +71,11 @@ public class AccountDaoTest extends TestCase {
 		assertEquals("YYYY", account.getName());
 	}
 
-//	public void testLoadObjectById() {
-//		Account account = accountDao.loadObjectById(100);
-//		assertNotNull(account.getActId());
-//		assertEquals("YYYY", account.getName());
-//	}
+	// public void testLoadObjectById() {
+	// Account account = accountDao.loadObjectById(100);
+	// assertNotNull(account.getActId());
+	// assertEquals("YYYY", account.getName());
+	// }
 
 	public void testExecuteDelOrUpdateCmd() {
 		String sql = "update account set name='test' where act_id = 100";
@@ -103,6 +103,14 @@ public class AccountDaoTest extends TestCase {
 
 	public void testFindAll() {
 		List<Account> accounts = accountDao.findAll();
+		assertNotNull(accounts);
+		assertSame(5, accounts.size());
+	}
+
+	public void testFindListByParams() {
+		String hql = "from Account where name like ?";
+		List<Account> accounts = accountDao.findListByParams(hql,
+				new Object[] { "%Test%" });
 		assertNotNull(accounts);
 		assertSame(5, accounts.size());
 	}

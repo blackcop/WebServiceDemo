@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -39,6 +41,7 @@ public class Account implements java.io.Serializable {
 	private Set<Association> associations = new HashSet<Association>();
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "act_id", unique = true, nullable = false)
 	public Integer getActId() {
 		return actId;

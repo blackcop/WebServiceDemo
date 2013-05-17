@@ -5,6 +5,8 @@ package org.example.ws.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,11 +26,12 @@ public class Facility implements java.io.Serializable {
 	private Boolean isCardSupported;
 	private Boolean isSmokeEnable;
 	private Boolean isWifiSupported;
-	private Boolean isJpanese;
+	private Boolean isJapanese;
 	private Boolean isIvoiceSupported;
 	private Boolean isPrivateRoomEnabled;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "fac_id", unique = true, nullable = false)
 	public Integer getFacId() {
 		return this.facId;
@@ -74,13 +77,13 @@ public class Facility implements java.io.Serializable {
 		this.isWifiSupported = isWifiSupported;
 	}
 
-	@Column(name = "isJpanese")
-	public Boolean getIsJpanese() {
-		return this.isJpanese;
+	@Column(name = "isJapanese")
+	public Boolean getIsJapanese() {
+		return isJapanese;
 	}
 
-	public void setIsJpanese(Boolean isJpanese) {
-		this.isJpanese = isJpanese;
+	public void setIsJapanese(Boolean isJapanese) {
+		this.isJapanese = isJapanese;
 	}
 
 	@Column(name = "isIvoiceSupported")

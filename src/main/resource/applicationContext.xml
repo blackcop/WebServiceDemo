@@ -80,8 +80,6 @@
 
 	<!-- Service配置 -->
 	<bean id="commercialService" class="org.example.ws.service.impl.CommercialServiceImpl">
-		<property name="couponDao" ref="couponDao"></property>
-		<property name="commercialDao" ref="commercialDao"></property>
 	</bean>
 
 	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />

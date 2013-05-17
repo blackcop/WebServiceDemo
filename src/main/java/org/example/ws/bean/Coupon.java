@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -29,7 +31,7 @@ public class Coupon implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer preId;
-	private Integer commId;
+	private Integer couponId;
 	private String detail;
 	private Integer count;
 	private String commName;
@@ -37,7 +39,6 @@ public class Coupon implements java.io.Serializable {
 	private Date endDate;
 	private Set<Account> accounts = new HashSet<Account>();
 
-	@Id
 	@Column(name = "pre_id", unique = true, nullable = false)
 	public Integer getPreId() {
 		return this.preId;
@@ -47,13 +48,15 @@ public class Coupon implements java.io.Serializable {
 		this.preId = preId;
 	}
 
-	@Column(name = "comm_id")
-	public Integer getCommId() {
-		return commId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "coupon_id")
+	public Integer getCouponId() {
+		return couponId;
 	}
 
-	public void setCommId(Integer commId) {
-		this.commId = commId;
+	public void setCouponId(Integer couponId) {
+		this.couponId = couponId;
 	}
 
 	@Column(name = "detail", length = 400)

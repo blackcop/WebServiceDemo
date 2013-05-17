@@ -26,6 +26,7 @@ public class Kind implements java.io.Serializable {
 	@Column(name = "kind1", length = 20)
 	public String getKind1() {
 		return kind1;
+		
 	}
 
 	public void setKind1(String kind1) {

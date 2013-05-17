@@ -5,52 +5,97 @@ package org.example.ws.service.impl;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.example.ws.bean.Commercial;
 import org.example.ws.bean.Coupon;
+import org.example.ws.dao.CommercialDao;
+import org.example.ws.dao.CouponDao;
 import org.example.ws.pojo.CommercialDetail;
 import org.example.ws.pojo.Filter;
 import org.example.ws.pojo.PictureDetail;
 import org.example.ws.service.CommercialService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author peifei
- *
+ * 
  */
+@Path("")
 public class CommercialServiceImpl implements CommercialService {
 
-	/* (non-Javadoc)
-	 * @see org.example.ws.service.CommercialService#publishCoupon(org.example.ws.bean.Coupon)
-	 */
-	@Override
-	public void publishCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
+	@Autowired
+	private CouponDao couponDao;
 
+	@Autowired
+	private CommercialDao commercialDao;
+
+	public CouponDao getCouponDao() {
+		return couponDao;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.example.ws.service.CommercialService#getDetail(int)
-	 */
+	public CommercialDao getCommercialDao() {
+		return commercialDao;
+	}
+
+	public void setCommercialDao(CommercialDao commercialDao) {
+		this.commercialDao = commercialDao;
+	}
+
+	public void setCouponDao(CouponDao couponDao) {
+		this.couponDao = couponDao;
+	}
+
+	@GET
+	@Path("/publishCoupon")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Override
+	public void publishCoupon(Coupon coupon) {
+		System.out.println(coupon.getCommName());
+		couponDao.save(coupon);
+	}
+
+	@GET
+	@Path("/getDetail")
+	@Produces({ "application/json" })
 	@Override
 	public CommercialDetail getDetail(int commercialId) {
-		// TODO Auto-generated method stub
+		CommercialDetail commercialDetail = new CommercialDetail();
+		Commercial commercial = commercialDao.getObjectById(commercialId);
+		String hql1 = "from Coupon where commId = ?";
+		List<Coupon> coupons = couponDao.findListByParams(hql1,
+				new Object[] { commercialId });
+		commercialDetail.setCommercial(commercial);
+		commercialDetail.setCoupons(coupons);
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.example.ws.service.CommercialService#getPictureSetDetail(int)
-	 */
 	@Override
 	public List<PictureDetail> getPictureSetDetail(int pictureSetId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.example.ws.service.CommercialService#filterCommercial(org.example.ws.pojo.Filter)
-	 */
+	@GET
+	@Path("/filterCommercial")
+	@Produces({ "application/json" })
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Override
 	public List<CommercialDetail> filterCommercial(Filter filter) {
-		// TODO Auto-generated method stub
+		System.out.println("处理更新类别逻辑，接受的数据为id:" + filter.getKey());
 		return null;
+	}
+
+	@GET
+	@Path("/getCoupons")
+	@Produces({ "application/json" })
+	@Override
+	public List<Coupon> getCoupons() {
+		return couponDao.findAll();
 	}
 
 }

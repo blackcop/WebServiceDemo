@@ -5,7 +5,7 @@ import org.example.ws.bean.PictureSet;
 public class PictureSetDetail {
 
 	private PictureSet ps;
-	private byte[] cover;
+	private Byte[] cover;
 
 	/**
 	 * @return the ps
@@ -25,7 +25,7 @@ public class PictureSetDetail {
 	/**
 	 * @return the cover
 	 */
-	public byte[] getCover() {
+	public Byte[] getCover() {
 		return cover;
 	}
 
@@ -33,7 +33,7 @@ public class PictureSetDetail {
 	 * @param cover
 	 *            the cover to set
 	 */
-	public void setCover(byte[] cover) {
+	public void setCover(Byte[] cover) {
 		this.cover = cover;
 	}
 }

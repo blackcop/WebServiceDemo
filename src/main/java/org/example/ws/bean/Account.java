@@ -60,8 +60,8 @@ public class Account implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "account_id", nullable = false, updatable = false) })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "account_id", referencedColumnName = "act_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "coupon_id",  referencedColumnName = "coupon_id",nullable = false, updatable = false) })
 	public Set<Coupon> getCoupons() {
 		return coupons;
 	}

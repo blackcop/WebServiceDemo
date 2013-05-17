@@ -37,6 +37,7 @@ public class Coupon implements java.io.Serializable {
 	private String commName;
 	private Date beginDate;
 	private Date endDate;
+	private Integer pictureId;
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Column(name = "comm_id", unique = true, nullable = false)
@@ -113,6 +114,15 @@ public class Coupon implements java.io.Serializable {
 
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	@Column(name = "picture_id")
+	public Integer getPictureId() {
+		return pictureId;
+	}
+
+	public void setPictureId(Integer pictureId) {
+		this.pictureId = pictureId;
 	}
 
 }

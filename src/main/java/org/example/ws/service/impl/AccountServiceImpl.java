@@ -73,8 +73,8 @@ public class AccountServiceImpl implements AccountService {
 	@Path("/getAssociations")
 	@Produces({ "application/json" })
 	@Override
-	public List<Association> getAssociations(int accountId) {
-        Account account=accountDao.getObjectById(accountId);
+	public List<Association> getAssociations(@QueryParam("account_id") int account_id) {
+        Account account=accountDao.getObjectById(account_id);
         List<Association> associationList= new ArrayList<Association>();
         Set<Association> associations=account.getAssociations();
         for(Association association:associations){
@@ -97,8 +97,8 @@ public class AccountServiceImpl implements AccountService {
 	@Path("/getFavorite")
 	@Produces({ "application/json" })
 	@Override
-	public List<FavoriteInfo> getFavorite(int accountId) {
-		Account account=accountDao.getObjectById(accountId);
+	public List<FavoriteInfo> getFavorite(@QueryParam("account_id") int account_id) {
+		Account account=accountDao.getObjectById(account_id);
 		List<FavoriteInfo> results=new ArrayList<FavoriteInfo>();
 		Set<Coupon> Coupons=account.getCoupons();
 		for(Coupon coupon :Coupons){

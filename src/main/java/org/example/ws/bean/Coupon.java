@@ -30,7 +30,7 @@ public class Coupon implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer preId;
+	private Integer commId;
 	private Integer couponId;
 	private String detail;
 	private Integer count;
@@ -39,13 +39,13 @@ public class Coupon implements java.io.Serializable {
 	private Date endDate;
 	private Set<Account> accounts = new HashSet<Account>();
 
-	@Column(name = "pre_id", unique = true, nullable = false)
-	public Integer getPreId() {
-		return this.preId;
+	@Column(name = "comm_id", unique = true, nullable = false)
+	public Integer getCommId() {
+		return commId;
 	}
 
-	public void setPreId(Integer preId) {
-		this.preId = preId;
+	public void setCommId(Integer commId) {
+		this.commId = commId;
 	}
 
 	@Id

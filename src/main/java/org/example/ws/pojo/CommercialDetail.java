@@ -13,7 +13,7 @@ public class CommercialDetail {
 	private Collection<String> facility;
 	private Collection<Coupon> coupons;
 	private Collection<PictureSetDetail> pictureSetDetail;
-	private Byte[] cover;
+	private byte[] cover;
 
 	/**
 	 * @return the commercial
@@ -58,7 +58,7 @@ public class CommercialDetail {
 	/**
 	 * @return the cover
 	 */
-	public Byte[] getCover() {
+	public byte[] getCover() {
 		return cover;
 	}
 
@@ -66,7 +66,7 @@ public class CommercialDetail {
 	 * @param cover
 	 *            the cover to set
 	 */
-	public void setCover(Byte[] cover) {
+	public void setCover(byte[] cover) {
 		this.cover = cover;
 	}
 }

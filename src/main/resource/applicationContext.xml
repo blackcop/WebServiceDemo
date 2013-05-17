@@ -2,7 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
     http://www.springframework.org/schema/context
@@ -10,7 +11,11 @@
     http://cxf.apache.org/jaxws 
     http://cxf.apache.org/schemas/jaxws.xsd
     http://cxf.apache.org/jaxrs
-    http://cxf.apache.org/schemas/jaxrs.xsd">
+    http://cxf.apache.org/schemas/jaxrs.xsd
+    http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+    http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
@@ -54,6 +59,36 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- Transaction Manage -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 拦击通知点配置 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="show*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="log*" propagation="REQUIRES_NEW" />
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 支持 @Transactional 标记 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 自动代理 -->
+	<aop:config proxy-target-class="false">
+		<aop:advisor
+			pointcut="execution(* org.example.ws.service..*ServiceImpl.*(..))"
+			advice-ref="txAdvice" />
+	</aop:config>
+	<context:annotation-config />
 
 	<!-- Dao配置 -->
 	<bean id="accountDao" class="org.example.ws.dao.impl.AccountDaoImpl">

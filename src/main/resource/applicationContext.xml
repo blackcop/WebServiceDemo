@@ -16,8 +16,7 @@
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
-	<context:component-scan 
-		base-package="org.example.ws" />
+	<context:component-scan base-package="org.example.ws" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<!-- 指定连接数据库的驱动 -->
@@ -37,7 +36,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">none</prop>
 				<prop key="hibernate.cache.use_query_cache">true</prop>
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
@@ -79,6 +78,12 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
+	<!-- Service配置 -->
+	<bean id="commercialService" class="org.example.ws.service.impl.CommercialServiceImpl">
+		<property name="couponDao" ref="couponDao"></property>
+		<property name="commercialDao" ref="commercialDao"></property>
+	</bean>
+
 	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
 	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
 		<jaxrs:serviceBeans>
@@ -92,7 +97,7 @@
 			<bean class="org.example.ws.service.impl.HelloWorldServiceImpl" />
 		</jaxws:serviceBean>
 	</jaxws:server>
-	
+
 	<bean id="AccountServiceBean" class="org.example.ws.service.impl.AccountServiceImpl" />
 	<jaxrs:server id="AccountService" address="/accountservice">
 		<jaxrs:serviceBeans>

@@ -14,6 +14,7 @@ public class CommercialDetail {
 	private Collection<Facility> facilities;
 	private Collection<Coupon> coupons;
 	private Collection<PictureSetDetail> pictureSetDetail;
+	private byte[] cover;
 
 	/**
 	 * @return the commercial
@@ -53,5 +54,20 @@ public class CommercialDetail {
 	public void setPictureSetDetail(
 			Collection<PictureSetDetail> pictureSetDetail) {
 		this.pictureSetDetail = pictureSetDetail;
+	}
+
+	/**
+	 * @return the cover
+	 */
+	public byte[] getCover() {
+		return cover;
+	}
+
+	/**
+	 * @param cover
+	 *            the cover to set
+	 */
+	public void setCover(byte[] cover) {
+		this.cover = cover;
 	}
 }

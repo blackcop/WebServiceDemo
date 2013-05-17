@@ -6,14 +6,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.example.ws.bean.Commercial;
 import org.example.ws.bean.Coupon;
+import org.example.ws.bean.Facility;
 
 @XmlRootElement(name = "CommercialDetail")
 public class CommercialDetail {
 	private Commercial commercial;
-	private Collection<String> facility;
+	private Collection<Facility> facilities;
 	private Collection<Coupon> coupons;
 	private Collection<PictureSetDetail> pictureSetDetail;
-	private Byte[] cover;
 
 	/**
 	 * @return the commercial
@@ -30,12 +30,12 @@ public class CommercialDetail {
 		this.commercial = commercial;
 	}
 
-	public Collection<String> getFacility() {
-		return facility;
+	public Collection<Facility> getFacilities() {
+		return facilities;
 	}
 
-	public void setFacility(Collection<String> facility) {
-		this.facility = facility;
+	public void setFacilities(Collection<Facility> facilities) {
+		this.facilities = facilities;
 	}
 
 	public Collection<Coupon> getCoupons() {
@@ -53,20 +53,5 @@ public class CommercialDetail {
 	public void setPictureSetDetail(
 			Collection<PictureSetDetail> pictureSetDetail) {
 		this.pictureSetDetail = pictureSetDetail;
-	}
-
-	/**
-	 * @return the cover
-	 */
-	public Byte[] getCover() {
-		return cover;
-	}
-
-	/**
-	 * @param cover
-	 *            the cover to set
-	 */
-	public void setCover(Byte[] cover) {
-		this.cover = cover;
 	}
 }

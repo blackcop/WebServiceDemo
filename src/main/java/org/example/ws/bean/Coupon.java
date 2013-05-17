@@ -110,7 +110,7 @@ public class Coupon implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "coupons")
-	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", referencedColumnName = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "account_id",  referencedColumnName = "act_id",nullable = false, updatable = false) })
+	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", referencedColumnName = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "account_id", referencedColumnName = "act_id", nullable = false, updatable = false) })
 	public Set<Account> getAccounts() {
 		return accounts;
 	}

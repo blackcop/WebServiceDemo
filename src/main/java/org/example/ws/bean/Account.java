@@ -45,6 +45,7 @@ public class Account implements java.io.Serializable {
 	@Column(name = "act_id", unique = true, nullable = false)
 	public Integer getActId() {
 		return actId;
+		
 	}
 
 	public void setActId(Integer actId) {

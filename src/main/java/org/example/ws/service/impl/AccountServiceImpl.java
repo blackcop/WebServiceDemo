@@ -17,9 +17,11 @@ import org.example.ws.bean.Account;
 import org.example.ws.bean.Association;
 import org.example.ws.bean.Coupon;
 import org.example.ws.dao.AccountDao;
+import org.example.ws.pojo.AssociationDto;
 import org.example.ws.pojo.CouponInfoOfAccount;
 import org.example.ws.pojo.FavoriteInfo;
 import org.example.ws.service.AccountService;
+import org.example.ws.util.DozerBeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -32,6 +34,8 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Autowired
 	private AccountDao accountDao;
+	@Autowired
+	private DozerBeanUtil dozerBeanUtil;
 
 	/* (non-Javadoc)
 	 * @see org.example.ws.service.AccountService#showMyCoupons(int)
@@ -73,9 +77,9 @@ public class AccountServiceImpl implements AccountService {
 	@Path("/getAssociations")
 	@Produces({ "application/json" })
 	@Override
-	public List<Association> getAssociations(@QueryParam("account_id") int account_id) {
+	public List<AssociationDto> getAssociations(@QueryParam("account_id") int account_id) {
         Account account=accountDao.getObjectById(account_id);
-        List<Association> associationList= new ArrayList<Association>();
+        List<AssociationDto> associationList= new ArrayList<AssociationDto>();
         Set<Association> associations=account.getAssociations();
         for(Association association:associations){
         	Association associationone=new Association();
@@ -85,7 +89,8 @@ public class AccountServiceImpl implements AccountService {
         	associationone.setKind(association.getKind());
         	associationone.setDetail(association.getDetail());
         	associationone.setActivity(association.getActivity());
-        	associationList.add(associationone);
+        	AssociationDto associationDto = dozerBeanUtil.convert(associationone, AssociationDto.class);
+        	associationList.add(associationDto);
         }        
         return associationList;
 	}
@@ -122,6 +127,20 @@ public class AccountServiceImpl implements AccountService {
 	 */
 	public void setAccountDao(AccountDao accountDao) {
 		this.accountDao = accountDao;
+	}
+
+	/**
+	 * @return the dozerBeanUtil
+	 */
+	public DozerBeanUtil getDozerBeanUtil() {
+		return dozerBeanUtil;
+	}
+
+	/**
+	 * @param dozerBeanUtil the dozerBeanUtil to set
+	 */
+	public void setDozerBeanUtil(DozerBeanUtil dozerBeanUtil) {
+		this.dozerBeanUtil = dozerBeanUtil;
 	}
 
 }

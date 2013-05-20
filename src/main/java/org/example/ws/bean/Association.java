@@ -40,7 +40,7 @@ public class Association implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "group_id", unique = true, nullable = false)
+	@Column(name = "asso_id", unique = true, nullable = false)
 	public Integer getGroupId() {
 		return this.groupId;
 	}
@@ -96,7 +96,7 @@ public class Association implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "associations")
-	@JoinTable(name = "group_set", catalog = "shixun", joinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "group_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
+	@JoinTable(name = "association_set", catalog = "shixun", joinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "asso_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
 	public Set<Account> getAccounts() {
 		return accounts;
 	}

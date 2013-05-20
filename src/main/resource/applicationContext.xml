@@ -89,6 +89,12 @@
 			advice-ref="txAdvice" />
 	</aop:config>
 	<context:annotation-config />
+	
+	<!-- pojo转换工具 -->
+	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/>
+		<!-- singleton="true"  -->
+	<bean id="dozerBeanUtil" class="org.example.ws.util.DozerBeanUtil"
+		 autowire="byType" />
 
 	<!-- Dao配置 -->
 	<bean id="accountDao" class="org.example.ws.dao.impl.AccountDaoImpl">

@@ -82,7 +82,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "group_set", catalog = "shixun", joinColumns = { @JoinColumn(name = "account_id", referencedColumnName = "act_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "group_id", nullable = false, updatable = false) })
+	@JoinTable(name = "association_set", catalog = "shixun", joinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "act_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "asso_id", nullable = false, updatable = false) })
 	public Set<Association> getAssociations() {
 		return associations;
 	}

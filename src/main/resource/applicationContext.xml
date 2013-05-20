@@ -69,7 +69,7 @@
 	<!-- 拦击通知点配置 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="get*" read-only="true" />
+			<tx:method name="get*" propagation="REQUIRED" />
 			<tx:method name="create*" propagation="REQUIRED" />
 			<tx:method name="show*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />

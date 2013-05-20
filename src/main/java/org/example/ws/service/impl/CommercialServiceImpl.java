@@ -3,6 +3,7 @@
  */
 package org.example.ws.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -95,7 +96,14 @@ public class CommercialServiceImpl implements CommercialService {
 	@Produces({ "application/json" })
 	@Override
 	public List<Coupon> getCoupons() {
-		return couponDao.findAll();
+		List<Coupon> result = new ArrayList<Coupon>();
+		List<Coupon> coupons = couponDao.findAll();
+		Coupon coupon = null;
+		for (int i = 0; i < coupons.size(); i++) {
+			coupon = coupons.get(i);
+			result.add(coupon);
+		}
+		return result;
 	}
 
 }

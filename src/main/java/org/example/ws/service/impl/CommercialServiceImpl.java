@@ -4,7 +4,6 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -138,7 +137,6 @@ public class CommercialServiceImpl implements CommercialService {
 		CommercialDetailDto result = new CommercialDetailDto();
 		try {
 			System.out.println("getDetail");
-
 			Commercial commercial = commercialDao.getObjectById(commercialId);
 			CommercialDto commercialDto = dozerBeanUtil.convert(commercial,
 					CommercialDto.class);
@@ -218,6 +216,7 @@ public class CommercialServiceImpl implements CommercialService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Override
 	public List<CommercialDetailDto> filterCommercial(FilterDto filter) {
+		List<CommercialDetailDto> commercialDetailDtos = new ArrayList<CommercialDetailDto>();
 		try {
 			StringBuilder hql = new StringBuilder(
 					"from Commercial where 1 = 1 ");
@@ -324,9 +323,13 @@ public class CommercialServiceImpl implements CommercialService {
 				}
 				Facility facility = facilityDao.queryByHqlAndParams(
 						hql1.toString(), params2);
-				FacilityDto facilityDto = dozerBeanUtil.convert(facility,
-						FacilityDto.class);
-				result.setFacilityDto(facilityDto);
+				if (facility != null) {
+					FacilityDto facilityDto = dozerBeanUtil.convert(facility,
+							FacilityDto.class);
+					result.setFacilityDto(facilityDto);
+				} else {
+					result.setFacilityDto(null);
+				}
 
 				String hql2 = "from Coupon where commId = ?";
 				List<Coupon> coupons = couponDao.findListByParams(hql2,
@@ -351,12 +354,18 @@ public class CommercialServiceImpl implements CommercialService {
 					pictureSetDtos.add(pictureSetDto);
 				}
 				result.setPictureSetDtos(pictureSetDtos);
-
+				commercialDetailDtos.add(result);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		List<CommercialDetailDto> r = new ArrayList<CommercialDetailDto>();
+		for (CommercialDetailDto commercialDetailDto : commercialDetailDtos) {
+			if (commercialDetailDto.getFacilityDto() != null) {
+				r.add(commercialDetailDto);
+			}
+		}
+		return r;
 	}
 	// @GET
 	// @Path("/getCoupons")

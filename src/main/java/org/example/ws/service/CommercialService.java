@@ -26,7 +26,7 @@ public interface CommercialService {
 
 	// public CommercialDetailDto getDetail(int commercialId);
 
-	public CommercialDetailDto getCommercialDetail(int commercialId);
+	public Response getCommercialDetail(int commercialId);
 
 	// public List<PictureDto> getPictureSetDetail(int pictureSetId);
 

@@ -19,10 +19,13 @@ import org.example.ws.dao.FacilityDao;
 import org.example.ws.dao.PictureDao;
 import org.example.ws.dao.PictureSetDao;
 import org.example.ws.pojo.CommercialDetailDto;
+import org.example.ws.pojo.CommercialDetailResultDto;
 import org.example.ws.pojo.CommercialSummaryDto;
-import org.example.ws.pojo.CommercialSummarysDto;
+import org.example.ws.pojo.CommercialSummarysResultDto;
 import org.example.ws.pojo.CouponDto;
 import org.example.ws.pojo.PhoneNumberDto;
+import org.example.ws.pojo.PictureDto;
+import org.example.ws.pojo.PictureSetDto;
 import org.example.ws.service.CommercialService;
 import org.example.ws.util.DozerBeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,9 +190,93 @@ public class CommercialServiceImpl implements CommercialService {
 	@Path("/getCommercialDetail")
 	@Produces({ "application/json" })
 	@Override
-	public CommercialDetailDto getCommercialDetail(int commercialId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response getCommercialDetail(
+			@QueryParam("commercialId") int commercialId) {
+		CommercialDetailResultDto result = new CommercialDetailResultDto();
+		CommercialDetailDto commercialDetailDto = new CommercialDetailDto();
+		commercialDetailDto.setCommId(100001);
+		commercialDetailDto
+				.setPictUrl("http://c.hiphotos.baidu.com/album/w%3D2048/sign=7991391cf9dcd100cd9cff2146b34610/0eb30f2442a7d9338ac37762ac4bd11373f001b3.jpg");
+		commercialDetailDto.setName("小豆面馆");
+		commercialDetailDto.setKind1("美食");
+		commercialDetailDto.setKind2("中华料理");
+		commercialDetailDto.setBudget(80);
+		commercialDetailDto.setIsCardSupported(true);
+		commercialDetailDto.setIsIvoiceSupported(true);
+		commercialDetailDto.setIsJapanese(false);
+		commercialDetailDto.setIsPrivateRoomEnabled(true);
+		commercialDetailDto.setIsSmokeEnable(false);
+		commercialDetailDto.setIsWifiSupported(true);
+		commercialDetailDto.setAddress("朝阳区西坝河光熙门北里34号楼 ");
+		PhoneNumberDto phoneNumberDto = new PhoneNumberDto(100001,
+				"167893289132", null);
+		List<PhoneNumberDto> phoneNumberDtos = new ArrayList<PhoneNumberDto>();
+		phoneNumberDtos.add(phoneNumberDto);
+		commercialDetailDto.setPhonenumbers(phoneNumberDtos);
+		commercialDetailDto.setRegion1("浙江");
+		commercialDetailDto.setRegion2("杭州");
+		commercialDetailDto.setOpentime("8:30");
+		commercialDetailDto.setClosetime("22:00");
+		commercialDetailDto.setLatitude(11.012);
+		commercialDetailDto.setLongitude(8.143);
+		CouponDto couponDto = new CouponDto();
+		couponDto.setCommId(100001);
+		couponDto.setCouponId(222232);
+		couponDto.setDetail("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		couponDto.setCount(10);
+		couponDto.setCommName("大豆面馆");
+		couponDto.setBeginDate(new Date());
+		couponDto.setEndDate(new Date());
+		couponDto.setPictureId(333333);
+		List<CouponDto> list = new ArrayList<CouponDto>();
+		list.add(couponDto);
+		commercialDetailDto.setCoupons(list);
+
+		List<PictureSetDto> pictureSets = new ArrayList<PictureSetDto>();
+		PictureSetDto pictureSetDto1 = new PictureSetDto();
+		pictureSetDto1.setComm_id(100001);
+		pictureSetDto1.setName("环境");
+		pictureSetDto1.setPsId(99999);
+		List<PictureDto> pictures1 = new ArrayList<PictureDto>();
+		{
+			PictureDto picture1 = new PictureDto();
+			picture1.setFile("http://c.hiphotos.baidu.com/album/w%3D2048/sign=7991391cf9dcd100cd9cff2146b34610/0eb30f2442a7d9338ac37762ac4bd11373f001b3.jpg");
+			picture1.setName("好图");
+			picture1.setPictId(83682);
+			picture1.setPictureSetId(99999);
+			pictures1.add(picture1);
+			PictureDto picture2 = new PictureDto();
+			picture2.setFile("http://c.hiphotos.baidu.com/album/w%3D2048/sign=7991391cf9dcd100cd9cff2146b34610/0eb30f2442a7d9338ac37762ac4bd11373f001b3.jpg");
+			picture2.setName("好图2");
+			picture2.setPictId(83681);
+			picture2.setPictureSetId(99999);
+			pictures1.add(picture2);
+		}
+		pictureSetDto1.setPictures(pictures1);
+		pictureSets.add(pictureSetDto1);
+
+		PictureSetDto pictureSetDto2 = new PictureSetDto();
+		pictureSetDto2.setComm_id(100001);
+		pictureSetDto2.setName("环境");
+		pictureSetDto2.setPsId(99998);
+
+		List<PictureDto> pictures2 = new ArrayList<PictureDto>();
+		PictureDto picture3 = new PictureDto();
+		picture3.setFile("http://c.hiphotos.baidu.com/album/w%3D2048/sign=7991391cf9dcd100cd9cff2146b34610/0eb30f2442a7d9338ac37762ac4bd11373f001b3.jpg");
+		picture3.setName("好图");
+		picture3.setPictId(83688);
+		picture3.setPictureSetId(99998);
+		pictures2.add(picture3);
+
+		pictureSetDto2.setPictures(pictures2);
+		pictureSets.add(pictureSetDto2);
+
+		commercialDetailDto.setPictureSets(pictureSets);
+
+		result.setCommercialDetailDto(commercialDetailDto);
+		result.setCount(1);
+		result.setErrorMsg("error");
+		return Response.ok(result).build();
 	}
 
 	@GET
@@ -274,7 +361,7 @@ public class CommercialServiceImpl implements CommercialService {
 		commercialSummaryDto2.setIsWifiSupported(true);
 		commercialSummaryDto2.setAddress("朝阳区西坝河光熙门北里34号楼 ");
 		PhoneNumberDto phoneNumberDto1 = new PhoneNumberDto(100002,
-				"167893289132", "");
+				"167893289132", null);
 		PhoneNumberDto phoneNumberDto2 = new PhoneNumberDto(100002,
 				"456787654234", "日语可用");
 		List<PhoneNumberDto> phoneNumberDtos1 = new ArrayList<PhoneNumberDto>();
@@ -296,10 +383,10 @@ public class CommercialServiceImpl implements CommercialService {
 		list2.add(couponDto3);
 		commercialSummaryDto2.setCoupons(list2);
 		result.add(commercialSummaryDto2);
-		CommercialSummarysDto commercialSummarysDto = new CommercialSummarysDto();
+		CommercialSummarysResultDto commercialSummarysDto = new CommercialSummarysResultDto();
 		commercialSummarysDto.setCommercialSummarys(result);
 		commercialSummarysDto.setCount(result.size());
-		commercialSummarysDto.setErrorMessage("success");
+		commercialSummarysDto.setErrorMsg("error");
 		// return result;
 		return Response.ok(commercialSummarysDto).build();
 	}

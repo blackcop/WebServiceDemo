@@ -24,7 +24,7 @@ public class Picture implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer pictId;
 	private String file;
-	private Integer name;
+	private String name;
 	private Integer pictureSetId;
 
 	@Id
@@ -49,11 +49,11 @@ public class Picture implements java.io.Serializable {
 	}
 
 	@Column(name = "name")
-	public Integer getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	public void setName(Integer name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 

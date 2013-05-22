@@ -50,7 +50,7 @@ public class CouponDto implements Serializable {
 		this.detail = detail;
 	}
 
-	@XmlElement(name = "count")
+	@XmlElement(name = "coupon_count")
 	public Integer getCount() {
 		return count;
 	}

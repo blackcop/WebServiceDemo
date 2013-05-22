@@ -30,7 +30,7 @@ public class PhoneNumberDto implements Serializable {
 		this.phoneDesc = phoneDesc;
 	}
 
-	@XmlElement(name = "comm_id")
+	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
 		return commId;
 	}

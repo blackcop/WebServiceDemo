@@ -6,28 +6,20 @@ import java.util.Collection;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.example.ws.util.BaseRestResponse;
+
 @XmlRootElement(name = "result")
-public class CommercialSummarysDto implements Serializable {
+public class CommercialSummarysResultDto extends BaseRestResponse implements
+		Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String errorMessage;
-
 	private Integer count;
 
 	private Collection<CommercialSummaryDto> commercialSummarys;
-
-	@XmlElement(name = "error_mesg")
-	public String getErrorMessage() {
-		return errorMessage;
-	}
-
-	public void setErrorMessage(String errorMessage) {
-		this.errorMessage = errorMessage;
-	}
 
 	@XmlElement(name = "count")
 	public Integer getCount() {

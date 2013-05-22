@@ -23,7 +23,7 @@ public class CouponDto implements Serializable {
 	private Date endDate;
 	private Integer pictureId;
 
-	@XmlElement(name = "comm_id")
+	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
 		return commId;
 	}
@@ -50,7 +50,7 @@ public class CouponDto implements Serializable {
 		this.detail = detail;
 	}
 
-	@XmlElement(name = "count")
+	@XmlElement(name = "coupon_count")
 	public Integer getCount() {
 		return count;
 	}

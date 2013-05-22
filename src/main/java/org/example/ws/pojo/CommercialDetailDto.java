@@ -3,9 +3,10 @@ package org.example.ws.pojo;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "commercialdetail")
+@XmlRootElement(name = "commercial_detail")
 public class CommercialDetailDto implements Serializable {
 
 	/**
@@ -105,6 +106,7 @@ public class CommercialDetailDto implements Serializable {
 
 	private Collection<PictureSetDto> pictureSets;
 
+	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
 		return commId;
 	}
@@ -113,6 +115,7 @@ public class CommercialDetailDto implements Serializable {
 		this.commId = commId;
 	}
 
+	@XmlElement(name = "picture_url")
 	public String getPictUrl() {
 		return pictUrl;
 	}
@@ -121,6 +124,7 @@ public class CommercialDetailDto implements Serializable {
 		this.pictUrl = pictUrl;
 	}
 
+	@XmlElement(name = "commercial_name")
 	public String getName() {
 		return name;
 	}
@@ -129,6 +133,7 @@ public class CommercialDetailDto implements Serializable {
 		this.name = name;
 	}
 
+	@XmlElement(name = "kind_pname")
 	public String getKind1() {
 		return kind1;
 	}
@@ -137,6 +142,7 @@ public class CommercialDetailDto implements Serializable {
 		this.kind1 = kind1;
 	}
 
+	@XmlElement(name = "kind_cname")
 	public String getKind2() {
 		return kind2;
 	}
@@ -145,6 +151,7 @@ public class CommercialDetailDto implements Serializable {
 		this.kind2 = kind2;
 	}
 
+	@XmlElement(name = "budget")
 	public Integer getBudget() {
 		return budget;
 	}
@@ -153,6 +160,7 @@ public class CommercialDetailDto implements Serializable {
 		this.budget = budget;
 	}
 
+	@XmlElement(name = "is_card_supported")
 	public Boolean getIsCardSupported() {
 		return isCardSupported;
 	}
@@ -161,6 +169,7 @@ public class CommercialDetailDto implements Serializable {
 		this.isCardSupported = isCardSupported;
 	}
 
+	@XmlElement(name = "is_smoke_enable")
 	public Boolean getIsSmokeEnable() {
 		return isSmokeEnable;
 	}
@@ -169,6 +178,7 @@ public class CommercialDetailDto implements Serializable {
 		this.isSmokeEnable = isSmokeEnable;
 	}
 
+	@XmlElement(name = "is_japanese")
 	public Boolean getIsJapanese() {
 		return isJapanese;
 	}
@@ -177,6 +187,7 @@ public class CommercialDetailDto implements Serializable {
 		this.isJapanese = isJapanese;
 	}
 
+	@XmlElement(name = "is_ivoice_supported")
 	public Boolean getIsIvoiceSupported() {
 		return isIvoiceSupported;
 	}
@@ -185,6 +196,7 @@ public class CommercialDetailDto implements Serializable {
 		this.isIvoiceSupported = isIvoiceSupported;
 	}
 
+	@XmlElement(name = "is_wifi_supported")
 	public Boolean getIsWifiSupported() {
 		return isWifiSupported;
 	}
@@ -193,6 +205,7 @@ public class CommercialDetailDto implements Serializable {
 		this.isWifiSupported = isWifiSupported;
 	}
 
+	@XmlElement(name = "is_privateroom_enabled")
 	public Boolean getIsPrivateRoomEnabled() {
 		return isPrivateRoomEnabled;
 	}
@@ -201,6 +214,7 @@ public class CommercialDetailDto implements Serializable {
 		this.isPrivateRoomEnabled = isPrivateRoomEnabled;
 	}
 
+	@XmlElement(name = "address")
 	public String getAddress() {
 		return address;
 	}
@@ -209,6 +223,7 @@ public class CommercialDetailDto implements Serializable {
 		this.address = address;
 	}
 
+	@XmlElement(name = "region_pname")
 	public String getRegion1() {
 		return region1;
 	}
@@ -217,6 +232,7 @@ public class CommercialDetailDto implements Serializable {
 		this.region1 = region1;
 	}
 
+	@XmlElement(name = "region_cname")
 	public String getRegion2() {
 		return region2;
 	}
@@ -225,6 +241,7 @@ public class CommercialDetailDto implements Serializable {
 		this.region2 = region2;
 	}
 
+	@XmlElement(name = "coupons")
 	public Collection<CouponDto> getCoupons() {
 		return coupons;
 	}
@@ -233,6 +250,7 @@ public class CommercialDetailDto implements Serializable {
 		this.coupons = coupons;
 	}
 
+	@XmlElement(name = "picture_sets")
 	public Collection<PictureSetDto> getPictureSets() {
 		return pictureSets;
 	}
@@ -241,6 +259,7 @@ public class CommercialDetailDto implements Serializable {
 		this.pictureSets = pictureSets;
 	}
 
+	@XmlElement(name = "phone_numbers")
 	public Collection<PhoneNumberDto> getPhonenumbers() {
 		return phonenumbers;
 	}
@@ -249,6 +268,7 @@ public class CommercialDetailDto implements Serializable {
 		this.phonenumbers = phonenumbers;
 	}
 
+	@XmlElement(name = "opentime")
 	public String getOpentime() {
 		return opentime;
 	}
@@ -257,6 +277,7 @@ public class CommercialDetailDto implements Serializable {
 		this.opentime = opentime;
 	}
 
+	@XmlElement(name = "closetime")
 	public String getClosetime() {
 		return closetime;
 	}
@@ -265,6 +286,7 @@ public class CommercialDetailDto implements Serializable {
 		this.closetime = closetime;
 	}
 
+	@XmlElement(name = "latitude")
 	public Double getLatitude() {
 		return latitude;
 	}
@@ -273,6 +295,7 @@ public class CommercialDetailDto implements Serializable {
 		this.latitude = latitude;
 	}
 
+	@XmlElement(name = "longitude")
 	public Double getLongitude() {
 		return longitude;
 	}

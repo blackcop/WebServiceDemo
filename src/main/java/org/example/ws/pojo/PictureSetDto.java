@@ -3,6 +3,7 @@ package org.example.ws.pojo;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "PictureSet")
@@ -17,6 +18,7 @@ public class PictureSetDto implements Serializable {
 	private String name;
 	private Collection<PictureDto> pictures;
 
+	@XmlElement(name = "picture_set_id")
 	public Integer getPsId() {
 		return psId;
 	}
@@ -25,6 +27,7 @@ public class PictureSetDto implements Serializable {
 		this.psId = psId;
 	}
 
+	@XmlElement(name = "commercial_id")
 	public Integer getComm_id() {
 		return comm_id;
 	}
@@ -33,6 +36,7 @@ public class PictureSetDto implements Serializable {
 		this.comm_id = comm_id;
 	}
 
+	@XmlElement(name = "picture_set_name")
 	public String getName() {
 		return name;
 	}
@@ -41,6 +45,7 @@ public class PictureSetDto implements Serializable {
 		this.name = name;
 	}
 
+	@XmlElement(name = "pictures")
 	public Collection<PictureDto> getPictures() {
 		return pictures;
 	}

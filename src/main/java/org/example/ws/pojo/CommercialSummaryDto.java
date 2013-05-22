@@ -102,7 +102,7 @@ public class CommercialSummaryDto implements Serializable {
 
 	private Collection<CouponDto> coupons;
 
-	@XmlElement(name = "comm_id")
+	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
 		return commId;
 	}

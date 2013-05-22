@@ -11,13 +11,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.example.ws.dao.CouponDao;
 import org.example.ws.pojo.AddCouponDto;
 import org.example.ws.pojo.RecomdCoupnDto;
 import org.example.ws.pojo.RecomdInfoDto;
 import org.example.ws.service.CouponService;
-import org.example.ws.util.DozerBeanUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author lvl
@@ -26,10 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Path("")
 public class CouponServiceImpl implements CouponService {
 
-	@Autowired
-	private CouponDao couponDao;
-	@Autowired
-	private DozerBeanUtil dozerBeanUtil;
+//	@Autowired
+//	private CouponDao couponDao;
+//	@Autowired
+//	private DozerBeanUtil dozerBeanUtil;
 	
 	
 	@GET

@@ -14,14 +14,14 @@ public interface ResourceLoadService {
 	 * 获取一级地域信息
 	 * @return
 	 */
-	public Response getFieldListOfFirstLevel();
+	public Response getRegionListOfFirstLevel();
 	
 	/**
 	 * 获取二级地域信息
 	 * @param fieldId
 	 * @return
 	 */
-	public Response getFieldListOfSecondLevel(Integer fieldId);
+	public Response getRegionListOfSecondLevel(Integer fieldId);
 	
 	/**
 	 * 获取二级类别信息

@@ -9,7 +9,7 @@ public class CategoryInfoDto {
 	/**
 	 * @return the categoryId
 	 */
-	@XmlElement(name = "category_id")
+	@XmlElement(name = "kind_id")
 	public String getCategoryId() {
 		return categoryId;
 	}
@@ -22,7 +22,7 @@ public class CategoryInfoDto {
 	/**
 	 * @return the categoryName
 	 */
-	@XmlElement(name = "category_name")
+	@XmlElement(name = "kind_name")
 	public String getCategoryName() {
 		return categoryName;
 	}

@@ -15,22 +15,22 @@ import org.example.ws.util.BaseRestResponse;
  *
  */
 @XmlRootElement(name="result")
-public class FieldDto extends BaseRestResponse {
+public class RegionDto extends BaseRestResponse {
 
-	private List<FieldInfoDto> fieldList;
+	private List<RegionInfoDto> regionList;
 	private Integer count;
 	/**
 	 * @return the fieldList
 	 */
-	@XmlElement(name = "field_list")
-	public List<FieldInfoDto> getFieldList() {
-		return fieldList;
+	@XmlElement(name = "region_list")
+	public List<RegionInfoDto> getFieldList() {
+		return regionList;
 	}
 	/**
 	 * @param fieldList the fieldList to set
 	 */
-	public void setFieldList(List<FieldInfoDto> fieldList) {
-		this.fieldList = fieldList;
+	public void setFieldList(List<RegionInfoDto> fieldList) {
+		this.regionList = fieldList;
 	}
 	/**
 	 * @return the count

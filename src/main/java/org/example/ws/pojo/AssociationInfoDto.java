@@ -42,7 +42,7 @@ public class AssociationInfoDto extends BaseRestResponse{
 		this.name = name;
 	}
 
-	@XmlElement(name = "category_name")
+	@XmlElement(name = "kind_name")
 	public String getKind() {
 		return this.kind;
 	}

@@ -22,7 +22,7 @@ public class CategoryDto extends BaseRestResponse {
 	/**
 	 * @return the categoryList
 	 */
-	@XmlElement(name = "category_list")
+	@XmlElement(name = "kind_list")
 	public List<CategoryInfoDto> getCategoryList() {
 		return categoryList;
 	}

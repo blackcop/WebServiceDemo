@@ -16,8 +16,8 @@ import org.example.ws.pojo.AssociationDto;
 import org.example.ws.pojo.AssociationInfoDto;
 import org.example.ws.pojo.CategoryDto;
 import org.example.ws.pojo.CategoryInfoDto;
-import org.example.ws.pojo.FieldDto;
-import org.example.ws.pojo.FieldInfoDto;
+import org.example.ws.pojo.RegionDto;
+import org.example.ws.pojo.RegionInfoDto;
 import org.example.ws.service.ResourceLoadService;
 
 @Path("")
@@ -30,11 +30,11 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		AdDto adDto = new AdDto();
 		List<AdInfoDto> adList = new ArrayList<AdInfoDto>();
 		AdInfoDto adInfo = new AdInfoDto();
-		adInfo.setCommId("10001");
+		adInfo.setCommId("1");
 		adInfo.setUrl("http://t2.dpfile.com/tuan/20130506/209823_130123300260000000.jpg");
 		adList.add(adInfo);
 		adInfo = new AdInfoDto();
-		adInfo.setCommId("10002");
+		adInfo.setCommId("2");
 		adInfo.setUrl("http://t1.dpfile.com/tuan/20130403/184213_130094622240000000_8274.jpg");
 		adList.add(adInfo);
 		adDto.setAdList(adList);
@@ -46,19 +46,19 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 
 	@Override
 	@GET
-	@Path("/getFieldListOfFirstLevel")
+	@Path("/getRegionListOfFirstLevel")
 	@Produces({ "application/json" })
-	public Response getFieldListOfFirstLevel() {
-		FieldDto fieldDto = new FieldDto();
-		List<FieldInfoDto> fieldList = new ArrayList<FieldInfoDto>();
-		FieldInfoDto fieldInfo = new FieldInfoDto();
-		fieldInfo.setFieldId("10001");
-		fieldInfo.setFieldName("北京地区");
+	public Response getRegionListOfFirstLevel() {
+		RegionDto fieldDto = new RegionDto();
+		List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
+		RegionInfoDto fieldInfo = new RegionInfoDto();
+		fieldInfo.setRegionId("1");
+		fieldInfo.setRegionName("北京地区");
 		fieldList.add(fieldInfo);
 		
-		fieldInfo = new FieldInfoDto();
-		fieldInfo.setFieldId("10002");
-		fieldInfo.setFieldName("周边地区");
+		fieldInfo = new RegionInfoDto();
+		fieldInfo.setRegionId("2");
+		fieldInfo.setRegionName("周边地区");
 		fieldList.add(fieldInfo);
 		
 		fieldDto.setFieldList(fieldList);
@@ -68,40 +68,40 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 
 	@Override
 	@GET
-	@Path("/getFieldListOfSecondLevel")
+	@Path("/getRegionListOfSecondLevel")
 	@Produces({ "application/json" })
-	public Response getFieldListOfSecondLevel(@QueryParam("field_id") Integer fieldId) {
-		FieldDto fieldDto = new FieldDto();
-		if(fieldId == null){
+	public Response getRegionListOfSecondLevel(@QueryParam("region_id") Integer regionId) {
+		RegionDto fieldDto = new RegionDto();
+		if(regionId == null){
 			fieldDto.setErrorCode("REQ_PARAM_ERROR");
 			fieldDto.setErrorMsg("请求参数错误");
 			return Response.status(Response.Status.BAD_REQUEST).entity(fieldDto).build();
 		}
-		if(fieldId == 10001){
-			List<FieldInfoDto> fieldList = new ArrayList<FieldInfoDto>();
-			FieldInfoDto fieldInfo = new FieldInfoDto();
-			fieldInfo.setFieldId("100001");
-			fieldInfo.setFieldName("朝阳区");
+		if(regionId == 1){
+			List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
+			RegionInfoDto fieldInfo = new RegionInfoDto();
+			fieldInfo.setRegionId("1");
+			fieldInfo.setRegionName("朝阳区");
 			fieldList.add(fieldInfo);
 			
-			fieldInfo = new FieldInfoDto();
-			fieldInfo.setFieldId("100002");
-			fieldInfo.setFieldName("房山区");
+			fieldInfo = new RegionInfoDto();
+			fieldInfo.setRegionId("2");
+			fieldInfo.setRegionName("房山区");
 			fieldList.add(fieldInfo);
 			
 			fieldDto.setFieldList(fieldList);
 			fieldDto.setCount(fieldList.size());
 			return Response.status(Response.Status.OK).entity(fieldDto).build();
-		} else if(fieldId == 10002){
-			List<FieldInfoDto> fieldList = new ArrayList<FieldInfoDto>();
-			FieldInfoDto fieldInfo = new FieldInfoDto();
-			fieldInfo.setFieldId("100003");
-			fieldInfo.setFieldName("石家庄");
+		} else if(regionId == 2){
+			List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
+			RegionInfoDto fieldInfo = new RegionInfoDto();
+			fieldInfo.setRegionId("3");
+			fieldInfo.setRegionName("石家庄");
 			fieldList.add(fieldInfo);
 			
-			fieldInfo = new FieldInfoDto();
-			fieldInfo.setFieldId("100004");
-			fieldInfo.setFieldName("廊坊");
+			fieldInfo = new RegionInfoDto();
+			fieldInfo.setRegionId("4");
+			fieldInfo.setRegionName("廊坊");
 			fieldList.add(fieldInfo);
 			
 			fieldDto.setFieldList(fieldList);
@@ -116,9 +116,9 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 
 	@Override
 	@GET
-	@Path("/getCategoryListOfSecondLevel")
+	@Path("/getKindListOfSecondLevel")
 	@Produces({ "application/json" })
-	public Response getCategoryListOfSecondLevel(@QueryParam("category_id") Integer categoryId) {
+	public Response getCategoryListOfSecondLevel(@QueryParam("kind_id") Integer categoryId) {
 		CategoryDto categoryDto = new CategoryDto();
 		if(categoryId == null){
 			categoryDto.setErrorCode("REQ_PARAM_ERROR");
@@ -128,12 +128,12 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		if(categoryId == 1){
 			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
 			CategoryInfoDto categoryInfo = new CategoryInfoDto();
-			categoryInfo.setCategoryId("100001");
+			categoryInfo.setCategoryId("1");
 			categoryInfo.setCategoryName("日本料理");
 			categoryList.add(categoryInfo);
 			
 			categoryInfo = new CategoryInfoDto();
-			categoryInfo.setCategoryId("100002");
+			categoryInfo.setCategoryId("2");
 			categoryInfo.setCategoryName("中华料理");
 			categoryList.add(categoryInfo);
 			

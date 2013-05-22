@@ -21,7 +21,7 @@ public class AdInfoDto {
 	/**
 	 * @return the commId
 	 */
-	 @XmlElement(name = "comm_id") 
+	 @XmlElement(name = "commercial_id") 
 	public String getCommId() {
 		return commId;
 	}

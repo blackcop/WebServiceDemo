@@ -3,9 +3,10 @@ package org.example.ws.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Coupon")
+@XmlRootElement(name = "coupon")
 public class CouponDto implements Serializable {
 
 	/**
@@ -22,6 +23,7 @@ public class CouponDto implements Serializable {
 	private Date endDate;
 	private Integer pictureId;
 
+	@XmlElement(name = "comm_id")
 	public Integer getCommId() {
 		return commId;
 	}
@@ -30,6 +32,7 @@ public class CouponDto implements Serializable {
 		this.commId = commId;
 	}
 
+	@XmlElement(name = "coupon_id")
 	public Integer getCouponId() {
 		return couponId;
 	}
@@ -38,6 +41,7 @@ public class CouponDto implements Serializable {
 		this.couponId = couponId;
 	}
 
+	@XmlElement(name = "detail")
 	public String getDetail() {
 		return detail;
 	}
@@ -46,6 +50,7 @@ public class CouponDto implements Serializable {
 		this.detail = detail;
 	}
 
+	@XmlElement(name = "count")
 	public Integer getCount() {
 		return count;
 	}
@@ -54,6 +59,7 @@ public class CouponDto implements Serializable {
 		this.count = count;
 	}
 
+	@XmlElement(name = "commercial_name")
 	public String getCommName() {
 		return commName;
 	}
@@ -62,6 +68,7 @@ public class CouponDto implements Serializable {
 		this.commName = commName;
 	}
 
+	@XmlElement(name = "begin_date")
 	public Date getBeginDate() {
 		return beginDate;
 	}
@@ -70,6 +77,7 @@ public class CouponDto implements Serializable {
 		this.beginDate = beginDate;
 	}
 
+	@XmlElement(name = "end_date")
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -78,6 +86,7 @@ public class CouponDto implements Serializable {
 		this.endDate = endDate;
 	}
 
+	@XmlElement(name = "picture_id")
 	public Integer getPictureId() {
 		return pictureId;
 	}

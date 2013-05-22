@@ -4,12 +4,9 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Picture")
+@XmlRootElement(name = "picture")
 public class PictureDto implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Integer pictId;
@@ -19,8 +16,6 @@ public class PictureDto implements Serializable {
 	private Integer name;
 
 	private Integer pictureSetId;
-
-	private byte[] content;
 
 	public Integer getPictId() {
 		return pictId;
@@ -52,14 +47,6 @@ public class PictureDto implements Serializable {
 
 	public void setPictureSetId(Integer pictureSetId) {
 		this.pictureSetId = pictureSetId;
-	}
-
-	public byte[] getContent() {
-		return content;
-	}
-
-	public void setContent(byte[] content) {
-		this.content = content;
 	}
 
 }

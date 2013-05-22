@@ -1,6 +1,7 @@
 package org.example.ws.pojo;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -14,11 +15,7 @@ public class PictureSetDto implements Serializable {
 	private Integer psId;
 	private Integer comm_id;
 	private String name;
-	/**
-	 * 封面图片ID
-	 */
-	private Integer coverId;
-	private Byte[] cover;
+	private Collection<PictureDto> pictures;
 
 	public Integer getPsId() {
 		return psId;
@@ -44,20 +41,12 @@ public class PictureSetDto implements Serializable {
 		this.name = name;
 	}
 
-	public Integer getCoverId() {
-		return coverId;
+	public Collection<PictureDto> getPictures() {
+		return pictures;
 	}
 
-	public void setCoverId(Integer coverId) {
-		this.coverId = coverId;
-	}
-
-	public Byte[] getCover() {
-		return cover;
-	}
-
-	public void setCover(Byte[] cover) {
-		this.cover = cover;
+	public void setPictures(Collection<PictureDto> pictures) {
+		this.pictures = pictures;
 	}
 
 }

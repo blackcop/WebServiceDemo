@@ -32,10 +32,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		adDto.setAdList(adList);
 		adDto.setCount(adList.size());
 		
-//		response.setStatus(Response.Status.OK.getStatusCode());
-//		adDto.setErrorMsg("error test");
-		Response resp = Response.ok(adDto).build();
-//		resp.status(Response.Status.BAD_REQUEST);
+		Response resp = Response.status(Response.Status.OK).entity(adDto).build();
 		return resp;
 	}
 

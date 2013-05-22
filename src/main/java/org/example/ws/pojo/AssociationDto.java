@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class AssociationDto implements java.io.Serializable {
 
 	/**
-	 * 
+	 * aaa
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer groupId;

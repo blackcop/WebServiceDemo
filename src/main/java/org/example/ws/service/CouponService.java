@@ -1,13 +1,13 @@
 package org.example.ws.service;
 
-import java.util.List;
 
-import org.example.ws.pojo.CouponInfo;
+import javax.ws.rs.core.Response;
+
 
 public interface CouponService {
 
-	public CouponInfo getDetail(int couponId);
+	public Response AddCouponCount(int coupon_id);
 
-	public List<CouponInfo> recommend();
+	public Response recommend();
 
 }

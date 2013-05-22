@@ -146,4 +146,11 @@
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 	
+		<bean id="couponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
+	<jaxrs:server id="couponService" address="/couponservice">
+		<jaxrs:serviceBeans>
+			<ref bean="couponServiceBean" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+	
 </beans>   

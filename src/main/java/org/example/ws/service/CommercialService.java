@@ -24,7 +24,7 @@ public interface CommercialService {
 	// public List<PictureDto> getPictureSetDetail(int pictureSetId);
 
 	// public List<CommercialDetailDto> filterCommercial(FilterDto filterDto);
-
+	
 	public Response getCommercialsByFilters(String region_pname,
 			String region_cname, String kind_pname, String kind_cname,
 			Integer budget, Boolean isCardSupported, Boolean isSmokeEnable,
@@ -32,5 +32,4 @@ public interface CommercialService {
 			Boolean isIvoiceSupported, Boolean isPrivateRoomEnabled);
 
 	// public List<CouponDto> getCoupons();
-
 }

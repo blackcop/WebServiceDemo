@@ -106,7 +106,7 @@ public class CommercialDetailDto implements Serializable {
 
 	private Collection<PictureSetDto> pictureSets;
 
-	@XmlElement(name = "comm_id")
+	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
 		return commId;
 	}

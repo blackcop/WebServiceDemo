@@ -27,7 +27,7 @@ public class PictureSetDto implements Serializable {
 		this.psId = psId;
 	}
 
-	@XmlElement(name = "comm_id")
+	@XmlElement(name = "commercial_id")
 	public Integer getComm_id() {
 		return comm_id;
 	}

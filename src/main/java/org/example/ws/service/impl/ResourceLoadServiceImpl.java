@@ -24,7 +24,6 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		adInfo.setCommId("10001");
 		adInfo.setUrl("http://t2.dpfile.com/tuan/20130506/209823_130123300260000000.jpg");
 		adList.add(adInfo);
-		adDto.setAdList(adList);
 		adInfo = new AdInfoDto();
 		adInfo.setCommId("10002");
 		adInfo.setUrl("http://t1.dpfile.com/tuan/20130403/184213_130094622240000000_8274.jpg");

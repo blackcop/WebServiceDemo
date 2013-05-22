@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class BaseRestResponse {
 	
+	private String errorCode;
 	private String errorMsg;
 
 	/**
@@ -19,5 +20,20 @@ public class BaseRestResponse {
 	 */
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
+	}
+
+	/**
+	 * @return the errorCode
+	 */
+	@XmlElement(name = "error_code")
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	/**
+	 * @param errorCode the errorCode to set
+	 */
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 }

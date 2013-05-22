@@ -1,12 +1,5 @@
 package org.example.ws.service;
 
-import java.util.List;
-
-import org.example.ws.pojo.CommercialDetailDto;
-import org.example.ws.pojo.CommercialSummaryDto;
-import org.example.ws.pojo.CouponDto;
-import org.example.ws.pojo.FilterDto;
-import org.example.ws.pojo.PictureDto;
 import javax.ws.rs.core.Response;
 
 public interface CommercialService {

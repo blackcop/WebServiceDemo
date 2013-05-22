@@ -3,7 +3,7 @@ package org.example.ws.util;
 import javax.xml.bind.annotation.XmlElement;
 
 public class BaseRestResponse {
-	
+
 	private String errorCode;
 	private String errorMsg;
 
@@ -16,7 +16,8 @@ public class BaseRestResponse {
 	}
 
 	/**
-	 * @param errorMsg the errorMsg to set
+	 * @param errorMsg
+	 *            the errorMsg to set
 	 */
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
@@ -31,7 +32,8 @@ public class BaseRestResponse {
 	}
 
 	/**
-	 * @param errorCode the errorCode to set
+	 * @param errorCode
+	 *            the errorCode to set
 	 */
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;

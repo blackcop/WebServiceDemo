@@ -275,6 +275,7 @@ public class CommercialServiceImpl implements CommercialService {
 
 		result.setCommercialDetailDto(commercialDetailDto);
 		result.setCount(1);
+		result.setErrorCode("Code");
 		result.setErrorMsg("error");
 		return Response.ok(result).build();
 	}
@@ -387,6 +388,7 @@ public class CommercialServiceImpl implements CommercialService {
 		commercialSummarysDto.setCommercialSummarys(result);
 		commercialSummarysDto.setCount(result.size());
 		commercialSummarysDto.setErrorMsg("error");
+		commercialSummarysDto.setErrorCode("Code");
 		// return result;
 		return Response.ok(commercialSummarysDto).build();
 	}

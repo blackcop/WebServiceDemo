@@ -22,6 +22,7 @@ public class FilterDto implements Serializable {
 
 	private String key;
 
+	//TODO
 	private Integer budget1;
 
 	private Integer budget2;

@@ -10,7 +10,7 @@ public class BaseRestResponse {
 	/**
 	 * @return the errorMsg
 	 */
-	@XmlElement(name = "error_msg")
+	@XmlElement(name = "err_msg")
 	public String getErrorMsg() {
 		return errorMsg;
 	}
@@ -25,7 +25,7 @@ public class BaseRestResponse {
 	/**
 	 * @return the errorCode
 	 */
-	@XmlElement(name = "error_code")
+	@XmlElement(name = "err_code")
 	public String getErrorCode() {
 		return errorCode;
 	}

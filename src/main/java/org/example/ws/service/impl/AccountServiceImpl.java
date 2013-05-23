@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
 import org.example.ws.bean.Account;
-import org.example.ws.bean.Association;
 import org.example.ws.bean.Coupon;
 import org.example.ws.dao.AccountDao;
 import org.example.ws.dao.CouponDao;
@@ -28,12 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author peifei
- *
+ * 
  */
 @Path("/account")
 @Produces("application/json")
 public class AccountServiceImpl implements AccountService {
-	
+
 	@Autowired
 	private AccountDao accountDao;
 	@Autowired
@@ -41,72 +40,88 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private CouponDao couponDao;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.example.ws.service.AccountService#showMyCoupons(int)
 	 */
 	@GET
 	@Path("/showMyCoupons")
 	@Produces({ "application/json" })
 	@Override
-	public List<CouponInfoOfAccount> showMyCoupons(@QueryParam("account_id") int account_id) {
-			Account account = accountDao.getObjectById(account_id);
-			Set<Coupon> coupons = account.getCoupons();
-			List<CouponInfoOfAccount> results = new ArrayList<CouponInfoOfAccount>();
-			for(Coupon coupon : coupons){
-				CouponInfoOfAccount cioa =new CouponInfoOfAccount();
-				cioa.setComm_id(coupon.getCommId());
-				cioa.setCommercialName(coupon.getCommName());
-				cioa.setCouponId(coupon.getCouponId());
-				results.add(cioa);
-			}
-			return results;		
+	public List<CouponInfoOfAccount> showMyCoupons(
+			@QueryParam("account_id") int account_id) {
+		Account account = accountDao.getObjectById(account_id);
+		Set<Coupon> coupons = account.getCoupons();
+		List<CouponInfoOfAccount> results = new ArrayList<CouponInfoOfAccount>();
+		for (Coupon coupon : coupons) {
+			CouponInfoOfAccount cioa = new CouponInfoOfAccount();
+			cioa.setComm_id(coupon.getCommId());
+			cioa.setCommercialName(coupon.getCommName());
+			cioa.setCouponId(coupon.getCouponId());
+			results.add(cioa);
+		}
+		return results;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.example.ws.service.AccountService#addCoupon(org.example.ws.bean.Coupon, int)
-	 * function of addCoupon has some wrong
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.example.ws.service.AccountService#addCoupon(org.example.ws.bean.Coupon
+	 * , int) function of addCoupon has some wrong
 	 */
 	@POST
 	@Path("/addCoupon")
 	@Produces({ "application/json" })
 	@Override
-	public void addCoupon(CouponDto couponDto,@QueryParam("account_id") int account_id) {
-		Account account=accountDao.getObjectById(account_id);
-		Coupon coupon=couponDao.getObjectById(couponDto.getCommId());	
+	public void addCoupon(CouponDto couponDto,
+			@QueryParam("account_id") int account_id) {
+		Account account = accountDao.getObjectById(account_id);
+		Coupon coupon = couponDao.getObjectById(couponDto.getCommId());
 		account.getCoupons().add(coupon);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.example.ws.service.AccountService#getAssociations(int)
 	 */
 	@GET
 	@Path("/getAssociations")
 	@Produces({ "application/json" })
 	@Override
-	public List<AssociationDto> getAssociations(@QueryParam("account_id") int account_id) {
-        Account account=accountDao.getObjectById(account_id);
-        List<AssociationDto> associationList= new ArrayList<AssociationDto>();
-        Set<Association> associations=account.getAssociations();
-        for(Association association:associations){
-        	AssociationDto associationDto = dozerBeanUtil.convert(association, AssociationDto.class);
-        	associationList.add(associationDto);
-        }        
-        return associationList;
+	public List<AssociationDto> getAssociations(
+			@QueryParam("account_id") int account_id) {
+		// Account account=accountDao.getObjectById(account_id);
+		// List<AssociationDto> associationList= new
+		// ArrayList<AssociationDto>();
+		// Set<Association> associations=account.getAssociations();
+		// for(Association association:associations){
+		// AssociationDto associationDto = dozerBeanUtil.convert(association,
+		// AssociationDto.class);
+		// associationList.add(associationDto);
+		// }
+		// return associationList;
+		return null;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.example.ws.service.AccountService#getFavorite(int)
 	 */
 	@GET
 	@Path("/getFavorite")
 	@Produces({ "application/json" })
 	@Override
-	public List<FavoriteInfo> getFavorite(@QueryParam("account_id") int account_id) {
-		Account account=accountDao.getObjectById(account_id);
-		List<FavoriteInfo> results=new ArrayList<FavoriteInfo>();
-		Set<Coupon> Coupons=account.getCoupons();
-		for(Coupon coupon :Coupons){
-			FavoriteInfo faveInfo=new FavoriteInfo();
+	public List<FavoriteInfo> getFavorite(
+			@QueryParam("account_id") int account_id) {
+		Account account = accountDao.getObjectById(account_id);
+		List<FavoriteInfo> results = new ArrayList<FavoriteInfo>();
+		Set<Coupon> Coupons = account.getCoupons();
+		for (Coupon coupon : Coupons) {
+			FavoriteInfo faveInfo = new FavoriteInfo();
 			faveInfo.setCommercialId(coupon.getCommId());
 			faveInfo.setCommercialName(coupon.getCommName());
 			results.add(faveInfo);
@@ -122,7 +137,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	/**
-	 * @param accountDao the accountDao to set
+	 * @param accountDao
+	 *            the accountDao to set
 	 */
 	public void setAccountDao(AccountDao accountDao) {
 		this.accountDao = accountDao;
@@ -136,11 +152,11 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	/**
-	 * @param dozerBeanUtil the dozerBeanUtil to set
+	 * @param dozerBeanUtil
+	 *            the dozerBeanUtil to set
 	 */
 	public void setDozerBeanUtil(DozerBeanUtil dozerBeanUtil) {
 		this.dozerBeanUtil = dozerBeanUtil;
 	}
-
 
 }

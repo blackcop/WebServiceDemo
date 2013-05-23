@@ -4,17 +4,11 @@ package org.example.ws.bean;
 // Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,11 +32,10 @@ public class Association implements java.io.Serializable {
 	private String kind;
 	private String detail;
 	private String activity;
-	private Set<Account> accounts = new HashSet<Account>();
 
 	@Id
-	@GenericGenerator(name="idgen" , strategy="increment")
-	@GeneratedValue(generator="idgen")
+	@GenericGenerator(name = "idgen", strategy = "increment")
+	@GeneratedValue(generator = "idgen")
 	@Column(name = "asso_id", unique = true, nullable = false)
 	public Integer getGroupId() {
 		return this.groupId;
@@ -96,15 +89,5 @@ public class Association implements java.io.Serializable {
 
 	public void setActivity(String activity) {
 		this.activity = activity;
-	}
-
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "associations")
-	@JoinTable(name = "association_set", catalog = "shixun", joinColumns = { @JoinColumn(name = "group_id", referencedColumnName = "asso_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
-	public Set<Account> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(Set<Account> accounts) {
-		this.accounts = accounts;
 	}
 }

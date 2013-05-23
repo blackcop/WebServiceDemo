@@ -53,7 +53,6 @@
 				<value>org.example.ws.bean.Association</value>
 				<value>org.example.ws.bean.Commercial</value>
 				<value>org.example.ws.bean.Coupon</value>
-				<value>org.example.ws.bean.Facility</value>
 				<value>org.example.ws.bean.Picture</value>
 				<value>org.example.ws.bean.PictureSet</value>
 			</list>
@@ -84,17 +83,16 @@
 
 	<!-- 自动代理 -->
 	<aop:config proxy-target-class="false">
-		<aop:advisor
-			pointcut="execution(* org.example.ws.service..*ServiceImpl.*(..))"
+		<aop:advisor pointcut="execution(* org.example.ws.service..*ServiceImpl.*(..))"
 			advice-ref="txAdvice" />
 	</aop:config>
 	<context:annotation-config />
-	
+
 	<!-- pojo转换工具 -->
-	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper"/>
-		<!-- singleton="true"  -->
+	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper" />
+	<!-- singleton="true" -->
 	<bean id="dozerBeanUtil" class="org.example.ws.util.DozerBeanUtil"
-		 autowire="byType" />
+		autowire="byType" />
 
 	<!-- Dao配置 -->
 	<bean id="accountDao" class="org.example.ws.dao.impl.AccountDaoImpl">
@@ -107,9 +105,6 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="couponDao" class="org.example.ws.dao.impl.CouponDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="facilityDao" class="org.example.ws.dao.impl.FacilityDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="pictureDao" class="org.example.ws.dao.impl.PictureDaoImpl">
@@ -139,18 +134,10 @@
 		</jaxws:serviceBean>
 	</jaxws:server>
 
-	<bean id="resourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
-	<jaxrs:server id="resourceLoadService" address="/resourceloadservice">
+	<bean id="AccountServiceBean" class="org.example.ws.service.impl.AccountServiceImpl" />
+	<jaxrs:server id="AccountService" address="/accountservice">
 		<jaxrs:serviceBeans>
-			<ref bean="resourceLoadServiceBean" />
+			<ref bean="AccountServiceBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
-	
-		<bean id="couponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
-	<jaxrs:server id="couponService" address="/couponservice">
-		<jaxrs:serviceBeans>
-			<ref bean="couponServiceBean" />
-		</jaxrs:serviceBeans>
-	</jaxrs:server>
-	
-</beans>   
+</beans>

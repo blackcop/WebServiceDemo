@@ -131,13 +131,4 @@ public class Coupon implements java.io.Serializable {
 		this.pictureId = pictureId;
 	}
 
-	@Override
-	public String toString() {
-		return "Coupon [commId=" + commId + ", couponId=" + couponId
-				+ ", detail=" + detail + ", count=" + count + ", commName="
-				+ commName + ", beginDate=" + beginDate + ", endDate="
-				+ endDate + ", pictureId=" + pictureId + ", accounts="
-				+ accounts + "]";
-	}
-
 }

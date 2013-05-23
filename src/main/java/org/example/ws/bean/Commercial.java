@@ -3,7 +3,6 @@ package org.example.ws.bean;
 // default package
 // Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -46,16 +43,24 @@ public class Commercial implements java.io.Serializable {
 	private String region2;
 	private Double latitude;
 	private Double longitude;
-	
+
 	private Double commercialcol;
 	private String phonenumber;
-	private Date opentime;
-	private Date closetime;
+	private String opentime;
+	private String closetime;
+
+	private Boolean isCardSupported;
+	private Boolean isSmokeEnable;
+	private Boolean isWifiSupported;
+	private Boolean isJapanese;
+	private Boolean isIvoiceSupported;
+	private Boolean isPrivateRoomEnabled;
+
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Id
-	@GenericGenerator(name="idgen" , strategy="increment")
-	@GeneratedValue(generator="idgen")
+	@GenericGenerator(name = "idgen", strategy = "increment")
+	@GeneratedValue(generator = "idgen")
 	@Column(name = "comm_id", unique = true, nullable = false)
 	public Integer getCommId() {
 		return this.commId;
@@ -191,34 +196,86 @@ public class Commercial implements java.io.Serializable {
 		this.phonenumber = phonenumber;
 	}
 
-	@Temporal(TemporalType.TIME)
-	@Column(name = "opentime", length = 8)
-	public Date getOpentime() {
+	@Column(name = "opentime", length = 20)
+	public String getOpentime() {
 		return this.opentime;
 	}
 
-	public void setOpentime(Date opentime) {
+	public void setOpentime(String opentime) {
 		this.opentime = opentime;
 	}
 
-	@Temporal(TemporalType.TIME)
-	@Column(name = "closetime", length = 8)
-	public Date getClosetime() {
+	@Column(name = "closetime", length = 20)
+	public String getClosetime() {
 		return this.closetime;
 	}
 
-	public void setClosetime(Date closetime) {
+	public void setClosetime(String closetime) {
 		this.closetime = closetime;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "commercials")
-	@JoinTable(name = "favorite", catalog = "shixun", joinColumns = {@JoinColumn(name = "comm_id",  referencedColumnName = "comm_id",  nullable = false, updatable = false) }, inverseJoinColumns = {  @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
+	@JoinTable(name = "favorite", catalog = "shixun", joinColumns = { @JoinColumn(name = "comm_id", referencedColumnName = "comm_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
 	public Set<Account> getAccounts() {
 		return accounts;
 	}
 
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
+	}
+
+	@Column(name = "isCardSupported")
+	public Boolean getIsCardSupported() {
+		return isCardSupported;
+	}
+
+	public void setIsCardSupported(Boolean isCardSupported) {
+		this.isCardSupported = isCardSupported;
+	}
+
+	@Column(name = "isSmokeEnable")
+	public Boolean getIsSmokeEnable() {
+		return isSmokeEnable;
+	}
+
+	public void setIsSmokeEnable(Boolean isSmokeEnable) {
+		this.isSmokeEnable = isSmokeEnable;
+	}
+
+	@Column(name = "isWifiSupported")
+	public Boolean getIsWifiSupported() {
+		return isWifiSupported;
+	}
+
+	public void setIsWifiSupported(Boolean isWifiSupported) {
+		this.isWifiSupported = isWifiSupported;
+	}
+
+	@Column(name = "isJapanese")
+	public Boolean getIsJapanese() {
+		return isJapanese;
+	}
+
+	public void setIsJapanese(Boolean isJapanese) {
+		this.isJapanese = isJapanese;
+	}
+
+	@Column(name = "isIvoiceSupported")
+	public Boolean getIsIvoiceSupported() {
+		return isIvoiceSupported;
+	}
+
+	public void setIsIvoiceSupported(Boolean isIvoiceSupported) {
+		this.isIvoiceSupported = isIvoiceSupported;
+	}
+
+	@Column(name = "isPrivateRoomEnabled")
+	public Boolean getIsPrivateRoomEnabled() {
+		return isPrivateRoomEnabled;
+	}
+
+	public void setIsPrivateRoomEnabled(Boolean isPrivateRoomEnabled) {
+		this.isPrivateRoomEnabled = isPrivateRoomEnabled;
 	}
 
 }

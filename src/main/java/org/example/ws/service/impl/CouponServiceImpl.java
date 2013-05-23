@@ -37,7 +37,7 @@ public class CouponServiceImpl implements CouponService {
 
 	@GET
 	@Path("/AddCouponCount")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	public Response AddCouponCount(@QueryParam("coupon_id") Integer coupon_id) {
 		AddCouponDto addCoupon = new AddCouponDto();
 		Coupon coupon = couponDao.getObjectById(coupon_id);
@@ -69,7 +69,7 @@ public class CouponServiceImpl implements CouponService {
 
 	@GET
 	@Path("/getRecomdInfo")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	public Response recommend() {
 
 		RecomdCoupnDto recomdCpnDto = new RecomdCoupnDto();

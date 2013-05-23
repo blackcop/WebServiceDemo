@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author lvl
- *
+ * 
  */
 @Path("")
 public class CouponServiceImpl implements CouponService {
@@ -31,21 +31,21 @@ public class CouponServiceImpl implements CouponService {
 	private CouponDao couponDao;
 	@Autowired
 	private DozerBeanUtil dozerBeanUtil;
-	
-	
+
 	@GET
 	@Path("/AddCouponCount")
 	@Produces({ "application/json" })
 	public Response AddCouponCount(@QueryParam("coupon_id") int coupon_id) {
-		Coupon coupon=couponDao.getObjectById(coupon_id);
-		int addCount=coupon.getCount();
+		Coupon coupon = couponDao.getObjectById(coupon_id);
+		int addCount = coupon.getCount();
 		addCount++;
 		coupon.setCount(addCount);
-		AddCouponDto addCoupon=new AddCouponDto();
-		addCoupon.setCount(addCount);	
+		AddCouponDto addCoupon = new AddCouponDto();
+		addCoupon.setCount(addCount);
 		couponDao.update(coupon);
-		
-		Response resp = Response.status(Response.Status.OK).entity(addCoupon).build();
+
+		Response resp = Response.status(Response.Status.OK).entity(addCoupon)
+				.build();
 		return resp;
 	}
 
@@ -53,19 +53,19 @@ public class CouponServiceImpl implements CouponService {
 	@Path("/getRecomdInfo")
 	@Produces({ "application/json" })
 	public Response recommend() {
-		RecomdCoupnDto recomdCpnDto=new RecomdCoupnDto();
-		ArrayList<RecomdInfoDto> recomdInfoDto=new ArrayList<RecomdInfoDto>();
-		RecomdInfoDto recomdInfo=new RecomdInfoDto();
+		RecomdCoupnDto recomdCpnDto = new RecomdCoupnDto();
+		ArrayList<RecomdInfoDto> recomdInfoDto = new ArrayList<RecomdInfoDto>();
+		RecomdInfoDto recomdInfo = new RecomdInfoDto();
 		recomdInfo.setCouponId(30001);
 		recomdInfo.setCommId(11);
 		recomdInfo.setCommName("kaochi");
 		recomdInfo.setCount(11);
 		recomdInfo.setDetail("88折");
-		recomdInfo.setPicUrl("http://picserver/img1.jpg");	
+		recomdInfo.setPicUrl("http://picserver/img1.jpg");
 		recomdInfoDto.add(recomdInfo);
 		recomdCpnDto.setCoupon_list(recomdInfoDto);
 
-		recomdInfo=new RecomdInfoDto();
+		recomdInfo = new RecomdInfoDto();
 		recomdInfo.setCouponId(30002);
 		recomdInfo.setCommId(22);
 		recomdInfo.setCommName("kaoya");
@@ -75,8 +75,9 @@ public class CouponServiceImpl implements CouponService {
 		recomdInfoDto.add(recomdInfo);
 		recomdCpnDto.setOwn_count(2);
 		recomdCpnDto.setCoupon_list(recomdInfoDto);
-        
-		Response resp = Response.status(Response.Status.OK).entity(recomdCpnDto).build();
+
+		Response resp = Response.status(Response.Status.OK)
+				.entity(recomdCpnDto).build();
 		return resp;
 	}
 

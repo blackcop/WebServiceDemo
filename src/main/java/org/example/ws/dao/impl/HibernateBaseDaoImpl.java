@@ -13,6 +13,10 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 
+/**
+ * @author Dijia.Tang
+ * 
+ */
 @SuppressWarnings("unchecked")
 public class HibernateBaseDaoImpl<T, ID extends Serializable> extends
 		HibernateDaoSupport implements GenericDAO<T, ID> {

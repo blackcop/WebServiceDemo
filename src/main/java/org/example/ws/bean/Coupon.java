@@ -31,7 +31,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class Coupon implements java.io.Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +50,7 @@ public class Coupon implements java.io.Serializable {
 	private Date endDate;
 
 	private Integer pictureId;
+
 	private Boolean isRecommend;
 
 	private Set<Account> accounts = new HashSet<Account>();

@@ -3,6 +3,10 @@ package org.example.ws.dao;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author Dijia.Tang
+ *
+ */
 public interface GenericDAO<T, ID extends Serializable> {
 
 	/**

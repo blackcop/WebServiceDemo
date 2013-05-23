@@ -42,6 +42,18 @@ public class Coupon implements java.io.Serializable {
 	private Date beginDate;
 	private Date endDate;
 	private Integer pictureId;
+	private Boolean isRecommend;
+	
+	
+	@Column(name = "is_recommend")
+	public Boolean getIsRecommend() {
+		return isRecommend;
+	}
+
+	public void setIsRecommend(Boolean isRecommend) {
+		this.isRecommend = isRecommend;
+	}
+
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Column(name = "comm_id", unique = true, nullable = false)

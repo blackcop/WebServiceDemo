@@ -57,7 +57,7 @@ public class PhoneNumber implements Serializable {
 		this.phone_num = phone_num;
 	}
 
-	@Column(name = "phone_num", length = 50)
+	@Column(name = "phone_desc", length = 50)
 	public String getPhone_desc() {
 		return phone_desc;
 	}

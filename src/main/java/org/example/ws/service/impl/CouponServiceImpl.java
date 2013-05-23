@@ -11,10 +11,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.example.ws.bean.Coupon;
+import org.example.ws.dao.CouponDao;
 import org.example.ws.pojo.AddCouponDto;
 import org.example.ws.pojo.RecomdCoupnDto;
 import org.example.ws.pojo.RecomdInfoDto;
 import org.example.ws.service.CouponService;
+import org.example.ws.util.DozerBeanUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author lvl
@@ -23,27 +27,25 @@ import org.example.ws.service.CouponService;
 @Path("")
 public class CouponServiceImpl implements CouponService {
 
-//	@Autowired
-//	private CouponDao couponDao;
-//	@Autowired
-//	private DozerBeanUtil dozerBeanUtil;
+	@Autowired
+	private CouponDao couponDao;
+	@Autowired
+	private DozerBeanUtil dozerBeanUtil;
 	
 	
 	@GET
 	@Path("/AddCouponCount")
 	@Produces({ "application/json" })
 	public Response AddCouponCount(@QueryParam("coupon_id") int coupon_id) {
-/*		Coupon coupon=couponDao.getObjectById(coupon_id);
-		AddCouponDto addCoupon=dozerBeanUtil.convert(coupon, AddCouponDto.class);
-		int AddCount=addCoupon.getCount();
-		AddCount++;
-		addCoupon.setCount(AddCount);
-		*/
-
-		AddCouponDto addCouponDto=new AddCouponDto();
-		addCouponDto.setCount(2);
+		Coupon coupon=couponDao.getObjectById(coupon_id);
+		int addCount=coupon.getCount();
+		addCount++;
+		coupon.setCount(addCount);
+		AddCouponDto addCoupon=new AddCouponDto();
+		addCoupon.setCount(addCount);	
+		couponDao.update(coupon);
 		
-		Response resp = Response.status(Response.Status.OK).entity(addCouponDto).build();
+		Response resp = Response.status(Response.Status.OK).entity(addCoupon).build();
 		return resp;
 	}
 

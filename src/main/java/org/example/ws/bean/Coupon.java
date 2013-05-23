@@ -34,23 +34,24 @@ public class Coupon implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private Integer commId;
-	
+
 	private Integer couponId;
-	
+
 	private String detail;
-	
+
 	private Integer count;
-	
+
 	private String commName;
-	
+
 	private Date beginDate;
-	
+
 	private Date endDate;
-	
+
 	private Integer pictureId;
-	
+	private Boolean isRecommend;
+
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Column(name = "comm_id", unique = true, nullable = false)
@@ -121,16 +122,6 @@ public class Coupon implements java.io.Serializable {
 		this.endDate = endDate;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "coupons")
-	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", referencedColumnName = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
-	public Set<Account> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(Set<Account> accounts) {
-		this.accounts = accounts;
-	}
-
 	@Column(name = "picture_id")
 	public Integer getPictureId() {
 		return pictureId;
@@ -140,4 +131,22 @@ public class Coupon implements java.io.Serializable {
 		this.pictureId = pictureId;
 	}
 
+	@Column(name = "is_recommend")
+	public Boolean getIsRecommend() {
+		return isRecommend;
+	}
+
+	public void setIsRecommend(Boolean isRecommend) {
+		this.isRecommend = isRecommend;
+	}
+
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "coupons")
+	@JoinTable(name = "account_coupon", catalog = "shixun", joinColumns = { @JoinColumn(name = "coupon_id", referencedColumnName = "coupon_id", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "act_id", referencedColumnName = "account_id", nullable = false, updatable = false) })
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
+	}
 }

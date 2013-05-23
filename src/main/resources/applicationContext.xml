@@ -138,6 +138,20 @@
 		</jaxws:serviceBean>
 	</jaxws:server>
 
+<bean id="ResourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
+	<jaxrs:server id="ResourceLoadService" address="/resourceloadservice">
+		<jaxrs:serviceBeans>
+			<ref bean="ResourceLoadServiceBean" />
+		</jaxrs:serviceBeans>
+		</jaxrs:server>
+		
+		<bean id="CouponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
+	<jaxrs:server id="CouponService" address="/couponservice">
+		<jaxrs:serviceBeans>
+			<ref bean="CouponServiceBean" />
+		</jaxrs:serviceBeans>
+		</jaxrs:server>
+
 	<bean id="AccountServiceBean" class="org.example.ws.service.impl.AccountServiceImpl" />
 	<jaxrs:server id="AccountService" address="/accountservice">
 		<jaxrs:serviceBeans>

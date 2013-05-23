@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class AdInfoDto {
 	private String url;
-	private String commId;
+	private Integer commId;
 	/**
 	 * @return the url
 	 */
@@ -18,18 +18,18 @@ public class AdInfoDto {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	
+	 @XmlElement(name = "commercial_id") 
+	public Integer getCommId() {
+		return commId;
+	}
+	public void setCommId(Integer commId) {
+		this.commId = commId;
+	}
 	/**
 	 * @return the commId
 	 */
-	 @XmlElement(name = "commercial_id") 
-	public String getCommId() {
-		return commId;
-	}
-	/**
-	 * @param commId the commId to set
-	 */
-	public void setCommId(String commId) {
-		this.commId = commId;
-	}
+
 	
 }

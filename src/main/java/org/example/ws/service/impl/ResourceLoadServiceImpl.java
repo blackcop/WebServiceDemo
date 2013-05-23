@@ -10,7 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.example.ws.bean.Picture;
+import org.example.ws.bean.Advert;
+import org.example.ws.dao.AdvertDao;
 import org.example.ws.dao.PictureDao;
 import org.example.ws.pojo.AdDto;
 import org.example.ws.pojo.AdInfoDto;
@@ -29,9 +30,10 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 	
 	@Autowired
 	private PictureDao pictureDao;
+	
+	@Autowired
+	private AdvertDao advertDao;
 
-	
-	
 	@GET
 	@Path("/getAdPageInfo")
 	@Produces({ "application/json;charset=utf-8" })
@@ -39,22 +41,13 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		AdDto adDto = new AdDto();
 		List<AdInfoDto> adList = new ArrayList<AdInfoDto>();
 		AdInfoDto adInfo = new AdInfoDto();
-
-	/*	Picture picture = pictureDao.getObjectById(coupon
-				.getPictureId());
-		recomdInfo.setPicUrl(picture.getFile());*/
-		
-		
-		
-		
-		
-		/*adInfo.setCommId("\1");
-		adInfo.setUrl("http:\t2.dpfile.com/tuan/20130506/209823_130123300260000000.jpg");
-		adList.add(adInfo);
-		adInfo = new AdInfoDto();
-		adInfo.setCommId("2");
-		adInfo.setUrl("http://t1.dpfile.com/tuan/20130403/184213_130094622240000000_8274.jpg");
-		adList.add(adInfo);*/
+		List<Advert>advertList=advertDao.findAll();
+		for(Advert advert:advertList){		
+			adInfo = new AdInfoDto();
+			adInfo.setCommId(advert.getCommId());
+			adInfo.setUrl(advert.getAdvertImgPath());
+			adList.add(adInfo);		
+		}
 		adDto.setAdList(adList);
 		adDto.setCount(adList.size());
 		

@@ -34,14 +34,23 @@ public class Coupon implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private Integer commId;
+	
 	private Integer couponId;
+	
 	private String detail;
+	
 	private Integer count;
+	
 	private String commName;
+	
 	private Date beginDate;
+	
 	private Date endDate;
+	
 	private Integer pictureId;
+	
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Column(name = "comm_id", unique = true, nullable = false)

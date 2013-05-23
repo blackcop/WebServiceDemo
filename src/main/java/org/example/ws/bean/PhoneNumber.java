@@ -14,9 +14,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "phonenumber", catalog = "shixun")
 public class PhoneNumber implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Integer phonenumber_id;

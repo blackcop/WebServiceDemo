@@ -4,6 +4,7 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,12 +13,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.example.ws.bean.Coupon;
+import org.example.ws.bean.Picture;
 import org.example.ws.dao.CouponDao;
+import org.example.ws.dao.PictureDao;
 import org.example.ws.pojo.AddCouponDto;
 import org.example.ws.pojo.RecomdCoupnDto;
 import org.example.ws.pojo.RecomdInfoDto;
 import org.example.ws.service.CouponService;
-import org.example.ws.util.DozerBeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -29,18 +31,34 @@ public class CouponServiceImpl implements CouponService {
 
 	@Autowired
 	private CouponDao couponDao;
+
 	@Autowired
-	private DozerBeanUtil dozerBeanUtil;
+	private PictureDao pictureDao;
 
 	@GET
 	@Path("/AddCouponCount")
 	@Produces({ "application/json" })
-	public Response AddCouponCount(@QueryParam("coupon_id") int coupon_id) {
+	public Response AddCouponCount(@QueryParam("coupon_id") Integer coupon_id) {
+		AddCouponDto addCoupon = new AddCouponDto();
 		Coupon coupon = couponDao.getObjectById(coupon_id);
+
+		if (coupon_id == null) {
+			addCoupon.setErrorCode("REQ_PARAM_ERROR");
+			addCoupon.setErrorMsg("请求参数错误");
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity(addCoupon).build();
+		}
+
+		if (coupon == null) {
+			addCoupon.setErrorCode("REQ_RESOURCE_NOT_FOUND");
+			addCoupon.setErrorMsg("请求资源未找到");
+			return Response.status(Response.Status.NOT_FOUND).entity(addCoupon)
+					.build();
+		}
+
 		int addCount = coupon.getCount();
 		addCount++;
 		coupon.setCount(addCount);
-		AddCouponDto addCoupon = new AddCouponDto();
 		addCoupon.setCount(addCount);
 		couponDao.update(coupon);
 
@@ -53,29 +71,30 @@ public class CouponServiceImpl implements CouponService {
 	@Path("/getRecomdInfo")
 	@Produces({ "application/json" })
 	public Response recommend() {
+
 		RecomdCoupnDto recomdCpnDto = new RecomdCoupnDto();
 		ArrayList<RecomdInfoDto> recomdInfoDto = new ArrayList<RecomdInfoDto>();
 		RecomdInfoDto recomdInfo = new RecomdInfoDto();
-		recomdInfo.setCouponId(30001);
-		recomdInfo.setCommId(11);
-		recomdInfo.setCommName("kaochi");
-		recomdInfo.setCount(11);
-		recomdInfo.setDetail("88折");
-		recomdInfo.setPicUrl("http://picserver/img1.jpg");
-		recomdInfoDto.add(recomdInfo);
-		recomdCpnDto.setCoupon_list(recomdInfoDto);
+		List<Coupon> coupons = couponDao.findAll();
+		int ownCount = 0;
 
-		recomdInfo = new RecomdInfoDto();
-		recomdInfo.setCouponId(30002);
-		recomdInfo.setCommId(22);
-		recomdInfo.setCommName("kaoya");
-		recomdInfo.setCount(12);
-		recomdInfo.setDetail("77折");
-		recomdInfo.setPicUrl("http://picserver/img2.jpg");
-		recomdInfoDto.add(recomdInfo);
-		recomdCpnDto.setOwn_count(2);
+		for (Coupon coupon : coupons) {
+			if (coupon.getIsRecommend()) {
+				recomdInfo = new RecomdInfoDto();
+				ownCount++;
+				recomdInfo.setCouponId(coupon.getCouponId());
+				recomdInfo.setCommId(coupon.getCommId());
+				recomdInfo.setCommName(coupon.getCommName());
+				recomdInfo.setCount(coupon.getCount());
+				recomdInfo.setDetail(coupon.getDetail());
+				Picture picture = pictureDao.getObjectById(coupon
+						.getPictureId());
+				recomdInfo.setPicUrl(picture.getFile());
+				recomdInfoDto.add(recomdInfo);
+			}
+		}
 		recomdCpnDto.setCoupon_list(recomdInfoDto);
-
+		recomdCpnDto.setOwn_count(ownCount);
 		Response resp = Response.status(Response.Status.OK)
 				.entity(recomdCpnDto).build();
 		return resp;

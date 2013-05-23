@@ -55,6 +55,7 @@
 				<value>org.example.ws.bean.Coupon</value>
 				<value>org.example.ws.bean.Picture</value>
 				<value>org.example.ws.bean.PictureSet</value>
+				<value>org.example.ws.bean.Advert</value>
 			</list>
 		</property>
 	</bean>
@@ -111,6 +112,9 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	<bean id="pictureSetDao" class="org.example.ws.dao.impl.PictureSetDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+		<bean id="advertDao" class="org.example.ws.dao.impl.AdvertDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 

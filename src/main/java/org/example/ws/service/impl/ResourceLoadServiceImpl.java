@@ -10,6 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.example.ws.bean.Picture;
+import org.example.ws.dao.PictureDao;
 import org.example.ws.pojo.AdDto;
 import org.example.ws.pojo.AdInfoDto;
 import org.example.ws.pojo.AssociationDto;
@@ -19,24 +21,40 @@ import org.example.ws.pojo.CategoryInfoDto;
 import org.example.ws.pojo.RegionDto;
 import org.example.ws.pojo.RegionInfoDto;
 import org.example.ws.service.ResourceLoadService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Path("")
 public class ResourceLoadServiceImpl implements ResourceLoadService{
 
+	
+	@Autowired
+	private PictureDao pictureDao;
+
+	
+	
 	@GET
 	@Path("/getAdPageInfo")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	public Response getAdPageInfo() {
 		AdDto adDto = new AdDto();
 		List<AdInfoDto> adList = new ArrayList<AdInfoDto>();
 		AdInfoDto adInfo = new AdInfoDto();
-		adInfo.setCommId("1");
-		adInfo.setUrl("http://t2.dpfile.com/tuan/20130506/209823_130123300260000000.jpg");
+
+	/*	Picture picture = pictureDao.getObjectById(coupon
+				.getPictureId());
+		recomdInfo.setPicUrl(picture.getFile());*/
+		
+		
+		
+		
+		
+		/*adInfo.setCommId("\1");
+		adInfo.setUrl("http:\t2.dpfile.com/tuan/20130506/209823_130123300260000000.jpg");
 		adList.add(adInfo);
 		adInfo = new AdInfoDto();
 		adInfo.setCommId("2");
 		adInfo.setUrl("http://t1.dpfile.com/tuan/20130403/184213_130094622240000000_8274.jpg");
-		adList.add(adInfo);
+		adList.add(adInfo);*/
 		adDto.setAdList(adList);
 		adDto.setCount(adList.size());
 		

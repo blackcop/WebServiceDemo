@@ -1,18 +1,16 @@
 package org.example.ws.pojo;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "result")
-public class AddCouponDto implements Serializable {
+import org.example.ws.util.BaseRestResponse;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@XmlRootElement(name = "result")
+public class AddCouponDto extends BaseRestResponse {
+
+
 
 	private Integer commId;
 	private Integer couponId;

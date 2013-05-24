@@ -21,7 +21,7 @@ public interface ResourceLoadService {
 	 * @param fieldId
 	 * @return
 	 */
-	public Response getRegionListOfSecondLevel(Integer fieldId);
+	public Response getRegionListOfSecondLevel(Integer region_id);
 	
 	/**
 	 * 获取二级类别信息

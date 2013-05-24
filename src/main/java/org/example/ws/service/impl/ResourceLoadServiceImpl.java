@@ -27,15 +27,14 @@ import org.example.ws.service.ResourceLoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Path("")
-public class ResourceLoadServiceImpl implements ResourceLoadService{
+public class ResourceLoadServiceImpl implements ResourceLoadService {
 
-	
 	@Autowired
 	private PictureDao pictureDao;
-	
+
 	@Autowired
 	private AdvertDao advertDao;
-	
+
 	@Autowired
 	private RegionDao regionDao;
 
@@ -46,131 +45,134 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		AdDto adDto = new AdDto();
 		List<AdInfoDto> adList = new ArrayList<AdInfoDto>();
 		AdInfoDto adInfo = new AdInfoDto();
-		List<Advert>advertList=advertDao.findAll();
-		for(Advert advert:advertList){		
+		List<Advert> advertList = advertDao.findAll();
+		for (Advert advert : advertList) {
 			adInfo = new AdInfoDto();
 			adInfo.setCommId(advert.getCommId());
 			adInfo.setUrl(advert.getAdvertImgPath());
-			adList.add(adInfo);		
+			adList.add(adInfo);
 		}
 		adDto.setAdList(adList);
 		adDto.setCount(adList.size());
-		
-		Response resp = Response.status(Response.Status.OK).entity(adDto).build();
+
+		Response resp = Response.status(Response.Status.OK).entity(adDto)
+				.build();
 		return resp;
 	}
 
-	
 	@GET
 	@Path("/getRegionListOfFirstLevel")
 	@Produces({ "application/json;charset=utf-8" })
 	public Response getRegionListOfFirstLevel() {
 		RegionDto fieldDto = new RegionDto();
 		List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
-		RegionInfoDto fieldInfo = new RegionInfoDto();	
-		List<Region> regions=regionDao.findAll();
-		
-		for(Region region:regions){
-			if(region.getIs_parent()){
+		RegionInfoDto fieldInfo = new RegionInfoDto();
+		List<Region> regions = regionDao.findAll();
+
+		for (Region region : regions) {
+			if (region.getIs_parent()) {
 				fieldInfo = new RegionInfoDto();
 				fieldInfo.setRegionId(region.getRegion_id());
 				fieldInfo.setRegionName(region.getRegion_name());
-				fieldList.add(fieldInfo);				
-			}		
-		}		
+				fieldList.add(fieldInfo);
+			}
+		}
 		fieldDto.setFieldList(fieldList);
 		fieldDto.setCount(fieldList.size());
 		return Response.status(Response.Status.OK).entity(fieldDto).build();
 	}
 
-	@Override
 	@GET
 	@Path("/getRegionListOfSecondLevel")
-	@Produces({ "application/json" })
-	public Response getRegionListOfSecondLevel(@QueryParam("region_id") Integer regionId) {
+	@Produces({ "application/json;charset=utf-8" })
+	public Response getRegionListOfSecondLevel(
+			@QueryParam("region_id") Integer region_id) {
 		RegionDto fieldDto = new RegionDto();
-		if(regionId == null){
+		
+		if (region_id == null) {
 			fieldDto.setErrorCode("REQ_PARAM_ERROR");
 			fieldDto.setErrorMsg("请求参数错误");
-			return Response.status(Response.Status.BAD_REQUEST).entity(fieldDto).build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity(fieldDto).build();
 		}
-		if(regionId == 1){
-			List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
-			RegionInfoDto fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId(1);
-			fieldInfo.setRegionName("朝阳区");
-			fieldList.add(fieldInfo);
-			
-			fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId(2);
-			fieldInfo.setRegionName("房山区");
-			fieldList.add(fieldInfo);
-			
-			fieldDto.setFieldList(fieldList);
-			fieldDto.setCount(fieldList.size());
-			return Response.status(Response.Status.OK).entity(fieldDto).build();
-		} else if(regionId == 2){
-			List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
-			RegionInfoDto fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId(3);
-			fieldInfo.setRegionName("石家庄");
-			fieldList.add(fieldInfo);
-			
-			fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId(4);
-			fieldInfo.setRegionName("廊坊");
-			fieldList.add(fieldInfo);
-			
-			fieldDto.setFieldList(fieldList);
-			fieldDto.setCount(fieldList.size());
-			return Response.status(Response.Status.OK).entity(fieldDto).build();
-		} else{
+		
+		
+		List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
+		RegionInfoDto fieldInfo = new RegionInfoDto();
+		Region region = regionDao.getObjectById(region_id);
+		List<Region> regions = regionDao.findAll();
+
+		if (region == null) {
 			fieldDto.setErrorCode("REQ_RESOURCE_NOT_FOUND");
 			fieldDto.setErrorMsg("请求资源未找到");
-			return Response.status(Response.Status.NOT_FOUND).entity(fieldDto).build();
+			return Response.status(Response.Status.NOT_FOUND).entity(fieldDto)
+					.build();
 		}
+
+		int region_id1 = region_id.intValue();
+
+		for (Region region1 : regions) {
+			if (region1.getParent_id() != null) {
+				int region_id2 = region1.getParent_id().intValue();
+				if (region_id1 == region_id2) {
+					fieldInfo = new RegionInfoDto();
+					fieldInfo.setRegionId(region1.getRegion_id());
+					fieldInfo.setRegionName(region1.getRegion_name());
+					fieldList.add(fieldInfo);
+				}
+			}
+		}
+
+		fieldDto.setFieldList(fieldList);
+		fieldDto.setCount(fieldList.size());
+		return Response.status(Response.Status.OK).entity(fieldDto).build();
 	}
 
-	@Override
 	@GET
 	@Path("/getKindListOfSecondLevel")
-	@Produces({ "application/json" })
-	public Response getCategoryListOfSecondLevel(@QueryParam("kind_id") Integer categoryId) {
+	@Produces({ "application/json;charset=utf-8" })
+	public Response getCategoryListOfSecondLevel(
+			@QueryParam("kind_id") Integer categoryId) {
 		CategoryDto categoryDto = new CategoryDto();
-		if(categoryId == null){
+		if (categoryId == null) {
 			categoryDto.setErrorCode("REQ_PARAM_ERROR");
 			categoryDto.setErrorMsg("请求参数错误");
-			return Response.status(Response.Status.BAD_REQUEST).entity(categoryDto).build();
+			return Response.status(Response.Status.BAD_REQUEST)
+					.entity(categoryDto).build();
 		}
-		if(categoryId == 1){
+		if (categoryId == 1) {
 			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
 			CategoryInfoDto categoryInfo = new CategoryInfoDto();
 			categoryInfo.setCategoryId("1");
 			categoryInfo.setCategoryName("日本料理");
 			categoryList.add(categoryInfo);
-			
+
 			categoryInfo = new CategoryInfoDto();
 			categoryInfo.setCategoryId("2");
 			categoryInfo.setCategoryName("中华料理");
 			categoryList.add(categoryInfo);
-			
+
 			categoryDto.setCategoryList(categoryList);
 			categoryDto.setCount(categoryList.size());
-			return Response.status(Response.Status.OK).entity(categoryDto).build();
-		} else if(categoryId == 2){
+			return Response.status(Response.Status.OK).entity(categoryDto)
+					.build();
+		} else if (categoryId == 2) {
 			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
 			categoryDto.setCategoryList(categoryList);
 			categoryDto.setCount(categoryList.size());
-			return Response.status(Response.Status.OK).entity(categoryDto).build();
-		} else if(categoryId == 3){
+			return Response.status(Response.Status.OK).entity(categoryDto)
+					.build();
+		} else if (categoryId == 3) {
 			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
 			categoryDto.setCategoryList(categoryList);
 			categoryDto.setCount(categoryList.size());
-			return Response.status(Response.Status.OK).entity(categoryDto).build();
-		} else{
+			return Response.status(Response.Status.OK).entity(categoryDto)
+					.build();
+		} else {
 			categoryDto.setErrorCode("REQ_RESOURCE_NOT_FOUND");
 			categoryDto.setErrorMsg("请求资源未找到");
-			return Response.status(Response.Status.NOT_FOUND).entity(categoryDto).build();
+			return Response.status(Response.Status.NOT_FOUND)
+					.entity(categoryDto).build();
 		}
 	}
 
@@ -189,7 +191,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		assoInfo.setKind("同学会");
 		assoInfo.setName("同学聚会");
 		assoList.add(assoInfo);
-		
+
 		assoInfo = new AssociationInfoDto();
 		assoInfo.setActivity("同乡聚会");
 		assoInfo.setCreateDate(new Date());
@@ -198,11 +200,12 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		assoInfo.setKind("同乡会");
 		assoInfo.setName("同乡聚会");
 		assoList.add(assoInfo);
-		
+
 		assoDto.setAssoList(assoList);
 		assoDto.setCount(assoList.size());
-		
-		Response resp = Response.status(Response.Status.OK).entity(assoDto).build();
+
+		Response resp = Response.status(Response.Status.OK).entity(assoDto)
+				.build();
 		return resp;
 	}
 

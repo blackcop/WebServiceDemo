@@ -114,7 +114,7 @@
 	<bean id="pictureSetDao" class="org.example.ws.dao.impl.PictureSetDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-		<bean id="advertDao" class="org.example.ws.dao.impl.AdvertDaoImpl">
+	<bean id="advertDao" class="org.example.ws.dao.impl.AdvertDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
@@ -138,19 +138,19 @@
 		</jaxws:serviceBean>
 	</jaxws:server>
 
-<bean id="ResourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
+	<bean id="ResourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
 	<jaxrs:server id="ResourceLoadService" address="/resourceloadservice">
 		<jaxrs:serviceBeans>
 			<ref bean="ResourceLoadServiceBean" />
 		</jaxrs:serviceBeans>
-		</jaxrs:server>
-		
-		<bean id="CouponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
+	</jaxrs:server>
+
+	<bean id="CouponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
 	<jaxrs:server id="CouponService" address="/couponservice">
 		<jaxrs:serviceBeans>
 			<ref bean="CouponServiceBean" />
 		</jaxrs:serviceBeans>
-		</jaxrs:server>
+	</jaxrs:server>
 
 	<bean id="AccountServiceBean" class="org.example.ws.service.impl.AccountServiceImpl" />
 	<jaxrs:server id="AccountService" address="/accountservice">

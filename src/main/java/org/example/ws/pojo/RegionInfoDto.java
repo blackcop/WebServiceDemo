@@ -3,19 +3,19 @@ package org.example.ws.pojo;
 import javax.xml.bind.annotation.XmlElement;
 
 public class RegionInfoDto {
-	private String regionId;
+	private Integer regionId;
 	private String regionName;
 	/**
 	 * @return the fieldId
 	 */
 	@XmlElement(name = "region_id")
-	public String getRegionId() {
+	public Integer getRegionId() {
 		return regionId;
 	}
 	/**
 	 * @param fieldId the fieldId to set
 	 */
-	public void setRegionId(String regionId) {
+	public void setRegionId(Integer regionId) {
 		this.regionId = regionId;
 	}
 	/**

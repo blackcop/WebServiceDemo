@@ -11,8 +11,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.example.ws.bean.Advert;
+import org.example.ws.bean.Region;
 import org.example.ws.dao.AdvertDao;
 import org.example.ws.dao.PictureDao;
+import org.example.ws.dao.RegionDao;
 import org.example.ws.pojo.AdDto;
 import org.example.ws.pojo.AdInfoDto;
 import org.example.ws.pojo.AssociationDto;
@@ -33,6 +35,9 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 	
 	@Autowired
 	private AdvertDao advertDao;
+	
+	@Autowired
+	private RegionDao regionDao;
 
 	@GET
 	@Path("/getAdPageInfo")
@@ -55,23 +60,24 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		return resp;
 	}
 
-	@Override
+	
 	@GET
 	@Path("/getRegionListOfFirstLevel")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	public Response getRegionListOfFirstLevel() {
 		RegionDto fieldDto = new RegionDto();
 		List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
-		RegionInfoDto fieldInfo = new RegionInfoDto();
-		fieldInfo.setRegionId("1");
-		fieldInfo.setRegionName("北京地区");
-		fieldList.add(fieldInfo);
+		RegionInfoDto fieldInfo = new RegionInfoDto();	
+		List<Region> regions=regionDao.findAll();
 		
-		fieldInfo = new RegionInfoDto();
-		fieldInfo.setRegionId("2");
-		fieldInfo.setRegionName("周边地区");
-		fieldList.add(fieldInfo);
-		
+		for(Region region:regions){
+			if(region.getIs_parent()){
+				fieldInfo = new RegionInfoDto();
+				fieldInfo.setRegionId(region.getRegion_id());
+				fieldInfo.setRegionName(region.getRegion_name());
+				fieldList.add(fieldInfo);				
+			}		
+		}		
 		fieldDto.setFieldList(fieldList);
 		fieldDto.setCount(fieldList.size());
 		return Response.status(Response.Status.OK).entity(fieldDto).build();
@@ -91,12 +97,12 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		if(regionId == 1){
 			List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
 			RegionInfoDto fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId("1");
+			fieldInfo.setRegionId(1);
 			fieldInfo.setRegionName("朝阳区");
 			fieldList.add(fieldInfo);
 			
 			fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId("2");
+			fieldInfo.setRegionId(2);
 			fieldInfo.setRegionName("房山区");
 			fieldList.add(fieldInfo);
 			
@@ -106,12 +112,12 @@ public class ResourceLoadServiceImpl implements ResourceLoadService{
 		} else if(regionId == 2){
 			List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
 			RegionInfoDto fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId("3");
+			fieldInfo.setRegionId(3);
 			fieldInfo.setRegionName("石家庄");
 			fieldList.add(fieldInfo);
 			
 			fieldInfo = new RegionInfoDto();
-			fieldInfo.setRegionId("4");
+			fieldInfo.setRegionId(4);
 			fieldInfo.setRegionName("廊坊");
 			fieldList.add(fieldInfo);
 			

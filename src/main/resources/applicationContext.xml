@@ -55,6 +55,7 @@
 				<value>org.example.ws.bean.Coupon</value>
 				<value>org.example.ws.bean.Picture</value>
 				<value>org.example.ws.bean.PictureSet</value>
+				<value>org.example.ws.bean.PhoneNumber</value>
 			</list>
 		</property>
 	</bean>

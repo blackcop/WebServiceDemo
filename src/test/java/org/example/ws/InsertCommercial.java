@@ -19,6 +19,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.example.ws.bean.Commercial;
 import org.example.ws.bean.PhoneNumber;
+import org.example.ws.bean.Picture;
+import org.example.ws.bean.PictureSet;
 import org.example.ws.dao.CommercialDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -53,6 +55,8 @@ public class InsertCommercial {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
@@ -69,6 +73,7 @@ public class InsertCommercial {
 			commercialDao.save(c);
 			Session session;
 			List<PhoneNumber> pn = oneRow.getPhone();
+			List<PictureSetDetail> psd = oneRow.getPsdList();
 			for (PhoneNumber p : pn) {
 				p.setComm_id(c.getCommId());
 				Transaction tx = null;
@@ -85,12 +90,64 @@ public class InsertCommercial {
 					session.close();
 				}
 			}
+
+			for (PictureSetDetail p : psd) {
+				PictureSet ps = p.getPs();
+				ps.setComm_id(c.getCommId());
+				Transaction tx = null;
+				session = sessionFactory.openSession();
+				try {
+					tx = session.beginTransaction();
+					System.out.println(ps.getName());
+					session.save(ps);
+					Picture first = p.getLp().size() == 0 ? null : p.getLp()
+							.get(0);
+					for (Picture pic : p.getLp()) {
+						pic.setPictureSetId(ps.getPsId());
+						session.save(pic);
+					}
+					ps.setCoverId(first.getPictId());
+					session.update(ps);
+					tx.commit();
+				} catch (HibernateException he) {
+					if (tx != null)
+						tx.rollback();
+					throw he;
+				} finally {
+					session.close();
+				}
+
+			}
 		}
+	}
+
+	public static class PictureSetDetail {
+		private PictureSet ps;
+		private List<Picture> lp;
+
+		public PictureSet getPs() {
+			return ps;
+		}
+
+		public void setPs(PictureSet ps) {
+			this.ps = ps;
+		}
+
+		public List<Picture> getLp() {
+			return lp;
+		}
+
+		public void setLp(List<Picture> lp) {
+			this.lp = lp;
+		}
+
 	}
 
 	public static class OneRow {
 		private Commercial comm;
 		private List<PhoneNumber> phone;
+
+		private List<PictureSetDetail> psdList;
 
 		public OneRow() {
 
@@ -110,6 +167,14 @@ public class InsertCommercial {
 
 		public void setPhone(List<PhoneNumber> phone) {
 			this.phone = phone;
+		}
+
+		public List<PictureSetDetail> getPsdList() {
+			return psdList;
+		}
+
+		public void setPsdList(List<PictureSetDetail> psdList) {
+			this.psdList = psdList;
 		}
 	}
 
@@ -153,6 +218,8 @@ public class InsertCommercial {
 				List<PhoneNumber> pn = new ArrayList<PhoneNumber>();
 				oneRow.setPhone(pn);
 				Commercial comm = new Commercial();
+				List<PictureSetDetail> psdList = new ArrayList<PictureSetDetail>();
+				oneRow.setPsdList(psdList);
 				for (int j = firstColNum; j < colNum; j++) {
 					Cell cell = row.getCell(j);
 					if (cell == null)
@@ -275,11 +342,35 @@ public class InsertCommercial {
 							.equalsIgnoreCase("纬度")) {
 						if (cell != null)
 							comm.setLatitude(cell.getNumericCellValue());
+					} else if (firstRow.getCell(j).getStringCellValue()
+							.indexOf("照片集") != -1) {
+						String fileUrl[] = cell.getStringCellValue()
+								.replace(" ", "").split("\\|");
+						PictureSet ps = new PictureSet();
+						ps.setName(firstRow
+								.getCell(j)
+								.getStringCellValue()
+								.substring(
+										firstRow.getCell(j)
+												.getStringCellValue()
+												.indexOf("-") + 1));
+						PictureSetDetail psd = new PictureSetDetail();
+						List<Picture> pl = new ArrayList<Picture>();
+						psd.setPs(ps);
+						psd.setLp(pl);
+						for (String url : fileUrl) {
+							Picture p = new Picture();
+							p.setName(url.substring(url.lastIndexOf("/") + 1));
+							p.setFile(url);
+							pl.add(p);
+						}
+						psdList.add(psd);
 					}
 
 				}
 				if (comm != null) {
 					oneRow.setComm(comm);
+					oneRow.setPsdList(psdList);
 					result.add(oneRow);
 				}
 			}

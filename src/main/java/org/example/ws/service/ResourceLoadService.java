@@ -28,7 +28,7 @@ public interface ResourceLoadService {
 	 * @param categoryId
 	 * @return
 	 */
-	public Response getCategoryListOfSecondLevel(Integer categoryId);
+	public Response getCategoryListOfSecondLevel(Integer kind_id);
 	
 	/**
 	 * 获取同乡会信息

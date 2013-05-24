@@ -57,6 +57,7 @@
 				<value>org.example.ws.bean.PictureSet</value>
 				<value>org.example.ws.bean.Advert</value>		
 				<value>org.example.ws.bean.Region</value>
+				<value>org.example.ws.bean.Kind</value>
 			</list>
 		</property>
 	</bean>
@@ -122,6 +123,10 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
+	<bean id="KindDao" class="org.example.ws.dao.impl.KindDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
 	<!-- Service配置 -->
 	<bean id="commercialService" class="org.example.ws.service.impl.CommercialServiceImpl">
 	</bean>

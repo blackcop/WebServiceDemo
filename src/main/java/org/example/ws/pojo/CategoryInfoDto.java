@@ -3,14 +3,14 @@ package org.example.ws.pojo;
 import javax.xml.bind.annotation.XmlElement;
 
 public class CategoryInfoDto {
-	private String categoryId;
+	private Integer categoryId;
 	private String categoryName;
 
 	/**
 	 * @return the categoryId
 	 */
 	@XmlElement(name = "kind_id")
-	public String getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
 
@@ -18,7 +18,7 @@ public class CategoryInfoDto {
 	 * @param categoryId
 	 *            the categoryId to set
 	 */
-	public void setCategoryId(String categoryId) {
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
 

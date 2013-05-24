@@ -1,7 +1,6 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -11,8 +10,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import org.example.ws.bean.Advert;
+import org.example.ws.bean.Association;
 import org.example.ws.bean.Region;
+import org.example.ws.bean.Kind;
 import org.example.ws.dao.AdvertDao;
+import org.example.ws.dao.AssociationDao;
+import org.example.ws.dao.KindDao;
 import org.example.ws.dao.PictureDao;
 import org.example.ws.dao.RegionDao;
 import org.example.ws.pojo.AdDto;
@@ -37,6 +40,12 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 
 	@Autowired
 	private RegionDao regionDao;
+	
+	@Autowired
+	private KindDao kindDao;
+	
+	@Autowired
+	private AssociationDao associationDao;
 
 	@GET
 	@Path("/getAdPageInfo")
@@ -95,8 +104,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity(fieldDto).build();
 		}
-		
-		
+				
 		List<RegionInfoDto> fieldList = new ArrayList<RegionInfoDto>();
 		RegionInfoDto fieldInfo = new RegionInfoDto();
 		Region region = regionDao.getObjectById(region_id);
@@ -132,48 +140,45 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 	@Path("/getKindListOfSecondLevel")
 	@Produces({ "application/json;charset=utf-8" })
 	public Response getCategoryListOfSecondLevel(
-			@QueryParam("kind_id") Integer categoryId) {
+			@QueryParam("kind_id") Integer kind_id) {
 		CategoryDto categoryDto = new CategoryDto();
-		if (categoryId == null) {
+		
+		if (kind_id == null) {
 			categoryDto.setErrorCode("REQ_PARAM_ERROR");
 			categoryDto.setErrorMsg("请求参数错误");
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity(categoryDto).build();
 		}
-		if (categoryId == 1) {
-			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
-			CategoryInfoDto categoryInfo = new CategoryInfoDto();
-			categoryInfo.setCategoryId("1");
-			categoryInfo.setCategoryName("日本料理");
-			categoryList.add(categoryInfo);
-
-			categoryInfo = new CategoryInfoDto();
-			categoryInfo.setCategoryId("2");
-			categoryInfo.setCategoryName("中华料理");
-			categoryList.add(categoryInfo);
-
-			categoryDto.setCategoryList(categoryList);
-			categoryDto.setCount(categoryList.size());
-			return Response.status(Response.Status.OK).entity(categoryDto)
-					.build();
-		} else if (categoryId == 2) {
-			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
-			categoryDto.setCategoryList(categoryList);
-			categoryDto.setCount(categoryList.size());
-			return Response.status(Response.Status.OK).entity(categoryDto)
-					.build();
-		} else if (categoryId == 3) {
-			List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
-			categoryDto.setCategoryList(categoryList);
-			categoryDto.setCount(categoryList.size());
-			return Response.status(Response.Status.OK).entity(categoryDto)
-					.build();
-		} else {
+		
+		List<CategoryInfoDto> categoryList = new ArrayList<CategoryInfoDto>();
+		CategoryInfoDto categoryInfo = new CategoryInfoDto();
+		Kind kind = kindDao.getObjectById(kind_id);
+		List<Kind> kinds = kindDao.findAll();
+		
+		if (kind == null) {
 			categoryDto.setErrorCode("REQ_RESOURCE_NOT_FOUND");
 			categoryDto.setErrorMsg("请求资源未找到");
-			return Response.status(Response.Status.NOT_FOUND)
-					.entity(categoryDto).build();
+			return Response.status(Response.Status.NOT_FOUND).entity(categoryDto)
+					.build();
 		}
+
+		int region_id1 = kind_id.intValue();
+
+		for (Kind kind1 : kinds) {
+			if (kind1.getParent_id() != null) {
+				int region_id2 = kind1.getParent_id().intValue();
+				if (region_id1 == region_id2) {
+					categoryInfo = new CategoryInfoDto();
+					categoryInfo.setCategoryId(kind1.getKind_id());
+					categoryInfo.setCategoryName(kind1.getKind_name());
+					categoryList.add(categoryInfo);
+				}
+			}
+		}
+
+		categoryDto.setCategoryList(categoryList);
+		categoryDto.setCount(categoryList.size());
+		return Response.status(Response.Status.OK).entity(categoryDto).build();
 	}
 
 	@Override
@@ -184,22 +189,17 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		AssociationDto assoDto = new AssociationDto();
 		List<AssociationInfoDto> assoList = new ArrayList<AssociationInfoDto>();
 		AssociationInfoDto assoInfo = new AssociationInfoDto();
-		assoInfo.setActivity("同学聚会");
-		assoInfo.setCreateDate(new Date());
-		assoInfo.setDetail("同学聚会同学聚会同学聚会同学聚会同学聚会同学聚会");
-		assoInfo.setGroupId(10001);
-		assoInfo.setKind("同学会");
-		assoInfo.setName("同学聚会");
-		assoList.add(assoInfo);
-
-		assoInfo = new AssociationInfoDto();
-		assoInfo.setActivity("同乡聚会");
-		assoInfo.setCreateDate(new Date());
-		assoInfo.setDetail("同乡同乡同乡同乡同乡同乡同乡同乡同乡同乡同乡");
-		assoInfo.setGroupId(10002);
-		assoInfo.setKind("同乡会");
-		assoInfo.setName("同乡聚会");
-		assoList.add(assoInfo);
+		List<Association>associations = associationDao.findAll();
+		for(Association association:associations){
+			assoInfo = new AssociationInfoDto();
+			assoInfo.setActivity(association.getActivity());
+			assoInfo.setCreateDate(association.getCreateDate());
+			assoInfo.setDetail(association.getActivity());
+			assoInfo.setGroupId(association.getGroupId());
+			assoInfo.setKind(association.getKind());
+			assoInfo.setName(association.getName());
+			assoList.add(assoInfo);		
+		}
 
 		assoDto.setAssoList(assoList);
 		assoDto.setCount(assoList.size());

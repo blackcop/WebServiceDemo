@@ -1,7 +1,7 @@
 package org.example.ws.dao.impl;
 
-import org.example.ws.bean.Coupon;
 import org.example.ws.dao.CouponDao;
+import org.example.ws.domain.Coupon;
 
 /**
  * @author Dijia.Tang

@@ -1,6 +1,6 @@
 package org.example.ws.dao;
 
-import org.example.ws.bean.Advert;;
+import org.example.ws.domain.Advert;
 
 /**
  * @author lvl

@@ -1,4 +1,4 @@
-package org.example.ws.bean;
+package org.example.ws.domain;
 
 import java.io.Serializable;
 

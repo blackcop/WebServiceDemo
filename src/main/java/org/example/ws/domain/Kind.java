@@ -1,4 +1,4 @@
-package org.example.ws.bean;
+package org.example.ws.domain;
 
 // default package
 // Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1

@@ -1,6 +1,6 @@
 package org.example.ws.pojo;
 
-import org.example.ws.bean.Coupon;
+import org.example.ws.domain.Coupon;
 
 public class CouponInfo {
 

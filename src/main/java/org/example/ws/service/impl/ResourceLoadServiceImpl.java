@@ -9,15 +9,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.example.ws.bean.Advert;
-import org.example.ws.bean.Association;
-import org.example.ws.bean.Region;
-import org.example.ws.bean.Kind;
 import org.example.ws.dao.AdvertDao;
 import org.example.ws.dao.AssociationDao;
 import org.example.ws.dao.KindDao;
-import org.example.ws.dao.PictureDao;
 import org.example.ws.dao.RegionDao;
+import org.example.ws.domain.Advert;
+import org.example.ws.domain.Association;
+import org.example.ws.domain.Kind;
+import org.example.ws.domain.Region;
 import org.example.ws.pojo.AdDto;
 import org.example.ws.pojo.AdInfoDto;
 import org.example.ws.pojo.AssociationDto;
@@ -29,11 +28,7 @@ import org.example.ws.pojo.RegionInfoDto;
 import org.example.ws.service.ResourceLoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Path("")
 public class ResourceLoadServiceImpl implements ResourceLoadService {
-
-	@Autowired
-	private PictureDao pictureDao;
 
 	@Autowired
 	private AdvertDao advertDao;

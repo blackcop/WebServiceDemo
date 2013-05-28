@@ -1,4 +1,4 @@
-package org.example.ws.bean;
+package org.example.ws.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

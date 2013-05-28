@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class RegionInfoDto {
 	private Integer regionId;
 	private String regionName;
+	private String regionCode;
 	/**
 	 * @return the fieldId
 	 */
@@ -30,6 +31,14 @@ public class RegionInfoDto {
 	 */
 	public void setRegionName(String regionName) {
 		this.regionName = regionName;
+	}
+	
+	@XmlElement(name = "region_code")
+	public String getRegionCode() {
+		return regionCode;
+	}
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
 	}
 
 }

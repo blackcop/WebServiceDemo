@@ -1,6 +1,6 @@
 package org.example.ws.dao;
 
-import org.example.ws.bean.Kind;;
+import org.example.ws.domain.Kind;
 
 /**
  * @author lvl

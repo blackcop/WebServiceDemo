@@ -4,7 +4,6 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -13,16 +12,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.example.ws.bean.Commercial;
-import org.example.ws.bean.Coupon;
-import org.example.ws.bean.PhoneNumber;
-import org.example.ws.bean.Picture;
-import org.example.ws.bean.PictureSet;
 import org.example.ws.dao.CommercialDao;
 import org.example.ws.dao.CouponDao;
 import org.example.ws.dao.PhoneNumberDao;
 import org.example.ws.dao.PictureDao;
 import org.example.ws.dao.PictureSetDao;
+import org.example.ws.domain.Commercial;
+import org.example.ws.domain.Coupon;
+import org.example.ws.domain.PhoneNumber;
+import org.example.ws.domain.Picture;
+import org.example.ws.domain.PictureSet;
 import org.example.ws.pojo.CommercialDetailDto;
 import org.example.ws.pojo.CommercialDetailResultDto;
 import org.example.ws.pojo.CommercialSummaryDto;
@@ -39,7 +38,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dijia.Tang
  * 
  */
-@Path("")
 public class CommercialServiceImpl implements CommercialService {
 
 	@Autowired

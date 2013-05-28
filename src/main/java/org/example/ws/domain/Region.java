@@ -1,4 +1,4 @@
-package org.example.ws.bean;
+package org.example.ws.domain;
 
 // default package
 // Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1
@@ -30,6 +30,8 @@ public class Region implements java.io.Serializable {
 	private Boolean is_parent;
 
 	private Integer parent_id;
+	
+	private String region_code;
 
 	@Id
 	@GenericGenerator(name = "idgen", strategy = "increment")
@@ -68,6 +70,15 @@ public class Region implements java.io.Serializable {
 
 	public void setParent_id(Integer parent_id) {
 		this.parent_id = parent_id;
+	}
+
+	@Column(name = "region_code", length = 45)
+	public String getRegion_code() {
+		return region_code;
+	}
+
+	public void setRegion_code(String region_code) {
+		this.region_code = region_code;
 	}
 
 }

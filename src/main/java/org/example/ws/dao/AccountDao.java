@@ -1,6 +1,6 @@
 package org.example.ws.dao;
 
-import org.example.ws.bean.Account;
+import org.example.ws.domain.Account;
 
 /**
  * @author Dijia.Tang

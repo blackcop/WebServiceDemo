@@ -1,7 +1,7 @@
 package org.example.ws.dao.impl;
 
-import org.example.ws.bean.Kind;
-import org.example.ws.dao.KindDao;;
+import org.example.ws.dao.KindDao;
+import org.example.ws.domain.Kind;
 
 /**
  * @author lvl

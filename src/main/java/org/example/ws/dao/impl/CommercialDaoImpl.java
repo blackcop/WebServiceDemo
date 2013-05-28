@@ -1,7 +1,7 @@
 package org.example.ws.dao.impl;
 
-import org.example.ws.bean.Commercial;
 import org.example.ws.dao.CommercialDao;
+import org.example.ws.domain.Commercial;
 
 /**
  * @author Dijia.Tang

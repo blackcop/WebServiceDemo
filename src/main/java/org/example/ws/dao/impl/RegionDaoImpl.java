@@ -1,7 +1,7 @@
 package org.example.ws.dao.impl;
 
-import org.example.ws.bean.Region;
 import org.example.ws.dao.RegionDao;
+import org.example.ws.domain.Region;
 
 /**
  * @author lvl

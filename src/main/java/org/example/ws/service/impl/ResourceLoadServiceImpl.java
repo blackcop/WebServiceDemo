@@ -1,6 +1,7 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -9,15 +10,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.example.ws.bean.Advert;
-import org.example.ws.bean.Association;
-import org.example.ws.bean.Region;
-import org.example.ws.bean.Kind;
 import org.example.ws.dao.AdvertDao;
 import org.example.ws.dao.AssociationDao;
 import org.example.ws.dao.KindDao;
-import org.example.ws.dao.PictureDao;
 import org.example.ws.dao.RegionDao;
+import org.example.ws.domain.Advert;
+import org.example.ws.domain.Association;
+import org.example.ws.domain.Kind;
+import org.example.ws.domain.Region;
 import org.example.ws.pojo.AdDto;
 import org.example.ws.pojo.AdInfoDto;
 import org.example.ws.pojo.AssociationDto;
@@ -27,13 +27,12 @@ import org.example.ws.pojo.CategoryInfoDto;
 import org.example.ws.pojo.RegionDto;
 import org.example.ws.pojo.RegionInfoDto;
 import org.example.ws.service.ResourceLoadService;
+import org.example.ws.util.CategoryComparator;
+import org.example.ws.util.ObjectComparator;
+import org.example.ws.util.RegionComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Path("")
 public class ResourceLoadServiceImpl implements ResourceLoadService {
-
-	@Autowired
-	private PictureDao pictureDao;
 
 	@Autowired
 	private AdvertDao advertDao;
@@ -69,6 +68,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		return resp;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/getRegionListOfFirstLevel")
 	@Produces({ "application/json;charset=utf-8" })
@@ -81,16 +81,20 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		for (Region region : regions) {
 			if (region.getIs_parent()) {
 				fieldInfo = new RegionInfoDto();
+				fieldInfo.setRegionCode(region.getRegion_code());
 				fieldInfo.setRegionId(region.getRegion_id());
 				fieldInfo.setRegionName(region.getRegion_name());
 				fieldList.add(fieldInfo);
 			}
 		}
+		ObjectComparator comparator = new RegionComparator();
+		Collections.sort(fieldList, comparator);
 		fieldDto.setFieldList(fieldList);
 		fieldDto.setCount(fieldList.size());
 		return Response.status(Response.Status.OK).entity(fieldDto).build();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/getRegionListOfSecondLevel")
 	@Produces({ "application/json;charset=utf-8" })
@@ -126,16 +130,20 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 					fieldInfo = new RegionInfoDto();
 					fieldInfo.setRegionId(region1.getRegion_id());
 					fieldInfo.setRegionName(region1.getRegion_name());
+					fieldInfo.setRegionCode(region1.getRegion_code());
 					fieldList.add(fieldInfo);
 				}
 			}
 		}
+		ObjectComparator comparator = new RegionComparator();
+		Collections.sort(fieldList, comparator);
 
 		fieldDto.setFieldList(fieldList);
 		fieldDto.setCount(fieldList.size());
 		return Response.status(Response.Status.OK).entity(fieldDto).build();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/getKindListOfSecondLevel")
 	@Produces({ "application/json;charset=utf-8" })
@@ -175,6 +183,8 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 				}
 			}
 		}
+		ObjectComparator comparator = new CategoryComparator();
+		Collections.sort(categoryList, comparator);
 
 		categoryDto.setCategoryList(categoryList);
 		categoryDto.setCount(categoryList.size());
@@ -184,7 +194,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 	@Override
 	@GET
 	@Path("/getAssociationPageInfo")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	public Response getAssociationPageInfo() {
 		AssociationDto assoDto = new AssociationDto();
 		List<AssociationInfoDto> assoList = new ArrayList<AssociationInfoDto>();

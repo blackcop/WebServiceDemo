@@ -1,4 +1,4 @@
-package org.example.ws.bean;
+package org.example.ws.domain;
 
 // default package
 // Generated 2013-5-15 13:47:41 by Hibernate Tools 3.4.0.CR1
@@ -31,6 +31,7 @@ public class Commercial implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer commId;
+	private Integer facId;
 	private Integer pictId;
 	private String name;
 	private String address;
@@ -44,6 +45,7 @@ public class Commercial implements java.io.Serializable {
 	private Double longitude;
 
 	private Double commercialcol;
+	private String phonenumber;
 	private String opentime;
 	private String closetime;
 
@@ -66,6 +68,15 @@ public class Commercial implements java.io.Serializable {
 
 	public void setCommId(Integer commId) {
 		this.commId = commId;
+	}
+
+	@Column(name = "fac_id")
+	public Integer getFacId() {
+		return facId;
+	}
+
+	public void setFacId(Integer facId) {
+		this.facId = facId;
 	}
 
 	@Column(name = "pict_id")
@@ -176,6 +187,15 @@ public class Commercial implements java.io.Serializable {
 		this.commercialcol = commercialcol;
 	}
 
+	@Column(name = "phonenumber", length = 20)
+	public String getPhonenumber() {
+		return this.phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
 	@Column(name = "opentime", length = 20)
 	public String getOpentime() {
 		return this.opentime;
@@ -256,21 +276,6 @@ public class Commercial implements java.io.Serializable {
 
 	public void setIsPrivateRoomEnabled(Boolean isPrivateRoomEnabled) {
 		this.isPrivateRoomEnabled = isPrivateRoomEnabled;
-	}
-
-	@Override
-	public String toString() {
-		return "Commercial [commId=" + commId + ", pictId=" + pictId
-				+ ", name=" + name + ", address=" + address + ", budget="
-				+ budget + ", other=" + other + ", kind1=" + kind1 + ", kind2="
-				+ kind2 + ", region1=" + region1 + ", region2=" + region2
-				+ ", latitude=" + latitude + ", longitude=" + longitude
-				+ ", commercialcol=" + commercialcol + ", opentime=" + opentime
-				+ ", closetime=" + closetime + ", isCardSupported="
-				+ isCardSupported + ", isSmokeEnable=" + isSmokeEnable
-				+ ", isWifiSupported=" + isWifiSupported + ", isJapanese="
-				+ isJapanese + ", isIvoiceSupported=" + isIvoiceSupported
-				+ ", isPrivateRoomEnabled=" + isPrivateRoomEnabled + "]";
 	}
 
 }

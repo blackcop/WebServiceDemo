@@ -40,7 +40,6 @@ public class CouponServiceImpl implements CouponService {
 	@Produces({ "application/json;charset=utf-8" })
 	public Response AddCouponCount(@QueryParam("coupon_id") Integer coupon_id) {
 		AddCouponDto addCoupon = new AddCouponDto();
-		Coupon coupon = couponDao.getObjectById(coupon_id);
 
 		if (coupon_id == null) {
 			addCoupon.setErrorCode("REQ_PARAM_ERROR");
@@ -48,6 +47,7 @@ public class CouponServiceImpl implements CouponService {
 			return Response.status(Response.Status.BAD_REQUEST)
 					.entity(addCoupon).build();
 		}
+		Coupon coupon = couponDao.getObjectById(coupon_id);
 
 		if (coupon == null) {
 			addCoupon.setErrorCode("REQ_RESOURCE_NOT_FOUND");

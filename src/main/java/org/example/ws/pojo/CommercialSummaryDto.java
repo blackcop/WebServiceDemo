@@ -255,4 +255,17 @@ public class CommercialSummaryDto implements Serializable {
 		this.coupons = coupons;
 	}
 
+	@Override
+	public String toString() {
+		return "CommercialSummaryDto [commId=" + commId + ", pictUrl="
+				+ pictUrl + ", name=" + name + ", kind1=" + kind1 + ", kind2="
+				+ kind2 + ", budget=" + budget + ", isCardSupported="
+				+ isCardSupported + ", isSmokeEnable=" + isSmokeEnable
+				+ ", isJapanese=" + isJapanese + ", isIvoiceSupported="
+				+ isIvoiceSupported + ", isWifiSupported=" + isWifiSupported
+				+ ", isPrivateRoomEnabled=" + isPrivateRoomEnabled
+				+ ", address=" + address + ", region1=" + region1
+				+ ", region2=" + region2 + "]";
+	}
+
 }

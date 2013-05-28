@@ -102,6 +102,8 @@ public class CommercialDetailDto implements Serializable {
 
 	private Double longitude;
 
+	private String other;
+
 	private Collection<CouponDto> coupons;
 
 	private Collection<PictureSetDto> pictureSets;
@@ -302,6 +304,30 @@ public class CommercialDetailDto implements Serializable {
 
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
+	}
+
+	@XmlElement(name = "other")
+	public String getOther() {
+		return other;
+	}
+
+	public void setOther(String other) {
+		this.other = other;
+	}
+
+	@Override
+	public String toString() {
+		return "CommercialDetailDto [commId=" + commId + ", pictUrl=" + pictUrl
+				+ ", name=" + name + ", kind1=" + kind1 + ", kind2=" + kind2
+				+ ", budget=" + budget + ", isCardSupported=" + isCardSupported
+				+ ", isSmokeEnable=" + isSmokeEnable + ", isJapanese="
+				+ isJapanese + ", isIvoiceSupported=" + isIvoiceSupported
+				+ ", isWifiSupported=" + isWifiSupported
+				+ ", isPrivateRoomEnabled=" + isPrivateRoomEnabled
+				+ ", address=" + address + ", region1=" + region1
+				+ ", region2=" + region2 + ", opentime=" + opentime
+				+ ", closetime=" + closetime + ", latitude=" + latitude
+				+ ", longitude=" + longitude + "]";
 	}
 
 }

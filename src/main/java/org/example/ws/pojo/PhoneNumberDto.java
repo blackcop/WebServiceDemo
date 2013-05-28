@@ -13,48 +13,61 @@ public class PhoneNumberDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer commId;
+	private Integer phonenumber_id;
 
-	private String phoneNum;
+	private Integer comm_id;
 
-	private String phoneDesc;
+	private String phone_num;
+
+	private String phone_desc;
 
 	public PhoneNumberDto() {
 		super();
 	}
 
-	public PhoneNumberDto(Integer commId, String phoneNum, String phoneDesc) {
+	public PhoneNumberDto(Integer phonenumber_id, Integer comm_id,
+			String phone_num, String phone_desc) {
 		super();
-		this.commId = commId;
-		this.phoneNum = phoneNum;
-		this.phoneDesc = phoneDesc;
+		this.phonenumber_id = phonenumber_id;
+		this.comm_id = comm_id;
+		this.phone_num = phone_num;
+		this.phone_desc = phone_desc;
+	}
+
+	@XmlElement(name = "phonenumber_id")
+	public Integer getPhonenumber_id() {
+		return phonenumber_id;
+	}
+
+	public void setPhonenumber_id(Integer phonenumber_id) {
+		this.phonenumber_id = phonenumber_id;
 	}
 
 	@XmlElement(name = "commercial_id")
-	public Integer getCommId() {
-		return commId;
+	public Integer getComm_id() {
+		return comm_id;
 	}
 
-	public void setCommId(Integer commId) {
-		this.commId = commId;
+	public void setComm_id(Integer comm_id) {
+		this.comm_id = comm_id;
 	}
 
 	@XmlElement(name = "phone_num")
-	public String getPhoneNum() {
-		return phoneNum;
+	public String getPhone_num() {
+		return phone_num;
 	}
 
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
+	public void setPhone_num(String phone_num) {
+		this.phone_num = phone_num;
 	}
 
 	@XmlElement(name = "phone_desc")
-	public String getPhoneDesc() {
-		return phoneDesc;
+	public String getPhone_desc() {
+		return phone_desc;
 	}
 
-	public void setPhoneDesc(String phoneDesc) {
-		this.phoneDesc = phoneDesc;
+	public void setPhone_desc(String phone_desc) {
+		this.phone_desc = phone_desc;
 	}
 
 }

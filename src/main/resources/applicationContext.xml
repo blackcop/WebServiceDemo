@@ -26,7 +26,7 @@
 		destroy-method="close">
 		<!-- 指定连接数据库的驱动 -->
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.168.0.131:3306/shixun"></property>
+		<property name="url" value="jdbc:mysql://10.10.18.150:3306/shixun"></property>
 		<property name="username" value="buynow"></property>
 		<property name="password" value="buynow"></property>
 		<property name="maxActive" value="100"></property>
@@ -55,9 +55,10 @@
 				<value>org.example.ws.bean.Coupon</value>
 				<value>org.example.ws.bean.Picture</value>
 				<value>org.example.ws.bean.PictureSet</value>
-				<value>org.example.ws.bean.Advert</value>		
+				<value>org.example.ws.bean.Advert</value>
 				<value>org.example.ws.bean.Region</value>
 				<value>org.example.ws.bean.Kind</value>
+				<value>org.example.ws.bean.PhoneNumber</value>
 			</list>
 		</property>
 	</bean>
@@ -126,19 +127,14 @@
 	<bean id="KindDao" class="org.example.ws.dao.impl.KindDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	
+
+	<bean id="PhoneNumberDao" class="org.example.ws.dao.impl.PhoneNumberDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
 	<!-- Service配置 -->
 	<bean id="commercialService" class="org.example.ws.service.impl.CommercialServiceImpl">
 	</bean>
-
-	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
-	<bean id="commercialserviceimpl" class="org.example.ws.service.impl.CommercialServiceImpl" />
-	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
-		<jaxrs:serviceBeans>
-			<ref bean="helloWorldRestBean" />
-			<ref bean="commercialserviceimpl" />
-		</jaxrs:serviceBeans>
-	</jaxrs:server>
 
 	<jaxws:server id="helloWorldService"
 		serviceClass="org.example.ws.service.HelloWorldService" address="/helloworld">
@@ -146,6 +142,13 @@
 			<bean class="org.example.ws.service.impl.HelloWorldServiceImpl" />
 		</jaxws:serviceBean>
 	</jaxws:server>
+
+	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
+	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
+		<jaxrs:serviceBeans>
+			<ref bean="helloWorldRestBean" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
 
 	<bean id="ResourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
 	<jaxrs:server id="ResourceLoadService" address="/resourceloadservice">
@@ -165,6 +168,13 @@
 	<jaxrs:server id="AccountService" address="/accountservice">
 		<jaxrs:serviceBeans>
 			<ref bean="AccountServiceBean" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+
+	<bean id="CommercialServiceBean" class="org.example.ws.service.impl.CommercialServiceImpl" />
+	<jaxrs:server id="CommercialService" address="/commercialservice">
+		<jaxrs:serviceBeans>
+			<ref bean="CommercialServiceBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 </beans>

@@ -12,10 +12,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import org.example.ws.bean.Coupon;
-import org.example.ws.bean.Picture;
 import org.example.ws.dao.CouponDao;
 import org.example.ws.dao.PictureDao;
+import org.example.ws.domain.Coupon;
+import org.example.ws.domain.Picture;
 import org.example.ws.pojo.AddCouponDto;
 import org.example.ws.pojo.RecomdCoupnDto;
 import org.example.ws.pojo.RecomdInfoDto;
@@ -26,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author lvl
  * 
  */
-@Path("")
 public class CouponServiceImpl implements CouponService {
 
 	@Autowired

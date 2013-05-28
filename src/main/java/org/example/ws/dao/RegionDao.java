@@ -1,6 +1,6 @@
 package org.example.ws.dao;
 
-import org.example.ws.bean.Region;
+import org.example.ws.domain.Region;
 
 /**
  * @author lvl

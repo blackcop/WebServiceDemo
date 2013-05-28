@@ -33,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author Dijia.Tang
  * 
  */
-@Path("")
 public class CommercialServiceImpl implements CommercialService {
 
 	@Autowired

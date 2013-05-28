@@ -1,6 +1,6 @@
 package org.example.ws.dao;
 
-import org.example.ws.bean.Picture;
+import org.example.ws.domain.Picture;
 
 /**
  * @author Dijia.Tang

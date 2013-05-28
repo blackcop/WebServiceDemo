@@ -17,22 +17,34 @@
     http://www.springframework.org/schema/tx 
 	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
+    <!-- 导入资源 -->
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
-
+	
+	<!-- 扫描上下文 -->
 	<context:component-scan base-package="org.example.ws" />
+	
+	<!-- 属性文件配置 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:database.properties</value>
+		</property>
+	</bean>
+
+    <!-- 数据源配置 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<!-- 指定连接数据库的驱动 -->
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://10.10.18.150:3306/shixun"></property>
-		<property name="username" value="buynow"></property>
-		<property name="password" value="buynow"></property>
-		<property name="maxActive" value="100"></property>
-		<property name="maxIdle" value="30"></property>
-		<property name="maxWait" value="500"></property>
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="maxActive" value="${jdbc.maxActive}"></property>
+		<property name="maxIdle" value="${jdbc.maxIdle}"></property>
+		<property name="maxWait" value="${jdbc.maxWait}"></property>
 	</bean>
+	
 	<!-- 配置sessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -49,20 +61,20 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
-				<value>org.example.ws.bean.Account</value>
-				<value>org.example.ws.bean.Association</value>
-				<value>org.example.ws.bean.Commercial</value>
-				<value>org.example.ws.bean.Coupon</value>
-				<value>org.example.ws.bean.Picture</value>
-				<value>org.example.ws.bean.PictureSet</value>
-				<value>org.example.ws.bean.Advert</value>		
-				<value>org.example.ws.bean.Region</value>
-				<value>org.example.ws.bean.Kind</value>
+				<value>org.example.ws.domain.Account</value>
+				<value>org.example.ws.domain.Association</value>
+				<value>org.example.ws.domain.Commercial</value>
+				<value>org.example.ws.domain.Coupon</value>
+				<value>org.example.ws.domain.Picture</value>
+				<value>org.example.ws.domain.PictureSet</value>
+				<value>org.example.ws.domain.Advert</value>		
+				<value>org.example.ws.domain.Region</value>
+				<value>org.example.ws.domain.Kind</value>
 			</list>
 		</property>
 	</bean>
 
-	<!-- Transaction Manage -->
+	<!-- 事务管理 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -119,52 +131,33 @@
 	<bean id="advertDao" class="org.example.ws.dao.impl.AdvertDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="RegionDao" class="org.example.ws.dao.impl.RegionDaoImpl">
+	<bean id="regionDao" class="org.example.ws.dao.impl.RegionDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<bean id="KindDao" class="org.example.ws.dao.impl.KindDaoImpl">
+	<bean id="kindDao" class="org.example.ws.dao.impl.KindDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
 	<!-- Service配置 -->
-	<bean id="commercialService" class="org.example.ws.service.impl.CommercialServiceImpl">
-	</bean>
-
-	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
 	<bean id="commercialserviceimpl" class="org.example.ws.service.impl.CommercialServiceImpl" />
 	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
 		<jaxrs:serviceBeans>
-			<ref bean="helloWorldRestBean" />
 			<ref bean="commercialserviceimpl" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
-	<jaxws:server id="helloWorldService"
-		serviceClass="org.example.ws.service.HelloWorldService" address="/helloworld">
-		<jaxws:serviceBean>
-			<bean class="org.example.ws.service.impl.HelloWorldServiceImpl" />
-		</jaxws:serviceBean>
-	</jaxws:server>
-
-	<bean id="ResourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
-	<jaxrs:server id="ResourceLoadService" address="/resourceloadservice">
+	<bean id="resourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
+	<jaxrs:server id="resourceLoadService" address="/resourceloadservice">
 		<jaxrs:serviceBeans>
-			<ref bean="ResourceLoadServiceBean" />
+			<ref bean="resourceLoadServiceBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 
-	<bean id="CouponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
-	<jaxrs:server id="CouponService" address="/couponservice">
+	<bean id="couponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
+	<jaxrs:server id="couponService" address="/couponservice">
 		<jaxrs:serviceBeans>
-			<ref bean="CouponServiceBean" />
-		</jaxrs:serviceBeans>
-	</jaxrs:server>
-
-	<bean id="AccountServiceBean" class="org.example.ws.service.impl.AccountServiceImpl" />
-	<jaxrs:server id="AccountService" address="/accountservice">
-		<jaxrs:serviceBeans>
-			<ref bean="AccountServiceBean" />
+			<ref bean="couponServiceBean" />
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
 </beans>

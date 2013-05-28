@@ -2,8 +2,8 @@ package org.example.ws;
 
 import java.util.List;
 
-import org.example.ws.bean.Account;
 import org.example.ws.dao.AccountDao;
+import org.example.ws.domain.Account;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 

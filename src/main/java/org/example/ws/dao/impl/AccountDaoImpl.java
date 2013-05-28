@@ -1,7 +1,7 @@
 package org.example.ws.dao.impl;
 
-import org.example.ws.bean.Account;
 import org.example.ws.dao.AccountDao;
+import org.example.ws.domain.Account;
 
 /**
  * @author Dijia.Tang

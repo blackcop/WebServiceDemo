@@ -81,8 +81,9 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		for (Region region : regions) {
 			if (region.getIs_parent()) {
 				fieldInfo = new RegionInfoDto();
-				fieldInfo.setRegionId(region.getRegion_id());
 				fieldInfo.setRegionName(region.getRegion_name());
+				fieldInfo.setRegionId(region.getRegion_id());
+				fieldInfo.setRegionCode(region.getRegion_code());
 				fieldList.add(fieldInfo);
 			}
 		}

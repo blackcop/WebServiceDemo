@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
  * @author Dijia.Tang
  * 
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked","rawtypes"})
 public class HibernateBaseDaoImpl<T, ID extends Serializable> extends
 		HibernateDaoSupport implements GenericDAO<T, ID> {
 

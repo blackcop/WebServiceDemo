@@ -76,9 +76,9 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		for (Region region : regions) {
 			if (region.getIs_parent()) {
 				fieldInfo = new RegionInfoDto();
-				fieldInfo.setRegionName(region.getRegion_name());
-				fieldInfo.setRegionId(region.getRegion_id());
 				fieldInfo.setRegionCode(region.getRegion_code());
+				fieldInfo.setRegionId(region.getRegion_id());
+				fieldInfo.setRegionName(region.getRegion_name());
 				fieldList.add(fieldInfo);
 			}
 		}
@@ -122,6 +122,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 					fieldInfo = new RegionInfoDto();
 					fieldInfo.setRegionId(region1.getRegion_id());
 					fieldInfo.setRegionName(region1.getRegion_name());
+					fieldInfo.setRegionCode(region1.getRegion_code());
 					fieldList.add(fieldInfo);
 				}
 			}

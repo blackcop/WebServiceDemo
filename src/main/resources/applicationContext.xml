@@ -26,7 +26,7 @@
 		destroy-method="close">
 		<!-- 指定连接数据库的驱动 -->
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://192.168.0.131:3306/shixun"></property>
+		<property name="url" value="jdbc:mysql://10.10.18.150:3306/shixun"></property>
 		<property name="username" value="buynow"></property>
 		<property name="password" value="buynow"></property>
 		<property name="maxActive" value="100"></property>

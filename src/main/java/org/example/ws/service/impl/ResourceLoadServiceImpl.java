@@ -1,6 +1,7 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -26,6 +27,9 @@ import org.example.ws.pojo.CategoryInfoDto;
 import org.example.ws.pojo.RegionDto;
 import org.example.ws.pojo.RegionInfoDto;
 import org.example.ws.service.ResourceLoadService;
+import org.example.ws.util.CategoryComparator;
+import org.example.ws.util.ObjectComparator;
+import org.example.ws.util.RegionComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ResourceLoadServiceImpl implements ResourceLoadService {
@@ -64,6 +68,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		return resp;
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/getRegionListOfFirstLevel")
 	@Produces({ "application/json;charset=utf-8" })
@@ -82,11 +87,14 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 				fieldList.add(fieldInfo);
 			}
 		}
+		ObjectComparator comparator = new RegionComparator();
+		Collections.sort(fieldList, comparator);
 		fieldDto.setFieldList(fieldList);
 		fieldDto.setCount(fieldList.size());
 		return Response.status(Response.Status.OK).entity(fieldDto).build();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/getRegionListOfSecondLevel")
 	@Produces({ "application/json;charset=utf-8" })
@@ -127,12 +135,15 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 				}
 			}
 		}
+		ObjectComparator comparator = new RegionComparator();
+		Collections.sort(fieldList, comparator);
 
 		fieldDto.setFieldList(fieldList);
 		fieldDto.setCount(fieldList.size());
 		return Response.status(Response.Status.OK).entity(fieldDto).build();
 	}
 
+	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/getKindListOfSecondLevel")
 	@Produces({ "application/json;charset=utf-8" })
@@ -172,6 +183,8 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 				}
 			}
 		}
+		ObjectComparator comparator = new CategoryComparator();
+		Collections.sort(categoryList, comparator);
 
 		categoryDto.setCategoryList(categoryList);
 		categoryDto.setCount(categoryList.size());
@@ -181,7 +194,7 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 	@Override
 	@GET
 	@Path("/getAssociationPageInfo")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	public Response getAssociationPageInfo() {
 		AssociationDto assoDto = new AssociationDto();
 		List<AssociationInfoDto> assoList = new ArrayList<AssociationInfoDto>();

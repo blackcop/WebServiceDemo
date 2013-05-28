@@ -71,6 +71,7 @@
 				<value>org.example.ws.domain.Advert</value>
 				<value>org.example.ws.domain.Region</value>
 				<value>org.example.ws.domain.Kind</value>
+				<value>org.example.ws.domain.PhoneNumber</value>
 			</list>
 		</property>
 	</bean>
@@ -145,27 +146,6 @@
 	</bean>
 
 	<!-- Service配置 -->
-	<bean id="commercialserviceimpl" class="org.example.ws.service.impl.CommercialServiceImpl" />
-	<jaxrs:server id="HelloWorldRestService" address="/helloworldrest">
-		<jaxrs:serviceBeans>
-			<ref bean="commercialserviceimpl" />
-		</jaxrs:serviceBeans>
-	</jaxrs:server>
-
-	<jaxws:server id="helloWorldService"
-		serviceClass="org.example.ws.service.HelloWorldService" address="/helloworld">
-		<jaxws:serviceBean>
-			<bean class="org.example.ws.service.impl.HelloWorldServiceImpl" />
-		</jaxws:serviceBean>
-	</jaxws:server>
-
-	<bean id="helloWorldRestBean" class="org.example.ws.service.impl.HelloWorldServiceRestImpl" />
-	<jaxrs:server id="helloWorldRestService" address="/helloworldrest">
-		<jaxrs:serviceBeans>
-			<ref bean="helloWorldRestBean" />
-		</jaxrs:serviceBeans>
-	</jaxrs:server>
-
 	<bean id="resourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
 	<jaxrs:server id="resourceLoadService" address="/resourceloadservice">
 		<jaxrs:serviceBeans>

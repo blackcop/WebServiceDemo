@@ -100,7 +100,7 @@ public class CommercialServiceImpl implements CommercialService {
 
 	@GET
 	@Path("/getCommercialDetail")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	@Override
 	public Response getCommercialDetail(
 			@QueryParam("commercialId") int commercialId) {
@@ -200,7 +200,7 @@ public class CommercialServiceImpl implements CommercialService {
 
 	@GET
 	@Path("/getCommercialsByFilters")
-	@Produces({ "application/json" })
+	@Produces({ "application/json;charset=utf-8" })
 	@Override
 	public Response getCommercialsByFilters(
 			@QueryParam("region_pname") String region_pname,

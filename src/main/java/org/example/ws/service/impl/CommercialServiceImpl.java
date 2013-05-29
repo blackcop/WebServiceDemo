@@ -113,13 +113,13 @@ public class CommercialServiceImpl implements CommercialService {
 					commercial, CommercialDetailDto.class);
 			// System.out.println("commercialDetailDto:->"
 			// + commercialDetailDto.toString());
-			// 获取picture URL
+			// get picture URL
 			if (commercial.getPictId() != null) {
 				Picture picture = pictureDao.getObjectById(commercial
 						.getPictId());
 				commercialDetailDto.setPictUrl(picture.getFile());
 			}
-			// 获取电话号码
+			// get phone number
 			String hql = "from PhoneNumber where comm_id = ?";
 			List<PhoneNumber> pictureNumbers = phoneNumberDao.findListByParams(
 					hql, new Object[] { commercial.getCommId() });
@@ -135,7 +135,7 @@ public class CommercialServiceImpl implements CommercialService {
 				}
 			}
 			commercialDetailDto.setPhonenumbers(phoneNumberDtos);
-			// 获取优惠券
+			// get coupons
 			String hql2 = "from Coupon where commId = ?";
 			List<Coupon> coupons = couponDao.findListByParams(hql2,
 					new Object[] { commercial.getCommId() });
@@ -150,7 +150,7 @@ public class CommercialServiceImpl implements CommercialService {
 				}
 			}
 			commercialDetailDto.setCoupons(couponDtos);
-			// 获取照片集
+			// get picture set
 			String hql3 = "from PictureSet where comm_id = ?";
 			List<PictureSet> pictureSets = pictureSetDao.findListByParams(hql3,
 					new Object[] { commercial.getCommId() });
@@ -162,7 +162,7 @@ public class CommercialServiceImpl implements CommercialService {
 					pictureSet = pictureSets.get(i);
 					pictureSetDto = dozerBeanUtil.convert(pictureSet,
 							PictureSetDto.class);
-					// 获取数据集中的详细图片
+					// get the pictures in picture set
 					// ------start------
 					String hql4 = "from Picture where pictureSetId = ?";
 					List<Picture> pictures = pictureDao.findListByParams(hql4,
@@ -275,13 +275,13 @@ public class CommercialServiceImpl implements CommercialService {
 				commercialSummaryDto = dozerBeanUtil.convert(commercial,
 						CommercialSummaryDto.class);
 				// System.out.println(commercialSummaryDto.toString());
-				// 获取picture URL
+				// get picture URL
 				if (commercial.getPictId() != null) {
 					Picture picture = pictureDao.getObjectById(commercial
 							.getPictId());
 					commercialSummaryDto.setPictUrl(picture.getFile());
 				}
-				// 获取电话号码
+				// get phone number
 				String hql = "from PhoneNumber where comm_id = ?";
 				List<PhoneNumber> pictureNumbers = phoneNumberDao
 						.findListByParams(hql,
@@ -299,7 +299,7 @@ public class CommercialServiceImpl implements CommercialService {
 				}
 				commercialSummaryDto.setPhonenumbers(phoneNumberDtos);
 
-				// 获取优惠券
+				// get coupon
 				String hql2 = "from Coupon where commId = ?";
 				List<Coupon> coupons = couponDao.findListByParams(hql2,
 						new Object[] { commercial.getCommId() });

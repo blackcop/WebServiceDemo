@@ -118,6 +118,8 @@ public class CommercialServiceImpl implements CommercialService {
 				Picture picture = pictureDao.getObjectById(commercial
 						.getPictId());
 				commercialDetailDto.setPictUrl(picture.getFile());
+			} else {
+				commercialDetailDto.setPictUrl("");
 			}
 			// get phone number
 			String hql = "from PhoneNumber where comm_id = ?";
@@ -211,30 +213,62 @@ public class CommercialServiceImpl implements CommercialService {
 			@QueryParam("isWifiSupported") Boolean isWifiSupported,
 			@QueryParam("isJapanese") Boolean isJapanese,
 			@QueryParam("isIvoiceSupported") Boolean isIvoiceSupported,
-			@QueryParam("isPrivateRoomEnabled") Boolean isPrivateRoomEnabled) {
+			@QueryParam("isPrivateRoomEnabled") Boolean isPrivateRoomEnabled,
+			@QueryParam("keyWord") String keyWord) {
 		CommercialSummarysResultDto result = new CommercialSummarysResultDto();
 		try {
 			List<Object> paramList = new ArrayList<Object>();
 			StringBuilder sb = new StringBuilder("from Commercial where 1 = 1 ");
-			if (region_pname != null && !region_pname.equals("")) {
+			if (region_pname != null && !region_pname.trim().equals("")) {
 				paramList.add(region_pname);
 				sb.append(" and region1 = ? ");
 			}
-			if (region_cname != null && !region_cname.equals("")) {
+			if (region_cname != null && !region_cname.trim().equals("")) {
 				paramList.add(region_cname);
 				sb.append(" and region2 = ? ");
 			}
-			if (kind_pname != null && !kind_pname.equals("")) {
+			if (kind_pname != null && !kind_pname.trim().equals("")) {
 				paramList.add(kind_pname);
-				sb.append(" and region1 = ? ");
+				sb.append(" and kind1 = ? ");
 			}
-			if (kind_cname != null && !kind_cname.equals("")) {
+			if (kind_cname != null && !kind_cname.trim().equals("")) {
 				paramList.add(kind_cname);
-				sb.append(" and region2 = ? ");
+				sb.append(" and kind2 = ? ");
 			}
 			if (budget != null && !budget.equals("")) {
-				paramList.add(budget);
-				sb.append(" and budget = ? ");
+				Integer min_budget = 0;
+				Integer max_budget = 0;
+				if (budget == 1) {
+					min_budget = 30;
+					max_budget = 50;
+				} else if (budget == 2) {
+					min_budget = 50;
+					max_budget = 80;
+				} else if (budget == 3) {
+					min_budget = 80;
+					max_budget = 120;
+				} else if (budget == 4) {
+					min_budget = 120;
+					max_budget = 200;
+				} else if (budget == 5) {
+					min_budget = 200;
+					max_budget = 300;
+				} else if (budget == 6) {
+					min_budget = 300;
+					max_budget = 500;
+				} else if (budget == 7) {
+					min_budget = 500;
+					max_budget = Integer.MAX_VALUE;
+				} else {
+					result.setErrorCode("404");
+					result.setErrorMsg("the param budget is out of bounds.");
+					Response response = Response.status(404).build();
+					return response;
+				}
+				paramList.add(min_budget);
+				paramList.add(max_budget);
+				sb.append(" and budget >= ? ");
+				sb.append(" and budget <= ? ");
 			}
 			if (isCardSupported != null && !isCardSupported.equals("")) {
 				paramList.add(isCardSupported);
@@ -260,6 +294,16 @@ public class CommercialServiceImpl implements CommercialService {
 					&& !isPrivateRoomEnabled.equals("")) {
 				paramList.add(isPrivateRoomEnabled);
 				sb.append(" and isPrivateRoomEnabled = ? ");
+			}
+			if (keyWord != null && !keyWord.trim().equals("")) {
+				StringBuilder keyWordSB = new StringBuilder();
+				keyWordSB.append("%");
+				keyWordSB.append(keyWord);
+				keyWordSB.append("%");
+				System.out.println(keyWordSB.toString());
+				paramList.add(keyWordSB.toString());
+				paramList.add(keyWordSB.toString());
+				sb.append(" and (name like ? or address like ?)");
 			}
 			Object[] params = new Object[paramList.size()];
 			for (int i = 0; i < paramList.size(); i++) {
@@ -327,6 +371,5 @@ public class CommercialServiceImpl implements CommercialService {
 			Response response = Response.status(500).build();
 			return response;
 		}
-
 	}
 }

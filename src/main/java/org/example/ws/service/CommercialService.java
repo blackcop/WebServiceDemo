@@ -14,5 +14,5 @@ public interface CommercialService {
 			String region_cname, String kind_pname, String kind_cname,
 			Integer budget, Boolean isCardSupported, Boolean isSmokeEnable,
 			Boolean isWifiSupported, Boolean isJapanese,
-			Boolean isIvoiceSupported, Boolean isPrivateRoomEnabled);
+			Boolean isIvoiceSupported, Boolean isPrivateRoomEnabled,String keyWord);
 }

@@ -15,6 +15,19 @@
 		<cxf.version>2.5.1</cxf.version>
 		<spring.version>3.0.7.RELEASE</spring.version>
 	</properties>
+	<build>
+	<plugins>
+		<plugin>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>tomcat-maven-plugin</artifactId>
+			<configuration>
+				<url>http://10.10.18.152:8080/manager</url>
+				<server>myserver</server>
+				<path>/WebServiceDemo</path>
+			</configuration>
+		</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 

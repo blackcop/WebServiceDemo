@@ -105,97 +105,105 @@ public class CommercialServiceImpl implements CommercialService {
 	public Response getCommercialDetail(
 			@QueryParam("commercialId") int commercialId) {
 		CommercialDetailResultDto result = new CommercialDetailResultDto();
-		// CommercialDetailDto commercialDetailDto = new CommercialDetailDto();
-		Commercial commercial = commercialDao.getObjectById(commercialId);
-		if (commercial != null) {
-			// System.out.println("commercial:->" + commercial.toString());
-			CommercialDetailDto commercialDetailDto = dozerBeanUtil.convert(
-					commercial, CommercialDetailDto.class);
-			// System.out.println("commercialDetailDto:->"
-			// + commercialDetailDto.toString());
-			// get picture URL
-			if (commercial.getPictId() != null) {
-				Picture picture = pictureDao.getObjectById(commercial
-						.getPictId());
-				commercialDetailDto.setPictUrl(picture.getFile());
-			} else {
-				commercialDetailDto.setPictUrl("");
-			}
-			// get phone number
-			String hql = "from PhoneNumber where comm_id = ?";
-			List<PhoneNumber> pictureNumbers = phoneNumberDao.findListByParams(
-					hql, new Object[] { commercial.getCommId() });
-			List<PhoneNumberDto> phoneNumberDtos = new ArrayList<PhoneNumberDto>();
-			if (pictureNumbers != null && pictureNumbers.size() != 0) {
-				PhoneNumber phoneNumber = null;
-				PhoneNumberDto phoneNumberDto = null;
-				for (int i = 0; i < pictureNumbers.size(); i++) {
-					phoneNumber = pictureNumbers.get(i);
-					phoneNumberDto = dozerBeanUtil.convert(phoneNumber,
-							PhoneNumberDto.class);
-					phoneNumberDtos.add(phoneNumberDto);
+		try {
+			// CommercialDetailDto commercialDetailDto = new
+			// CommercialDetailDto();
+			Commercial commercial = commercialDao.getObjectById(commercialId);
+			if (commercial != null) {
+				// System.out.println("commercial:->" + commercial.toString());
+				CommercialDetailDto commercialDetailDto = dozerBeanUtil
+						.convert(commercial, CommercialDetailDto.class);
+				// System.out.println("commercialDetailDto:->"
+				// + commercialDetailDto.toString());
+				// get picture URL
+				if (commercial.getPictId() != null) {
+					Picture picture = pictureDao.getObjectById(commercial
+							.getPictId());
+					commercialDetailDto.setPictUrl(picture.getFile());
 				}
-			}
-			commercialDetailDto.setPhonenumbers(phoneNumberDtos);
-			// get coupons
-			String hql2 = "from Coupon where commId = ?";
-			List<Coupon> coupons = couponDao.findListByParams(hql2,
-					new Object[] { commercial.getCommId() });
-			List<CouponDto> couponDtos = new ArrayList<CouponDto>();
-			if (coupons != null && coupons.size() != 0) {
-				Coupon coupon = null;
-				CouponDto couponDto = null;
-				for (int i = 0; i < coupons.size(); i++) {
-					coupon = coupons.get(i);
-					couponDto = dozerBeanUtil.convert(coupon, CouponDto.class);
-					couponDtos.add(couponDto);
-				}
-			}
-			commercialDetailDto.setCoupons(couponDtos);
-			// get picture set
-			String hql3 = "from PictureSet where comm_id = ?";
-			List<PictureSet> pictureSets = pictureSetDao.findListByParams(hql3,
-					new Object[] { commercial.getCommId() });
-			List<PictureSetDto> pictureSetDtos = new ArrayList<PictureSetDto>();
-			if (pictureSets != null && pictureSets.size() != 0) {
-				PictureSet pictureSet = null;
-				PictureSetDto pictureSetDto = null;
-				for (int i = 0; i < pictureSets.size(); i++) {
-					pictureSet = pictureSets.get(i);
-					pictureSetDto = dozerBeanUtil.convert(pictureSet,
-							PictureSetDto.class);
-					// get the pictures in picture set
-					// ------start------
-					String hql4 = "from Picture where pictureSetId = ?";
-					List<Picture> pictures = pictureDao.findListByParams(hql4,
-							new Object[] { pictureSetDto.getPsId() });
-					List<PictureDto> pictureDtos = new ArrayList<PictureDto>();
-					if (pictures != null && pictures.size() != 0) {
-						Picture picture = null;
-						PictureDto pictureDto = null;
-						for (int j = 0; j < pictures.size(); j++) {
-							picture = pictures.get(j);
-							pictureDto = dozerBeanUtil.convert(picture,
-									PictureDto.class);
-							pictureDtos.add(pictureDto);
-						}
+				// get phone number
+				String hql = "from PhoneNumber where comm_id = ?";
+				List<PhoneNumber> pictureNumbers = phoneNumberDao
+						.findListByParams(hql,
+								new Object[] { commercial.getCommId() });
+				List<PhoneNumberDto> phoneNumberDtos = new ArrayList<PhoneNumberDto>();
+				if (pictureNumbers != null && pictureNumbers.size() != 0) {
+					PhoneNumber phoneNumber = null;
+					PhoneNumberDto phoneNumberDto = null;
+					for (int i = 0; i < pictureNumbers.size(); i++) {
+						phoneNumber = pictureNumbers.get(i);
+						phoneNumberDto = dozerBeanUtil.convert(phoneNumber,
+								PhoneNumberDto.class);
+						phoneNumberDtos.add(phoneNumberDto);
 					}
-					// ------end------
-					pictureSetDto.setPictures(pictureDtos);
 				}
-				pictureSetDtos.add(pictureSetDto);
+				commercialDetailDto.setPhonenumbers(phoneNumberDtos);
+				// get coupons
+				String hql2 = "from Coupon where commId = ?";
+				List<Coupon> coupons = couponDao.findListByParams(hql2,
+						new Object[] { commercial.getCommId() });
+				List<CouponDto> couponDtos = new ArrayList<CouponDto>();
+				if (coupons != null && coupons.size() != 0) {
+					Coupon coupon = null;
+					CouponDto couponDto = null;
+					for (int i = 0; i < coupons.size(); i++) {
+						coupon = coupons.get(i);
+						couponDto = dozerBeanUtil.convert(coupon,
+								CouponDto.class);
+						couponDtos.add(couponDto);
+					}
+				}
+				commercialDetailDto.setCoupons(couponDtos);
+				// get picture set
+				String hql3 = "from PictureSet where comm_id = ?";
+				List<PictureSet> pictureSets = pictureSetDao.findListByParams(
+						hql3, new Object[] { commercial.getCommId() });
+				List<PictureSetDto> pictureSetDtos = new ArrayList<PictureSetDto>();
+				if (pictureSets != null && pictureSets.size() != 0) {
+					PictureSet pictureSet = null;
+					PictureSetDto pictureSetDto = null;
+					for (int i = 0; i < pictureSets.size(); i++) {
+						pictureSet = pictureSets.get(i);
+						pictureSetDto = dozerBeanUtil.convert(pictureSet,
+								PictureSetDto.class);
+						// get the pictures in picture set
+						// ------start------
+						String hql4 = "from Picture where pictureSetId = ?";
+						List<Picture> pictures = pictureDao.findListByParams(
+								hql4, new Object[] { pictureSetDto.getPsId() });
+						List<PictureDto> pictureDtos = new ArrayList<PictureDto>();
+						if (pictures != null && pictures.size() != 0) {
+							Picture picture = null;
+							PictureDto pictureDto = null;
+							for (int j = 0; j < pictures.size(); j++) {
+								picture = pictures.get(j);
+								pictureDto = dozerBeanUtil.convert(picture,
+										PictureDto.class);
+								pictureDtos.add(pictureDto);
+							}
+						}
+						// ------end------
+						pictureSetDto.setPictures(pictureDtos);
+					}
+					pictureSetDtos.add(pictureSetDto);
+				}
+				commercialDetailDto.setPictureSets(pictureSetDtos);
+				result.setCommercialDetailDto(commercialDetailDto);
+				result.setCount(1);
+				return Response.ok(result).build();
+			} else {
+				result.setErrorCode("404");
+				result.setErrorMsg("NOT FOUND");
+				return Response.status(Response.Status.NOT_FOUND)
+						.entity(result).build();
 			}
-			commercialDetailDto.setPictureSets(pictureSetDtos);
-			result.setCommercialDetailDto(commercialDetailDto);
-			result.setCount(1);
-			return Response.ok(result).build();
-		} else {
-			result.setErrorCode("404");
-			result.setErrorMsg("NOT FOUND");
-			Response response = Response.status(404).build();
-			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setErrorCode("500");
+			result.setErrorMsg("Get Failed");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(result).build();
 		}
-
 	}
 
 	@GET
@@ -262,8 +270,8 @@ public class CommercialServiceImpl implements CommercialService {
 				} else {
 					result.setErrorCode("404");
 					result.setErrorMsg("the param budget is out of bounds.");
-					Response response = Response.status(404).build();
-					return response;
+					return Response.status(Response.Status.NOT_FOUND)
+							.entity(result).build();
 				}
 				paramList.add(min_budget);
 				paramList.add(max_budget);
@@ -301,8 +309,8 @@ public class CommercialServiceImpl implements CommercialService {
 				keyWordSB.append(keyWord);
 				keyWordSB.append("%");
 				System.out.println(keyWordSB.toString());
-				paramList.add(keyWordSB.toString());
-				paramList.add(keyWordSB.toString());
+				paramList.add(keyWordSB.toString().trim());
+				paramList.add(keyWordSB.toString().trim());
 				sb.append(" and (name like ? or address like ?)");
 			}
 			Object[] params = new Object[paramList.size()];
@@ -368,8 +376,8 @@ public class CommercialServiceImpl implements CommercialService {
 			e.printStackTrace();
 			result.setErrorCode("500");
 			result.setErrorMsg("Get Failed");
-			Response response = Response.status(500).build();
-			return response;
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(result).build();
 		}
 	}
 }

@@ -108,13 +108,11 @@ public class CommercialServiceImpl implements CommercialService {
 		// CommercialDetailDto commercialDetailDto = new CommercialDetailDto();
 		Commercial commercial = commercialDao.getObjectById(commercialId);
 		if (commercial != null) {
-			// TODO delete syso
-			System.out.println("commercial:->" + commercial.toString());
+			// System.out.println("commercial:->" + commercial.toString());
 			CommercialDetailDto commercialDetailDto = dozerBeanUtil.convert(
 					commercial, CommercialDetailDto.class);
-			// TODO delete syso
-			System.out.println("commercialDetailDto:->"
-					+ commercialDetailDto.toString());
+			// System.out.println("commercialDetailDto:->"
+			// + commercialDetailDto.toString());
 			// 获取picture URL
 			if (commercial.getPictId() != null) {
 				Picture picture = pictureDao.getObjectById(commercial
@@ -276,8 +274,7 @@ public class CommercialServiceImpl implements CommercialService {
 				commercial = commercials.get(j);
 				commercialSummaryDto = dozerBeanUtil.convert(commercial,
 						CommercialSummaryDto.class);
-				// TODO syso
-				System.out.println(commercialSummaryDto.toString());
+				// System.out.println(commercialSummaryDto.toString());
 				// 获取picture URL
 				if (commercial.getPictId() != null) {
 					Picture picture = pictureDao.getObjectById(commercial

@@ -176,7 +176,7 @@ public class Commercial implements java.io.Serializable {
 		this.commercialcol = commercialcol;
 	}
 
-	@Column(name = "opentime", length = 20)
+	@Column(name = "opentime", length = 100)
 	public String getOpentime() {
 		return this.opentime;
 	}

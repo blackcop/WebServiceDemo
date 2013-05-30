@@ -8,17 +8,18 @@ import org.example.ws.util.BaseRestResponse;
 @XmlRootElement(name="result")
 public class RecomdCoupnDto extends BaseRestResponse{
 	private List<RecomdInfoDto> coupon_list;
-	private int own_count;
+	private Integer count;
 	
 	
-	@XmlElement(name = "own_count")
-	public int getOwn_count() {
-		return own_count;
+	@XmlElement(name = "count")
+	public Integer getCount() {
+		return count;
 	}
 
-	public void setOwn_count(int own_count) {
-		this.own_count = own_count;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
+
 	@XmlElement(name = "coupon_list")
 	public List<RecomdInfoDto> getCoupon_list() {
 		return coupon_list;

@@ -14,14 +14,18 @@ import javax.ws.rs.core.Response;
 
 import org.example.ws.dao.CommercialDao;
 import org.example.ws.dao.CouponDao;
+import org.example.ws.dao.KindDao;
 import org.example.ws.dao.PhoneNumberDao;
 import org.example.ws.dao.PictureDao;
 import org.example.ws.dao.PictureSetDao;
+import org.example.ws.dao.RegionDao;
 import org.example.ws.domain.Commercial;
 import org.example.ws.domain.Coupon;
+import org.example.ws.domain.Kind;
 import org.example.ws.domain.PhoneNumber;
 import org.example.ws.domain.Picture;
 import org.example.ws.domain.PictureSet;
+import org.example.ws.domain.Region;
 import org.example.ws.pojo.CommercialDetailDto;
 import org.example.ws.pojo.CommercialDetailResultDto;
 import org.example.ws.pojo.CommercialSummaryDto;
@@ -58,6 +62,12 @@ public class CommercialServiceImpl implements CommercialService {
 
 	@Autowired
 	private PhoneNumberDao phoneNumberDao;
+
+	@Autowired
+	private KindDao kindDao;
+
+	@Autowired
+	private RegionDao regionDao;
 
 	@Autowired
 	private DozerBeanUtil dozerBeanUtil;
@@ -119,6 +129,26 @@ public class CommercialServiceImpl implements CommercialService {
 						.convert(commercial, CommercialDetailDto.class);
 				commercialDetailDto.setBudget("￥"
 						+ commercial.getBudget().toString());
+				if (commercial.getKind_id() != null) {
+					Kind kind2 = kindDao.getObjectById(commercial.getKind_id());
+					commercialDetailDto.setKind2(kind2.getKind_name());
+					Kind kind1 = kindDao.getObjectById(kind2.getParent_id());
+					commercialDetailDto.setKind1(kind1.getKind_name());
+				} else {
+					commercialDetailDto.setKind1("");
+					commercialDetailDto.setKind2("");
+				}
+				if (commercial.getRegion_id() != null) {
+					Region region2 = regionDao.getObjectById(commercial
+							.getRegion_id());
+					commercialDetailDto.setRegion2(region2.getRegion_name());
+					Region region1 = regionDao.getObjectById(region2
+							.getParent_id());
+					commercialDetailDto.setRegion1(region1.getRegion_name());
+				} else {
+					commercialDetailDto.setRegion1("");
+					commercialDetailDto.setRegion2("");
+				}
 				// System.out.println("commercialDetailDto:->"
 				// + commercialDetailDto.toString());
 				// get picture URL
@@ -345,6 +375,27 @@ public class CommercialServiceImpl implements CommercialService {
 						CommercialSummaryDto.class);
 				commercialSummaryDto.setBudget("￥"
 						+ commercial.getBudget().toString());
+				if (commercial.getKind_id() != null) {
+					Kind kind2 = kindDao.getObjectById(commercial.getKind_id());
+					commercialSummaryDto.setKind2(kind2.getKind_name());
+					Kind kind1 = kindDao.getObjectById(kind2.getParent_id());
+					commercialSummaryDto.setKind1(kind1.getKind_name());
+				} else {
+					commercialSummaryDto.setKind1("");
+					commercialSummaryDto.setKind2("");
+				}
+				if (commercial.getRegion_id() != null) {
+					Region region2 = regionDao.getObjectById(commercial
+							.getRegion_id());
+					commercialSummaryDto.setRegion2(region2.getRegion_name());
+					Region region1 = regionDao.getObjectById(region2
+							.getParent_id());
+					commercialSummaryDto.setRegion1(region1.getRegion_name());
+				} else {
+					commercialSummaryDto.setRegion1("");
+					commercialSummaryDto.setRegion2("");
+				}
+
 				// System.out.println(commercialSummaryDto.toString());
 				// get picture URL
 				if (commercial.getPictId() != null) {

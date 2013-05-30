@@ -110,6 +110,10 @@
 	<!-- singleton="true" -->
 	<bean id="dozerBeanUtil" class="org.example.ws.util.DozerBeanUtil"
 		autowire="byType" />
+		
+	<!-- <bean id="jAXBContextResolver" class="org.example.ws.util.JAXBContextResolver" /> -->
+	<!--jackson json provider  -->
+	<!-- <bean id="jacksonJsonProvider" class="org.example.ws.util.CustomJsonProvider" /> -->
 
 	<!-- Dao配置 -->
 	<bean id="accountDao" class="org.example.ws.dao.impl.AccountDaoImpl">
@@ -144,6 +148,9 @@
 	<bean id="PhoneNumberDao" class="org.example.ws.dao.impl.PhoneNumberDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
+	
+	<!-- 定制的json支持,可以解决单一元素以及空元素数组json的问题 -->
+	<bean id="jacksonJsonProvider" class="org.example.ws.util.CustomJsonProvider" />
 
 	<!-- Service配置 -->
 	<bean id="resourceLoadServiceBean" class="org.example.ws.service.impl.ResourceLoadServiceImpl" />
@@ -151,13 +158,19 @@
 		<jaxrs:serviceBeans>
 			<ref bean="resourceLoadServiceBean" />
 		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jacksonJsonProvider" />
+		</jaxrs:providers>
 	</jaxrs:server>
-
+	
 	<bean id="couponServiceBean" class="org.example.ws.service.impl.CouponServiceImpl" />
 	<jaxrs:server id="couponService" address="/couponservice">
 		<jaxrs:serviceBeans>
 			<ref bean="couponServiceBean" />
 		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jacksonJsonProvider" />
+		</jaxrs:providers>
 	</jaxrs:server>
 
 	<bean id="commercialServiceBean" class="org.example.ws.service.impl.CommercialServiceImpl" />
@@ -165,5 +178,8 @@
 		<jaxrs:serviceBeans>
 			<ref bean="commercialServiceBean" />
 		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<ref bean="jacksonJsonProvider" />
+		</jaxrs:providers>
 	</jaxrs:server>
 </beans>

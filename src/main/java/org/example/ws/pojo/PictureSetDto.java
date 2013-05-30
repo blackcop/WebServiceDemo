@@ -1,40 +1,43 @@
 package org.example.ws.pojo;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "PictureSet")
+/**
+ * @author Dijia.Tang
+ * 
+ */
+@XmlRootElement(name = "pictureset")
 public class PictureSetDto implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Integer psId;
-	private Integer comm_id;
+	// private Integer psId;
+	// private Integer comm_id;
 	private String name;
-	private Collection<PictureDto> pictures;
+	private PicturesDto picturesDto;
 
-	@XmlElement(name = "picture_set_id")
-	public Integer getPsId() {
-		return psId;
-	}
+	// @XmlElement(name = "picture_set_id")
+	// public Integer getPsId() {
+	// return psId;
+	// }
+	//
+	// public void setPsId(Integer psId) {
+	// this.psId = psId;
+	// }
 
-	public void setPsId(Integer psId) {
-		this.psId = psId;
-	}
-
-	@XmlElement(name = "commercial_id")
-	public Integer getComm_id() {
-		return comm_id;
-	}
-
-	public void setComm_id(Integer comm_id) {
-		this.comm_id = comm_id;
-	}
+	// @XmlElement(name = "commercial_id")
+	// public Integer getComm_id() {
+	// return comm_id;
+	// }
+	//
+	// public void setComm_id(Integer comm_id) {
+	// this.comm_id = comm_id;
+	// }
 
 	@XmlElement(name = "picture_set_name")
 	public String getName() {
@@ -46,12 +49,12 @@ public class PictureSetDto implements Serializable {
 	}
 
 	@XmlElement(name = "pictures")
-	public Collection<PictureDto> getPictures() {
-		return pictures;
+	public PicturesDto getPicturesDto() {
+		return picturesDto;
 	}
 
-	public void setPictures(Collection<PictureDto> pictures) {
-		this.pictures = pictures;
+	public void setPicturesDto(PicturesDto picturesDto) {
+		this.picturesDto = picturesDto;
 	}
 
 }

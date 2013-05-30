@@ -1,11 +1,14 @@
 package org.example.ws.pojo;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author Dijia.Tang
+ * 
+ */
 @XmlRootElement(name = "commercial_detail")
 public class CommercialDetailDto implements Serializable {
 
@@ -42,7 +45,7 @@ public class CommercialDetailDto implements Serializable {
 	/**
 	 * 预算
 	 */
-	private Integer budget;
+	private String budget;
 
 	/**
 	 * 可否刷卡
@@ -82,7 +85,7 @@ public class CommercialDetailDto implements Serializable {
 	/**
 	 * 电话号码
 	 */
-	private Collection<PhoneNumberDto> phonenumbers;
+	private PhoneNumbersDto phoneNumbersDto;
 
 	/**
 	 * 一级地区名称
@@ -96,17 +99,15 @@ public class CommercialDetailDto implements Serializable {
 
 	private String opentime;
 
-	private String closetime;
-
 	private Double latitude;
 
 	private Double longitude;
 
 	private String other;
 
-	private Collection<CouponDto> coupons;
+	private CouponsDto couponsDto;
 
-	private Collection<PictureSetDto> pictureSets;
+	private PictureSetsDto pictureSetsDto;
 
 	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
@@ -154,11 +155,11 @@ public class CommercialDetailDto implements Serializable {
 	}
 
 	@XmlElement(name = "budget")
-	public Integer getBudget() {
+	public String getBudget() {
 		return budget;
 	}
 
-	public void setBudget(Integer budget) {
+	public void setBudget(String budget) {
 		this.budget = budget;
 	}
 
@@ -244,30 +245,30 @@ public class CommercialDetailDto implements Serializable {
 	}
 
 	@XmlElement(name = "coupons")
-	public Collection<CouponDto> getCoupons() {
-		return coupons;
+	public CouponsDto getCouponsDto() {
+		return couponsDto;
 	}
 
-	public void setCoupons(Collection<CouponDto> coupons) {
-		this.coupons = coupons;
+	public void setCouponsDto(CouponsDto couponsDto) {
+		this.couponsDto = couponsDto;
 	}
 
 	@XmlElement(name = "picture_sets")
-	public Collection<PictureSetDto> getPictureSets() {
-		return pictureSets;
+	public PictureSetsDto getPictureSetsDto() {
+		return pictureSetsDto;
 	}
 
-	public void setPictureSets(Collection<PictureSetDto> pictureSets) {
-		this.pictureSets = pictureSets;
+	public void setPictureSetsDto(PictureSetsDto pictureSetsDto) {
+		this.pictureSetsDto = pictureSetsDto;
 	}
 
 	@XmlElement(name = "phone_numbers")
-	public Collection<PhoneNumberDto> getPhonenumbers() {
-		return phonenumbers;
+	public PhoneNumbersDto getPhoneNumbersDto() {
+		return phoneNumbersDto;
 	}
 
-	public void setPhonenumbers(Collection<PhoneNumberDto> phonenumbers) {
-		this.phonenumbers = phonenumbers;
+	public void setPhoneNumbersDto(PhoneNumbersDto phoneNumbersDto) {
+		this.phoneNumbersDto = phoneNumbersDto;
 	}
 
 	@XmlElement(name = "opentime")
@@ -277,15 +278,6 @@ public class CommercialDetailDto implements Serializable {
 
 	public void setOpentime(String opentime) {
 		this.opentime = opentime;
-	}
-
-	@XmlElement(name = "closetime")
-	public String getClosetime() {
-		return closetime;
-	}
-
-	public void setClosetime(String closetime) {
-		this.closetime = closetime;
 	}
 
 	@XmlElement(name = "latitude")
@@ -326,8 +318,7 @@ public class CommercialDetailDto implements Serializable {
 				+ ", isPrivateRoomEnabled=" + isPrivateRoomEnabled
 				+ ", address=" + address + ", region1=" + region1
 				+ ", region2=" + region2 + ", opentime=" + opentime
-				+ ", closetime=" + closetime + ", latitude=" + latitude
-				+ ", longitude=" + longitude + "]";
+				+ ", latitude=" + latitude + ", longitude=" + longitude + "]";
 	}
 
 }

@@ -1,15 +1,12 @@
 package org.example.ws.pojo;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * 商铺
- * 
- * @author TDJ
+ * @author Dijia.Tang
  * 
  */
 @XmlRootElement(name = "commercial")
@@ -48,7 +45,7 @@ public class CommercialSummaryDto implements Serializable {
 	/**
 	 * 预算
 	 */
-	private Integer budget;
+	private String budget;
 
 	/**
 	 * 可否刷卡
@@ -86,11 +83,6 @@ public class CommercialSummaryDto implements Serializable {
 	private String address;
 
 	/**
-	 * 电话号码
-	 */
-	private Collection<PhoneNumberDto> phonenumbers;
-
-	/**
 	 * 一级地区名称
 	 */
 	private String region1;
@@ -100,7 +92,12 @@ public class CommercialSummaryDto implements Serializable {
 	 */
 	private String region2;
 
-	private Collection<CouponDto> coupons;
+	/**
+	 * 电话号码数组
+	 */
+	private PhoneNumbersDto phoneNumbersDto;
+
+	private CouponsDto couponsDto;
 
 	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
@@ -148,11 +145,11 @@ public class CommercialSummaryDto implements Serializable {
 	}
 
 	@XmlElement(name = "budget")
-	public Integer getBudget() {
+	public String getBudget() {
 		return budget;
 	}
 
-	public void setBudget(Integer budget) {
+	public void setBudget(String budget) {
 		this.budget = budget;
 	}
 
@@ -237,22 +234,22 @@ public class CommercialSummaryDto implements Serializable {
 		this.region2 = region2;
 	}
 
-	@XmlElement(name = "phone_numbers")
-	public Collection<PhoneNumberDto> getPhonenumbers() {
-		return phonenumbers;
-	}
-
-	public void setPhonenumbers(Collection<PhoneNumberDto> phonenumbers) {
-		this.phonenumbers = phonenumbers;
-	}
-
 	@XmlElement(name = "coupons")
-	public Collection<CouponDto> getCoupons() {
-		return coupons;
+	public CouponsDto getCouponsDto() {
+		return couponsDto;
 	}
 
-	public void setCoupons(Collection<CouponDto> coupons) {
-		this.coupons = coupons;
+	public void setCouponsDto(CouponsDto couponsDto) {
+		this.couponsDto = couponsDto;
+	}
+
+	@XmlElement(name = "phone_numbers")
+	public PhoneNumbersDto getPhoneNumbersDto() {
+		return phoneNumbersDto;
+	}
+
+	public void setPhoneNumbersDto(PhoneNumbersDto phoneNumbersDto) {
+		this.phoneNumbersDto = phoneNumbersDto;
 	}
 
 	@Override

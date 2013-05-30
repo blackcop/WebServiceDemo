@@ -27,9 +27,13 @@ import org.example.ws.pojo.CommercialDetailResultDto;
 import org.example.ws.pojo.CommercialSummaryDto;
 import org.example.ws.pojo.CommercialSummarysResultDto;
 import org.example.ws.pojo.CouponDto;
+import org.example.ws.pojo.CouponsDto;
 import org.example.ws.pojo.PhoneNumberDto;
+import org.example.ws.pojo.PhoneNumbersDto;
 import org.example.ws.pojo.PictureDto;
 import org.example.ws.pojo.PictureSetDto;
+import org.example.ws.pojo.PictureSetsDto;
+import org.example.ws.pojo.PicturesDto;
 import org.example.ws.service.CommercialService;
 import org.example.ws.util.DozerBeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +117,8 @@ public class CommercialServiceImpl implements CommercialService {
 				// System.out.println("commercial:->" + commercial.toString());
 				CommercialDetailDto commercialDetailDto = dozerBeanUtil
 						.convert(commercial, CommercialDetailDto.class);
+				commercialDetailDto.setBudget("￥"
+						+ commercial.getBudget().toString());
 				// System.out.println("commercialDetailDto:->"
 				// + commercialDetailDto.toString());
 				// get picture URL
@@ -120,40 +126,19 @@ public class CommercialServiceImpl implements CommercialService {
 					Picture picture = pictureDao.getObjectById(commercial
 							.getPictId());
 					commercialDetailDto.setPictUrl(picture.getFile());
+				} else {
+					commercialDetailDto.setPictUrl("");
 				}
 				// get phone number
-				String hql = "from PhoneNumber where comm_id = ?";
-				List<PhoneNumber> pictureNumbers = phoneNumberDao
-						.findListByParams(hql,
-								new Object[] { commercial.getCommId() });
-				List<PhoneNumberDto> phoneNumberDtos = new ArrayList<PhoneNumberDto>();
-				if (pictureNumbers != null && pictureNumbers.size() != 0) {
-					PhoneNumber phoneNumber = null;
-					PhoneNumberDto phoneNumberDto = null;
-					for (int i = 0; i < pictureNumbers.size(); i++) {
-						phoneNumber = pictureNumbers.get(i);
-						phoneNumberDto = dozerBeanUtil.convert(phoneNumber,
-								PhoneNumberDto.class);
-						phoneNumberDtos.add(phoneNumberDto);
-					}
-				}
-				commercialDetailDto.setPhonenumbers(phoneNumberDtos);
+				PhoneNumbersDto phoneNumberListDto = getPhoneNumbersDtoByCommercialId(commercial
+						.getCommId());
+				commercialDetailDto.setPhoneNumbersDto(phoneNumberListDto);
+
 				// get coupons
-				String hql2 = "from Coupon where commId = ?";
-				List<Coupon> coupons = couponDao.findListByParams(hql2,
-						new Object[] { commercial.getCommId() });
-				List<CouponDto> couponDtos = new ArrayList<CouponDto>();
-				if (coupons != null && coupons.size() != 0) {
-					Coupon coupon = null;
-					CouponDto couponDto = null;
-					for (int i = 0; i < coupons.size(); i++) {
-						coupon = coupons.get(i);
-						couponDto = dozerBeanUtil.convert(coupon,
-								CouponDto.class);
-						couponDtos.add(couponDto);
-					}
-				}
-				commercialDetailDto.setCoupons(couponDtos);
+				CouponsDto couponsDto = getCouponsDtoByCommercialId(commercial
+						.getCommId());
+				commercialDetailDto.setCouponsDto(couponsDto);
+
 				// get picture set
 				String hql3 = "from PictureSet where comm_id = ?";
 				List<PictureSet> pictureSets = pictureSetDao.findListByParams(
@@ -170,7 +155,7 @@ public class CommercialServiceImpl implements CommercialService {
 						// ------start------
 						String hql4 = "from Picture where pictureSetId = ?";
 						List<Picture> pictures = pictureDao.findListByParams(
-								hql4, new Object[] { pictureSetDto.getPsId() });
+								hql4, new Object[] { pictureSet.getPsId() });
 						List<PictureDto> pictureDtos = new ArrayList<PictureDto>();
 						if (pictures != null && pictures.size() != 0) {
 							Picture picture = null;
@@ -183,24 +168,37 @@ public class CommercialServiceImpl implements CommercialService {
 							}
 						}
 						// ------end------
-						pictureSetDto.setPictures(pictureDtos);
+						PicturesDto picturesDto = new PicturesDto();
+						picturesDto.setPicture_list(pictureDtos);
+						picturesDto.setCount(pictureDtos.size());
+						pictureSetDto.setPicturesDto(picturesDto);
+						//
+						pictureSetDtos.add(pictureSetDto);
 					}
-					pictureSetDtos.add(pictureSetDto);
 				}
-				commercialDetailDto.setPictureSets(pictureSetDtos);
+				PictureSetsDto pictureSetDto = new PictureSetsDto();
+				pictureSetDto.setPictureset_list(pictureSetDtos);
+				pictureSetDto.setCount(pictureSetDtos.size());
+				commercialDetailDto.setPictureSetsDto(pictureSetDto);
 				result.setCommercialDetailDto(commercialDetailDto);
 				result.setCount(1);
 				return Response.ok(result).build();
 			} else {
 				result.setErrorCode("404");
-				result.setErrorMsg("NOT FOUND");
+				result.setErrorMsg("NOT FOUND.");
 				return Response.status(Response.Status.NOT_FOUND)
 						.entity(result).build();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (NumberFormatException e1) {
+			e1.printStackTrace();
 			result.setErrorCode("500");
-			result.setErrorMsg("Get Failed");
+			result.setErrorMsg("Param type is error.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(result).build();
+		} catch (Exception e2) {
+			e2.printStackTrace();
+			result.setErrorCode("500");
+			result.setErrorMsg("Get Failed.");
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(result).build();
 		}
@@ -211,72 +209,77 @@ public class CommercialServiceImpl implements CommercialService {
 	@Produces({ "application/json;charset=utf-8" })
 	@Override
 	public Response getCommercialsByFilters(
-			@QueryParam("region_pname") String region_pname,
-			@QueryParam("region_cname") String region_cname,
-			@QueryParam("kind_pname") String kind_pname,
-			@QueryParam("kind_cname") String kind_cname,
-			@QueryParam("budget") Integer budget,
+			@QueryParam("region_id") String region_id,
+			@QueryParam("kind_id") String kind_id,
+			@QueryParam("budget") String budget,
 			@QueryParam("isCardSupported") Boolean isCardSupported,
 			@QueryParam("isSmokeEnable") Boolean isSmokeEnable,
 			@QueryParam("isWifiSupported") Boolean isWifiSupported,
 			@QueryParam("isJapanese") Boolean isJapanese,
 			@QueryParam("isIvoiceSupported") Boolean isIvoiceSupported,
 			@QueryParam("isPrivateRoomEnabled") Boolean isPrivateRoomEnabled,
-			@QueryParam("keyWord") String keyWord) {
+			@QueryParam("keyWord") String keyWord,
+			@QueryParam("latitude") Double latitude,
+			@QueryParam("longitude") Double longitude) {
 		CommercialSummarysResultDto result = new CommercialSummarysResultDto();
 		try {
 			List<Object> paramList = new ArrayList<Object>();
 			StringBuilder sb = new StringBuilder("from Commercial where 1 = 1 ");
-			if (region_pname != null && !region_pname.trim().equals("")) {
-				paramList.add(region_pname);
-				sb.append(" and region1 = ? ");
+			if (region_id != null && !region_id.equals("")) {
+				paramList.add(Integer.valueOf(region_id));
+				sb.append(" and region_id = ? ");
 			}
-			if (region_cname != null && !region_cname.trim().equals("")) {
-				paramList.add(region_cname);
-				sb.append(" and region2 = ? ");
-			}
-			if (kind_pname != null && !kind_pname.trim().equals("")) {
-				paramList.add(kind_pname);
-				sb.append(" and kind1 = ? ");
-			}
-			if (kind_cname != null && !kind_cname.trim().equals("")) {
-				paramList.add(kind_cname);
-				sb.append(" and kind2 = ? ");
+			if (kind_id != null && !kind_id.equals("")) {
+				String[] kind_ids = kind_id.split(",");
+				for (int i = 0; i < kind_ids.length; i++) {
+					paramList.add(Integer.valueOf(kind_ids[i]));
+					if (i == 0) {
+						sb.append(" and kind_id = ? ");
+					} else {
+						sb.append(" or kind_id = ? ");
+					}
+				}
 			}
 			if (budget != null && !budget.equals("")) {
-				Integer min_budget = 0;
-				Integer max_budget = 0;
-				if (budget == 1) {
-					min_budget = 30;
-					max_budget = 50;
-				} else if (budget == 2) {
-					min_budget = 50;
-					max_budget = 80;
-				} else if (budget == 3) {
-					min_budget = 80;
-					max_budget = 120;
-				} else if (budget == 4) {
-					min_budget = 120;
-					max_budget = 200;
-				} else if (budget == 5) {
-					min_budget = 200;
-					max_budget = 300;
-				} else if (budget == 6) {
-					min_budget = 300;
-					max_budget = 500;
-				} else if (budget == 7) {
-					min_budget = 500;
-					max_budget = Integer.MAX_VALUE;
-				} else {
-					result.setErrorCode("404");
-					result.setErrorMsg("the param budget is out of bounds.");
-					return Response.status(Response.Status.NOT_FOUND)
-							.entity(result).build();
+				String[] budgets = budget.split(",");
+				for (int i = 0; i < budgets.length; i++) {
+					Integer min_budget = 0;
+					Integer max_budget = 0;
+					if (budgets[i].equals("1")) {
+						min_budget = 30;
+						max_budget = 50;
+					} else if (budgets[i].equals("2")) {
+						min_budget = 50;
+						max_budget = 80;
+					} else if (budgets[i].equals("3")) {
+						min_budget = 80;
+						max_budget = 120;
+					} else if (budgets[i].equals("4")) {
+						min_budget = 120;
+						max_budget = 200;
+					} else if (budgets[i].equals("5")) {
+						min_budget = 200;
+						max_budget = 300;
+					} else if (budgets[i].equals("6")) {
+						min_budget = 300;
+						max_budget = 500;
+					} else if (budgets[i].equals("7")) {
+						min_budget = 500;
+						max_budget = Integer.MAX_VALUE;
+					} else {
+						result.setErrorCode("404");
+						result.setErrorMsg("the param budget is out of bounds.");
+						return Response.status(Response.Status.NOT_FOUND)
+								.entity(result).build();
+					}
+					paramList.add(min_budget);
+					paramList.add(max_budget);
+					if (i == 0) {
+						sb.append(" and ( budget >= ? and budget <= ? )");
+					} else {
+						sb.append(" or ( budget >= ? and budget <= ? )");
+					}
 				}
-				paramList.add(min_budget);
-				paramList.add(max_budget);
-				sb.append(" and budget >= ? ");
-				sb.append(" and budget <= ? ");
 			}
 			if (isCardSupported != null && !isCardSupported.equals("")) {
 				paramList.add(isCardSupported);
@@ -308,11 +311,25 @@ public class CommercialServiceImpl implements CommercialService {
 				keyWordSB.append("%");
 				keyWordSB.append(keyWord);
 				keyWordSB.append("%");
-				System.out.println(keyWordSB.toString());
 				paramList.add(keyWordSB.toString().trim());
 				paramList.add(keyWordSB.toString().trim());
 				sb.append(" and (name like ? or address like ?)");
 			}
+
+			if (latitude != null && longitude != null) {
+				//
+				Double minLatitude = latitude - 0.1;
+				Double maxLatitude = latitude + 0.1;
+				Double minLongitude = longitude - 0.1;
+				Double maxLongitude = longitude + 0.1;
+				paramList.add(minLatitude);
+				paramList.add(maxLatitude);
+				paramList.add(minLongitude);
+				paramList.add(maxLongitude);
+				sb.append(" and ( latitude >= ? and latitude <= ? )");
+				sb.append(" and ( longitude >= ? and longitude <= ? )");
+			}
+
 			Object[] params = new Object[paramList.size()];
 			for (int i = 0; i < paramList.size(); i++) {
 				params[i] = paramList.get(i);
@@ -326,58 +343,110 @@ public class CommercialServiceImpl implements CommercialService {
 				commercial = commercials.get(j);
 				commercialSummaryDto = dozerBeanUtil.convert(commercial,
 						CommercialSummaryDto.class);
+				commercialSummaryDto.setBudget("￥"
+						+ commercial.getBudget().toString());
 				// System.out.println(commercialSummaryDto.toString());
 				// get picture URL
 				if (commercial.getPictId() != null) {
 					Picture picture = pictureDao.getObjectById(commercial
 							.getPictId());
 					commercialSummaryDto.setPictUrl(picture.getFile());
+				} else {
+					commercialSummaryDto.setPictUrl("");
 				}
+
 				// get phone number
-				String hql = "from PhoneNumber where comm_id = ?";
-				List<PhoneNumber> pictureNumbers = phoneNumberDao
-						.findListByParams(hql,
-								new Object[] { commercial.getCommId() });
-				List<PhoneNumberDto> phoneNumberDtos = new ArrayList<PhoneNumberDto>();
-				if (pictureNumbers != null && pictureNumbers.size() != 0) {
-					PhoneNumber phoneNumber = null;
-					PhoneNumberDto phoneNumberDto = null;
-					for (int i = 0; i < pictureNumbers.size(); i++) {
-						phoneNumber = pictureNumbers.get(i);
-						phoneNumberDto = dozerBeanUtil.convert(phoneNumber,
-								PhoneNumberDto.class);
-						phoneNumberDtos.add(phoneNumberDto);
-					}
-				}
-				commercialSummaryDto.setPhonenumbers(phoneNumberDtos);
+				PhoneNumbersDto phoneNumberListDto = getPhoneNumbersDtoByCommercialId(commercial
+						.getCommId());
+				commercialSummaryDto.setPhoneNumbersDto(phoneNumberListDto);
 
 				// get coupon
-				String hql2 = "from Coupon where commId = ?";
-				List<Coupon> coupons = couponDao.findListByParams(hql2,
-						new Object[] { commercial.getCommId() });
-				List<CouponDto> couponDtos = new ArrayList<CouponDto>();
-				if (coupons != null && coupons.size() != 0) {
-					Coupon coupon = null;
-					CouponDto couponDto = null;
-					for (int i = 0; i < coupons.size(); i++) {
-						coupon = coupons.get(i);
-						couponDto = dozerBeanUtil.convert(coupon,
-								CouponDto.class);
-						couponDtos.add(couponDto);
-					}
-				}
-				commercialSummaryDto.setCoupons(couponDtos);
+				CouponsDto couponsDto = getCouponsDtoByCommercialId(commercial
+						.getCommId());
+				commercialSummaryDto.setCouponsDto(couponsDto);
+
+				//
 				commercialSummaryDtos.add(commercialSummaryDto);
 			}
 			result.setCommercialSummarys(commercialSummaryDtos);
 			result.setCount(commercialSummaryDtos.size());
 			return Response.ok(result).build();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (NumberFormatException e1) {
+			e1.printStackTrace();
+			result.setErrorCode("500");
+			result.setErrorMsg("Param type is error.");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(result).build();
+		} catch (Exception e2) {
+			e2.printStackTrace();
 			result.setErrorCode("500");
 			result.setErrorMsg("Get Failed");
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(result).build();
 		}
+	}
+
+	/**
+	 * 根据商铺ID，获取商铺的电话号码
+	 * 
+	 * @param commercial_id
+	 * @return
+	 */
+	private PhoneNumbersDto getPhoneNumbersDtoByCommercialId(
+			Integer commercial_id) {
+		String hql = "from PhoneNumber where comm_id = ?";
+		List<PhoneNumber> pictureNumbers = phoneNumberDao.findListByParams(hql,
+				new Object[] { commercial_id });
+		List<PhoneNumberDto> phoneNumberDtoList = new ArrayList<PhoneNumberDto>();
+		if (pictureNumbers != null && pictureNumbers.size() != 0) {
+			PhoneNumber phoneNumber = null;
+			PhoneNumberDto phoneNumberDto = null;
+			for (int i = 0; i < pictureNumbers.size(); i++) {
+				phoneNumber = pictureNumbers.get(i);
+				phoneNumberDto = dozerBeanUtil.convert(phoneNumber,
+						PhoneNumberDto.class);
+				if (phoneNumberDto.getPhone_desc() == null) {
+					phoneNumberDto.setPhone_desc("");
+				}
+				phoneNumberDtoList.add(phoneNumberDto);
+			}
+		}
+		PhoneNumbersDto phoneNumberListDto = new PhoneNumbersDto();
+		phoneNumberListDto.setPhonenumber_list(phoneNumberDtoList);
+		phoneNumberListDto.setCount(phoneNumberDtoList.size());
+		return phoneNumberListDto;
+	}
+
+	/**
+	 * 根据商铺ID，获取商铺的的优惠券
+	 * 
+	 * @param commercial_id
+	 * @return
+	 */
+	private CouponsDto getCouponsDtoByCommercialId(Integer commercial_id) {
+		String hql2 = "from Coupon where commId = ?";
+		List<Coupon> coupons = couponDao.findListByParams(hql2,
+				new Object[] { commercial_id });
+		List<CouponDto> couponDtos = new ArrayList<CouponDto>();
+		if (coupons != null && coupons.size() != 0) {
+			Coupon coupon = null;
+			CouponDto couponDto = null;
+			for (int i = 0; i < coupons.size(); i++) {
+				coupon = coupons.get(i);
+				couponDto = dozerBeanUtil.convert(coupon, CouponDto.class);
+				if (coupon.getPictureId() != null) {
+					Picture picture = pictureDao.getObjectById(coupon
+							.getPictureId());
+					couponDto.setPicture_url(picture.getFile());
+				} else {
+					couponDto.setPicture_url("");
+				}
+				couponDtos.add(couponDto);
+			}
+		}
+		CouponsDto couponsDto = new CouponsDto();
+		couponsDto.setCoupon_list(couponDtos);
+		couponsDto.setCount(couponDtos.size());
+		return couponsDto;
 	}
 }

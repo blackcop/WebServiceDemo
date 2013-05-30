@@ -6,6 +6,10 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author Dijia.Tang
+ * 
+ */
 @XmlRootElement(name = "result")
 public class CouponDto implements Serializable {
 
@@ -15,20 +19,20 @@ public class CouponDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer commId;
-	
+
 	private Integer couponId;
-	
+
 	private String detail;
-	
+
 	private Integer count;
-	
+
 	private String commName;
-	
+
 	private Date beginDate;
-	
+
 	private Date endDate;
-	
-	private Integer pictureId;
+
+	private String picture_url;
 
 	@XmlElement(name = "commercial_id")
 	public Integer getCommId() {
@@ -93,20 +97,13 @@ public class CouponDto implements Serializable {
 		this.endDate = endDate;
 	}
 
-	@XmlElement(name = "picture_id")
-	public Integer getPictureId() {
-		return pictureId;
+	@XmlElement(name = "picture_url")
+	public String getPicture_url() {
+		return picture_url;
 	}
 
-	public void setPictureId(Integer pictureId) {
-		this.pictureId = pictureId;
+	public void setPicture_url(String picture_url) {
+		this.picture_url = picture_url;
 	}
 
-	@Override
-	public String toString() {
-		return "CouponDto [commId=" + commId + ", couponId=" + couponId
-				+ ", detail=" + detail + ", count=" + count + ", commName="
-				+ commName + ", beginDate=" + beginDate + ", endDate="
-				+ endDate + ", pictureId=" + pictureId + "]";
-	}
 }

@@ -8,6 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.example.ws.util.BaseRestResponse;
 
+/**
+ * @author Dijia.Tang
+ * 
+ */
 @XmlRootElement(name = "result")
 public class CommercialSummarysResultDto extends BaseRestResponse implements
 		Serializable {

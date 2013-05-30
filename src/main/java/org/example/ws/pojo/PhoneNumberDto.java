@@ -5,6 +5,10 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * @author Dijia.Tang
+ * 
+ */
 @XmlRootElement(name = "phonenumber")
 public class PhoneNumberDto implements Serializable {
 
@@ -13,9 +17,9 @@ public class PhoneNumberDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer phonenumber_id;
+	// private Integer phonenumber_id;
 
-	private Integer comm_id;
+	// private Integer comm_id;
 
 	private String phone_num;
 
@@ -25,32 +29,23 @@ public class PhoneNumberDto implements Serializable {
 		super();
 	}
 
-	public PhoneNumberDto(Integer phonenumber_id, Integer comm_id,
-			String phone_num, String phone_desc) {
-		super();
-		this.phonenumber_id = phonenumber_id;
-		this.comm_id = comm_id;
-		this.phone_num = phone_num;
-		this.phone_desc = phone_desc;
-	}
-
-	@XmlElement(name = "phonenumber_id")
-	public Integer getPhonenumber_id() {
-		return phonenumber_id;
-	}
-
-	public void setPhonenumber_id(Integer phonenumber_id) {
-		this.phonenumber_id = phonenumber_id;
-	}
-
-	@XmlElement(name = "commercial_id")
-	public Integer getComm_id() {
-		return comm_id;
-	}
-
-	public void setComm_id(Integer comm_id) {
-		this.comm_id = comm_id;
-	}
+	// @XmlElement(name = "phonenumber_id")
+	// public Integer getPhonenumber_id() {
+	// return phonenumber_id;
+	// }
+	//
+	// public void setPhonenumber_id(Integer phonenumber_id) {
+	// this.phonenumber_id = phonenumber_id;
+	// }
+	//
+	// @XmlElement(name = "commercial_id")
+	// public Integer getComm_id() {
+	// return comm_id;
+	// }
+	//
+	// public void setComm_id(Integer comm_id) {
+	// this.comm_id = comm_id;
+	// }
 
 	@XmlElement(name = "phone_num")
 	public String getPhone_num() {

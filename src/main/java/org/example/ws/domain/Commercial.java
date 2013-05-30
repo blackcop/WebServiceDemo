@@ -54,6 +54,9 @@ public class Commercial implements java.io.Serializable {
 	private Boolean isIvoiceSupported;
 	private Boolean isPrivateRoomEnabled;
 
+	private Integer kind_id;
+	private Integer region_id;
+
 	private Set<Account> accounts = new HashSet<Account>();
 
 	@Id
@@ -256,6 +259,24 @@ public class Commercial implements java.io.Serializable {
 
 	public void setIsPrivateRoomEnabled(Boolean isPrivateRoomEnabled) {
 		this.isPrivateRoomEnabled = isPrivateRoomEnabled;
+	}
+
+	@Column(name = "kind_id")
+	public Integer getKind_id() {
+		return kind_id;
+	}
+
+	public void setKind_id(Integer kind_id) {
+		this.kind_id = kind_id;
+	}
+
+	@Column(name = "region_id")
+	public Integer getRegion_id() {
+		return region_id;
+	}
+
+	public void setRegion_id(Integer region_id) {
+		this.region_id = region_id;
 	}
 
 }

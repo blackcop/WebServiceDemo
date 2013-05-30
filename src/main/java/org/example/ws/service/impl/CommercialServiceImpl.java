@@ -4,6 +4,7 @@
 package org.example.ws.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -485,6 +486,10 @@ public class CommercialServiceImpl implements CommercialService {
 			for (int i = 0; i < coupons.size(); i++) {
 				coupon = coupons.get(i);
 				couponDto = dozerBeanUtil.convert(coupon, CouponDto.class);
+				couponDto.setBeginDateStr(couponDto.formatDate());
+				couponDto.setEndDateStr(couponDto.formatDate2());
+				couponDto.setBeginDate(null);
+				couponDto.setEndDate(null);
 				if (coupon.getPictureId() != null) {
 					Picture picture = pictureDao.getObjectById(coupon
 							.getPictureId());

@@ -1,6 +1,7 @@
 package org.example.ws.pojo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -31,6 +32,28 @@ public class CouponDto implements Serializable {
 	private Date beginDate;
 
 	private Date endDate;
+	
+	private String beginDateStr;
+	
+	private String endDateStr;
+
+	@XmlElement(name = "begin_date")
+	public String getBeginDateStr() {
+		return beginDateStr;
+	}
+
+	public void setBeginDateStr(String beginDateStr) {
+		this.beginDateStr = beginDateStr;
+	}
+
+	@XmlElement(name = "end_date")
+	public String getEndDateStr() {
+		return endDateStr;
+	}
+
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
 
 	private String picture_url;
 
@@ -79,16 +102,44 @@ public class CouponDto implements Serializable {
 		this.commName = commName;
 	}
 
-	@XmlElement(name = "begin_date")
-	public Date getBeginDate() {
-		return beginDate;
+	public String formatDate() {
+		String test=null;
+		try {
+			SimpleDateFormat format = new SimpleDateFormat(
+					"yyyy/MM/dd ");
+			test = format.format(beginDate);
+	 
+			System.out.println(test);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return test;
+	}
+	
+	public String formatDate2() {
+		String test=null;
+		try {
+			SimpleDateFormat format = new SimpleDateFormat(
+					"yyyy/MM/dd ");
+			test = format.format(endDate);
+	 
+			System.out.println(test);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return test;
 	}
 
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
 	}
 
-	@XmlElement(name = "end_date")
+	@XmlElement(nillable=false)
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	@XmlElement(nillable=false)
 	public Date getEndDate() {
 		return endDate;
 	}

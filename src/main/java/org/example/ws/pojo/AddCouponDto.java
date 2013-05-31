@@ -1,7 +1,5 @@
 package org.example.ws.pojo;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,82 +10,16 @@ public class AddCouponDto extends BaseRestResponse {
 
 
 
-	private Integer commId;
-	private Integer couponId;
-	private String detail;
-	private Integer count;
-	private String commName;
-	private Date beginDate;
-	private Date endDate;
-	private Integer pictureId;
+	private Integer couponCount;
 
-
-	public Integer getCommId() {
-		return commId;
+	@XmlElement(name = "coupon_count")
+	public Integer getCouponCount() {
+		return couponCount;
 	}
 
-	public void setCommId(Integer commId) {
-		this.commId = commId;
+	public void setCouponCount(Integer couponCount) {
+		this.couponCount = couponCount;
 	}
 
-
-	public Integer getCouponId() {
-		return couponId;
-	}
-
-	public void setCouponId(Integer couponId) {
-		this.couponId = couponId;
-	}
-
-	public String getDetail() {
-		return detail;
-	}
-
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
-
-	@XmlElement(name = "count")
-	public Integer getCount() {
-		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
-	public String getCommName() {
-		return commName;
-	}
-
-	public void setCommName(String commName) {
-		this.commName = commName;
-	}
-
-	public Date getBeginDate() {
-		return beginDate;
-	}
-
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
-
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-
-	public Integer getPictureId() {
-		return pictureId;
-	}
-
-	public void setPictureId(Integer pictureId) {
-		this.pictureId = pictureId;
-	}
 
 }

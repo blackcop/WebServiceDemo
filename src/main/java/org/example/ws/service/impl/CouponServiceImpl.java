@@ -65,7 +65,7 @@ public class CouponServiceImpl implements CouponService {
 		int addCount = coupon.getCount();
 		addCount++;
 		coupon.setCount(addCount);
-		addCoupon.setCount(addCount);
+		addCoupon.setCouponCount(addCount);
 		couponDao.update(coupon);
 
 		Response resp = Response.status(Response.Status.OK).entity(addCoupon)

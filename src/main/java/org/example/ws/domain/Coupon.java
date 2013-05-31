@@ -41,6 +41,8 @@ public class Coupon implements java.io.Serializable {
 
 	private String detail;
 
+	private String coupon_content;
+
 	private Integer count;
 
 	private String commName;
@@ -150,4 +152,14 @@ public class Coupon implements java.io.Serializable {
 	public void setAccounts(Set<Account> accounts) {
 		this.accounts = accounts;
 	}
+
+	@Column(name = "coupon_content")
+	public String getCoupon_content() {
+		return coupon_content;
+	}
+
+	public void setCoupon_content(String coupon_content) {
+		this.coupon_content = coupon_content;
+	}
+
 }

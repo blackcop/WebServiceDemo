@@ -99,4 +99,11 @@ public class CouponServiceImpl implements CouponService {
 		return resp;
 	}
 
+	@Override
+	public Response getCouponDetailById(Integer coupon_id) {
+		Coupon coupon = couponDao.getObjectById(coupon_id);
+		
+		return null;
+	}
+
 }

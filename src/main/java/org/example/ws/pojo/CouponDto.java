@@ -31,6 +31,28 @@ public class CouponDto implements Serializable {
 	private Date beginDate;
 
 	private Date endDate;
+	
+	private String beginDateStr;
+	
+	private String endDateStr;
+
+	@XmlElement(name = "begin_date")
+	public String getBeginDateStr() {
+		return beginDateStr;
+	}
+
+	public void setBeginDateStr(String beginDateStr) {
+		this.beginDateStr = beginDateStr;
+	}
+
+	@XmlElement(name = "end_date")
+	public String getEndDateStr() {
+		return endDateStr;
+	}
+
+	public void setEndDateStr(String endDateStr) {
+		this.endDateStr = endDateStr;
+	}
 
 	private String picture_url;
 
@@ -79,16 +101,16 @@ public class CouponDto implements Serializable {
 		this.commName = commName;
 	}
 
-	@XmlElement(name = "begin_date")
-	public Date getBeginDate() {
-		return beginDate;
-	}
-
 	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
 	}
 
-	@XmlElement(name = "end_date")
+	@XmlElement(nillable=false)
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	@XmlElement(nillable=false)
 	public Date getEndDate() {
 		return endDate;
 	}

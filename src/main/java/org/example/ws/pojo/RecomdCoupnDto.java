@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.example.ws.util.BaseRestResponse;
 @XmlRootElement(name="result")
 public class RecomdCoupnDto extends BaseRestResponse{
-	private List<RecomdInfoDto> coupon_list;
+	private List<RecomdInfoDto> couponList;
 	private Integer count;
 	
 	
@@ -21,12 +21,12 @@ public class RecomdCoupnDto extends BaseRestResponse{
 	}
 
 	@XmlElement(name = "coupon_list")
-	public List<RecomdInfoDto> getCoupon_list() {
-		return coupon_list;
+	public List<RecomdInfoDto> getCouponList() {
+		return couponList;
 	}
 
-	public void setCoupon_list(List<RecomdInfoDto> coupon_list) {
-		this.coupon_list = coupon_list;
+	public void setCouponList(List<RecomdInfoDto> coupon_list) {
+		this.couponList = coupon_list;
 	}
 
 }

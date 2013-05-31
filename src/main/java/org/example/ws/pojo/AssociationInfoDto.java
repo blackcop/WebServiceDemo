@@ -1,7 +1,5 @@
 package org.example.ws.pojo;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlElement;
 
 import org.example.ws.util.BaseRestResponse;
@@ -9,7 +7,7 @@ import org.example.ws.util.BaseRestResponse;
 public class AssociationInfoDto extends BaseRestResponse{
 
 	private Integer groupId;
-	private Date createDate;
+	private String createDate;
 	private String name;
 	private String kind;
 	private String detail;
@@ -25,11 +23,11 @@ public class AssociationInfoDto extends BaseRestResponse{
 	}
 
 	@XmlElement(name = "create_date")
-	public Date getCreateDate() {
+	public String getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 

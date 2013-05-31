@@ -39,6 +39,7 @@ import org.example.ws.pojo.PictureSetDto;
 import org.example.ws.pojo.PictureSetsDto;
 import org.example.ws.pojo.PicturesDto;
 import org.example.ws.service.CommercialService;
+import org.example.ws.util.DateUtils;
 import org.example.ws.util.DozerBeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -485,6 +486,10 @@ public class CommercialServiceImpl implements CommercialService {
 			for (int i = 0; i < coupons.size(); i++) {
 				coupon = coupons.get(i);
 				couponDto = dozerBeanUtil.convert(coupon, CouponDto.class);
+				couponDto.setBeginDateStr(DateUtils.format(couponDto.getBeginDate()));
+				couponDto.setEndDateStr(DateUtils.format(couponDto.getEndDate()));
+				couponDto.setBeginDate(null);
+				couponDto.setEndDate(null);
 				if (coupon.getPictureId() != null) {
 					Picture picture = pictureDao.getObjectById(coupon
 							.getPictureId());

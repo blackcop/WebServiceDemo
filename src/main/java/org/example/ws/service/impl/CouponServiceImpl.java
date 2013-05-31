@@ -17,9 +17,13 @@ import org.example.ws.dao.PictureDao;
 import org.example.ws.domain.Coupon;
 import org.example.ws.domain.Picture;
 import org.example.ws.pojo.AddCouponDto;
+import org.example.ws.pojo.CouponDto;
+import org.example.ws.pojo.CouponResultDto;
 import org.example.ws.pojo.RecomdCoupnDto;
 import org.example.ws.pojo.RecomdInfoDto;
 import org.example.ws.service.CouponService;
+import org.example.ws.util.DateUtils;
+import org.example.ws.util.DozerBeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -33,6 +37,9 @@ public class CouponServiceImpl implements CouponService {
 
 	@Autowired
 	private PictureDao pictureDao;
+
+	@Autowired
+	private DozerBeanUtil dozerBeanUtil;
 
 	@GET
 	@Path("/AddCouponCount")
@@ -99,11 +106,33 @@ public class CouponServiceImpl implements CouponService {
 		return resp;
 	}
 
+	@GET
+	@Path("/getCouponDetailById")
+	@Produces({ "application/json;charset=utf-8" })
 	@Override
-	public Response getCouponDetailById(Integer coupon_id) {
-		Coupon coupon = couponDao.getObjectById(coupon_id);
-		
-		return null;
+	public Response getCouponDetailById(
+			@QueryParam("coupon_id") Integer coupon_id) {
+		CouponResultDto result = new CouponResultDto();
+		try {
+			Coupon coupon = couponDao.getObjectById(coupon_id);
+			CouponDto couponDto = dozerBeanUtil
+					.convert(coupon, CouponDto.class);
+			couponDto
+					.setBeginDateStr(DateUtils.format(couponDto.getBeginDate()));
+			couponDto.setEndDateStr(DateUtils.format(couponDto.getEndDate()));
+			couponDto.setBeginDate(null);
+			couponDto.setEndDate(null);
+			result.setCouponDto(couponDto);
+			Response resp = Response.status(Response.Status.OK).entity(result)
+					.build();
+			return resp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setErrorCode("500");
+			result.setErrorMsg("Get Failed");
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(result).build();
+		}
 	}
 
 }

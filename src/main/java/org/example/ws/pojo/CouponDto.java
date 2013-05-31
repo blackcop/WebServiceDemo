@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Dijia.Tang
  * 
  */
-@XmlRootElement(name = "result")
+@XmlRootElement(name = "coupon")
 public class CouponDto implements Serializable {
 
 	/**
@@ -31,10 +31,12 @@ public class CouponDto implements Serializable {
 	private Date beginDate;
 
 	private Date endDate;
-	
+
 	private String beginDateStr;
-	
+
 	private String endDateStr;
+
+	private String coupon_content;// 优惠券内容
 
 	@XmlElement(name = "begin_date")
 	public String getBeginDateStr() {
@@ -105,12 +107,12 @@ public class CouponDto implements Serializable {
 		this.beginDate = beginDate;
 	}
 
-	@XmlElement(nillable=false)
+	@XmlElement(nillable = false)
 	public Date getBeginDate() {
 		return beginDate;
 	}
 
-	@XmlElement(nillable=false)
+	@XmlElement(nillable = false)
 	public Date getEndDate() {
 		return endDate;
 	}
@@ -126,6 +128,15 @@ public class CouponDto implements Serializable {
 
 	public void setPicture_url(String picture_url) {
 		this.picture_url = picture_url;
+	}
+
+	@XmlElement(name = "coupon_content")
+	public String getCoupon_content() {
+		return coupon_content;
+	}
+
+	public void setCoupon_content(String coupon_content) {
+		this.coupon_content = coupon_content;
 	}
 
 }

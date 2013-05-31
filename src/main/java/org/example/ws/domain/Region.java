@@ -23,62 +23,62 @@ public class Region implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer region_id;
+	private Integer regionId;
 
-	private String region_name;
+	private String regionName;
 
-	private Boolean is_parent;
+	private Boolean isParent;
 
-	private Integer parent_id;
+	private Integer parentId;
 	
-	private String region_code;
+	private String regionCode;
 
 	@Id
 	@GenericGenerator(name = "idgen", strategy = "increment")
 	@GeneratedValue(generator = "idgen")
 	@Column(name = "region_id", unique = true, nullable = false)
-	public Integer getRegion_id() {
-		return region_id;
+	public Integer getRegionId() {
+		return regionId;
 	}
 
-	public void setRegion_id(Integer region_id) {
-		this.region_id = region_id;
+	public void setRegionId(Integer regionId) {
+		this.regionId = regionId;
 	}
 
 	@Column(name = "region_name", length = 20)
-	public String getRegion_name() {
-		return region_name;
+	public String getRegionName() {
+		return regionName;
 	}
 
-	public void setRegion_name(String region_name) {
-		this.region_name = region_name;
+	public void setRegionName(String regionName) {
+		this.regionName = regionName;
 	}
 
 	@Column(name = "is_parent")
-	public Boolean getIs_parent() {
-		return is_parent;
+	public Boolean getIsParent() {
+		return isParent;
 	}
 
-	public void setIs_parent(Boolean is_parent) {
-		this.is_parent = is_parent;
+	public void setIsParent(Boolean isParent) {
+		this.isParent = isParent;
 	}
 
 	@Column(name = "parent_id")
-	public Integer getParent_id() {
-		return parent_id;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setParent_id(Integer parent_id) {
-		this.parent_id = parent_id;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	@Column(name = "region_code", length = 45)
-	public String getRegion_code() {
-		return region_code;
+	public String getRegionCode() {
+		return regionCode;
 	}
 
-	public void setRegion_code(String region_code) {
-		this.region_code = region_code;
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
 	}
 
 }

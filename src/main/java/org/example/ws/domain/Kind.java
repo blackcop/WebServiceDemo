@@ -23,51 +23,51 @@ public class Kind implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Integer kind_id;
+	private Integer kindId;
 
-	private String kind_name;
+	private String kindName;
 
-	private Boolean is_parent;
+	private Boolean isParent;
 
-	private Integer parent_id;
+	private Integer parentId;
 
 	@Id
 	@GenericGenerator(name = "idgen", strategy = "increment")
 	@GeneratedValue(generator = "idgen")
 	@Column(name = "kind_id", unique = true, nullable = false)
-	public Integer getKind_id() {
-		return kind_id;
+	public Integer getKindId() {
+		return kindId;
 	}
 
-	public void setKind_id(Integer kind_id) {
-		this.kind_id = kind_id;
+	public void setKindId(Integer kindId) {
+		this.kindId = kindId;
 	}
 
 	@Column(name = "kind_name", length = 20)
-	public String getKind_name() {
-		return kind_name;
+	public String getKindName() {
+		return kindName;
 	}
 
-	public void setKind_name(String kind_name) {
-		this.kind_name = kind_name;
+	public void setKindName(String kindName) {
+		this.kindName = kindName;
 	}
 
 	@Column(name = "is_parent")
-	public Boolean getIs_parent() {
-		return is_parent;
+	public Boolean getIsParent() {
+		return isParent;
 	}
 
-	public void setIs_parent(Boolean is_parent) {
-		this.is_parent = is_parent;
+	public void setIsParent(Boolean isParent) {
+		this.isParent = isParent;
 	}
 
 	@Column(name = "parent_id")
-	public Integer getParent_id() {
-		return parent_id;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setParent_id(Integer parent_id) {
-		this.parent_id = parent_id;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 }

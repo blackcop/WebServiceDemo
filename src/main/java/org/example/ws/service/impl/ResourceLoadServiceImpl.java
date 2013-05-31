@@ -80,11 +80,11 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		List<Region> regions = regionDao.findAll();
 
 		for (Region region : regions) {
-			if (region.getIs_parent()) {
+			if (region.getIsParent()) {
 				fieldInfo = new RegionInfoDto();
-				fieldInfo.setRegionCode(region.getRegion_code());
-				fieldInfo.setRegionId(region.getRegion_id());
-				fieldInfo.setRegionName(region.getRegion_name());
+				fieldInfo.setRegionCode(region.getRegionCode());
+				fieldInfo.setRegionId(region.getRegionId());
+				fieldInfo.setRegionName(region.getRegionName());
 				fieldList.add(fieldInfo);
 			}
 		}
@@ -125,13 +125,13 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		int region_id1 = region_id.intValue();
 
 		for (Region region1 : regions) {
-			if (region1.getParent_id() != null) {
-				int region_id2 = region1.getParent_id().intValue();
+			if (region1.getParentId() != null) {
+				int region_id2 = region1.getParentId().intValue();
 				if (region_id1 == region_id2) {
 					fieldInfo = new RegionInfoDto();
-					fieldInfo.setRegionId(region1.getRegion_id());
-					fieldInfo.setRegionName(region1.getRegion_name());
-					fieldInfo.setRegionCode(region1.getRegion_code());
+					fieldInfo.setRegionId(region1.getRegionId());
+					fieldInfo.setRegionName(region1.getRegionName());
+					fieldInfo.setRegionCode(region1.getRegionCode());
 					fieldList.add(fieldInfo);
 				}
 			}
@@ -174,12 +174,12 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		int region_id1 = kind_id.intValue();
 
 		for (Kind kind1 : kinds) {
-			if (kind1.getParent_id() != null) {
-				int region_id2 = kind1.getParent_id().intValue();
+			if (kind1.getParentId() != null) {
+				int region_id2 = kind1.getParentId().intValue();
 				if (region_id1 == region_id2) {
 					categoryInfo = new CategoryInfoDto();
-					categoryInfo.setCategoryId(kind1.getKind_id());
-					categoryInfo.setCategoryName(kind1.getKind_name());
+					categoryInfo.setCategoryId(kind1.getKindId());
+					categoryInfo.setCategoryName(kind1.getKindName());
 					categoryList.add(categoryInfo);
 				}
 			}

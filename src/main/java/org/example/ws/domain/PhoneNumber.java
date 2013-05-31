@@ -16,50 +16,50 @@ public class PhoneNumber implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer phonenumber_id;
+	private Integer phonenumberId;
 
-	private Integer comm_id;
+	private Integer commId;
 
-	private String phone_num;
+	private String phoneNum;
 
-	private String phone_desc;
+	private String phoneDesc;
 
 	@Id
 	@GenericGenerator(name = "idgen", strategy = "increment")
 	@GeneratedValue(generator = "idgen")
 	@Column(name = "phonenumber_id", unique = true, nullable = false)
-	public Integer getPhonenumber_id() {
-		return phonenumber_id;
+	public Integer getPhonenumberId() {
+		return phonenumberId;
 	}
 
-	public void setPhonenumber_id(Integer phonenumber_id) {
-		this.phonenumber_id = phonenumber_id;
+	public void setPhonenumberId(Integer phonenumberId) {
+		this.phonenumberId = phonenumberId;
 	}
 
 	@Column(name = "comm_id")
-	public Integer getComm_id() {
-		return comm_id;
+	public Integer getCommId() {
+		return commId;
 	}
 
-	public void setComm_id(Integer comm_id) {
-		this.comm_id = comm_id;
+	public void setCommId(Integer commId) {
+		this.commId = commId;
 	}
 
 	@Column(name = "phone_num", length = 50)
-	public String getPhone_num() {
-		return phone_num;
+	public String getPhoneNum() {
+		return phoneNum;
 	}
 
-	public void setPhone_num(String phone_num) {
-		this.phone_num = phone_num;
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 
 	@Column(name = "phone_desc", length = 50)
-	public String getPhone_desc() {
-		return phone_desc;
+	public String getPhoneDesc() {
+		return phoneDesc;
 	}
 
-	public void setPhone_desc(String phone_desc) {
-		this.phone_desc = phone_desc;
+	public void setPhoneDesc(String phone_desc) {
+		this.phoneDesc = phone_desc;
 	}
 }

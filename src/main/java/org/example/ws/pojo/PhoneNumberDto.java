@@ -21,9 +21,9 @@ public class PhoneNumberDto implements Serializable {
 
 	// private Integer comm_id;
 
-	private String phone_num;
+	private String phoneNum;
 
-	private String phone_desc;
+	private String phoneDesc;
 
 	public PhoneNumberDto() {
 		super();
@@ -48,21 +48,21 @@ public class PhoneNumberDto implements Serializable {
 	// }
 
 	@XmlElement(name = "phone_num")
-	public String getPhone_num() {
-		return phone_num;
+	public String getPhoneNum() {
+		return phoneNum;
 	}
 
-	public void setPhone_num(String phone_num) {
-		this.phone_num = phone_num;
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 
 	@XmlElement(name = "phone_desc")
-	public String getPhone_desc() {
-		return phone_desc;
+	public String getPhoneDesc() {
+		return phoneDesc;
 	}
 
-	public void setPhone_desc(String phone_desc) {
-		this.phone_desc = phone_desc;
+	public void setPhoneDesc(String phoneDesc) {
+		this.phoneDesc = phoneDesc;
 	}
 
 }

@@ -18,7 +18,7 @@ public class PicturesDto implements Serializable {
 
 	private Integer count;
 
-	private Collection<PictureDto> picture_list;
+	private Collection<PictureDto> pictureList;
 
 	@XmlElement(name = "count")
 	public Integer getCount() {
@@ -30,12 +30,12 @@ public class PicturesDto implements Serializable {
 	}
 
 	@XmlElement(name = "picture_list")
-	public Collection<PictureDto> getPicture_list() {
-		return picture_list;
+	public Collection<PictureDto> getPictureList() {
+		return pictureList;
 	}
 
-	public void setPicture_list(Collection<PictureDto> picture_list) {
-		this.picture_list = picture_list;
+	public void setPictureList(Collection<PictureDto> pictureList) {
+		this.pictureList = pictureList;
 	}
 
 }

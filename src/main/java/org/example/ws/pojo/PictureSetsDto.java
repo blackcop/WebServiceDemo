@@ -17,7 +17,7 @@ public class PictureSetsDto implements Serializable {
 
 	private Integer count;
 
-	private Collection<PictureSetDto> pictureset_list;
+	private Collection<PictureSetDto> picturesetList;
 
 	@XmlElement(name = "count")
 	public Integer getCount() {
@@ -29,12 +29,12 @@ public class PictureSetsDto implements Serializable {
 	}
 
 	@XmlElement(name = "pictureset_list")
-	public Collection<PictureSetDto> getPictureset_list() {
-		return pictureset_list;
+	public Collection<PictureSetDto> getPicturesetList() {
+		return picturesetList;
 	}
 
-	public void setPictureset_list(Collection<PictureSetDto> pictureset_list) {
-		this.pictureset_list = pictureset_list;
+	public void setPicturesetList(Collection<PictureSetDto> picturesetList) {
+		this.picturesetList = picturesetList;
 	}
 
 }

@@ -16,7 +16,7 @@ public class CouponsDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Collection<CouponDto> coupon_list;
+	private Collection<CouponDto> couponList;
 
 	private Integer count;
 
@@ -30,12 +30,12 @@ public class CouponsDto implements Serializable {
 	}
 
 	@XmlElement(name = "coupon_list")
-	public Collection<CouponDto> getCoupon_list() {
-		return coupon_list;
+	public Collection<CouponDto> getCouponList() {
+		return couponList;
 	}
 
-	public void setCoupon_list(Collection<CouponDto> coupon_list) {
-		this.coupon_list = coupon_list;
+	public void setCouponList(Collection<CouponDto> couponList) {
+		this.couponList = couponList;
 	}
 
 }

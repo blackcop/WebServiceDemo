@@ -7,7 +7,7 @@ public class CouponInfoOfAccount {
 
 	private String commercialName;
 	private int couponId;
-	private int comm_id;
+	private int commId;
 	/**
 	 * @return the commercialName
 	 */
@@ -35,13 +35,13 @@ public class CouponInfoOfAccount {
 	/**
 	 * @return the comm_id
 	 */
-	public int getComm_id() {
-		return comm_id;
+	public int getCommId() {
+		return commId;
 	}
 	/**
 	 * @param comm_id the comm_id to set
 	 */
-	public void setComm_id(int comm_id) {
-		this.comm_id = comm_id;
+	public void setCommId(int commId) {
+		this.commId = commId;
 	}
 }

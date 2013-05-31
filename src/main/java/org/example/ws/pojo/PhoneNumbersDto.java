@@ -18,13 +18,13 @@ public class PhoneNumbersDto implements Serializable {
 	/**
 	 * 电话号码
 	 */
-	private Collection<PhoneNumberDto> phonenumber_list;
+	private Collection<PhoneNumberDto> phonenumberList;
 
 	private Integer count;
 
-	@XmlElement(name = "phonenumber_list")
-	public void setPhonenumber_list(Collection<PhoneNumberDto> phonenumber_list) {
-		this.phonenumber_list = phonenumber_list;
+	@XmlElement(name = "phonenumberList")
+	public void setPhonenumberList(Collection<PhoneNumberDto> phonenumberList) {
+		this.phonenumberList = phonenumberList;
 	}
 
 	public void setCount(Integer count) {
@@ -36,8 +36,8 @@ public class PhoneNumbersDto implements Serializable {
 		return count;
 	}
 
-	public Collection<PhoneNumberDto> getPhonenumber_list() {
-		return phonenumber_list;
+	public Collection<PhoneNumberDto> getPhonenumberList() {
+		return phonenumberList;
 	}
 
 }

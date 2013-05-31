@@ -23,7 +23,7 @@ public class PictureSet implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer psId;
-	private Integer comm_id;
+	private Integer commId;
 	private String name;
 	private Integer coverId;
 
@@ -40,12 +40,12 @@ public class PictureSet implements java.io.Serializable {
 	}
 
 	@Column(name = "comm_id")
-	public Integer getComm_id() {
-		return comm_id;
+	public Integer getCommId() {
+		return commId;
 	}
 
-	public void setComm_id(Integer comm_id) {
-		this.comm_id = comm_id;
+	public void setCommId(Integer commId) {
+		this.commId = commId;
 	}
 
 	@Column(name = "name", length = 20)

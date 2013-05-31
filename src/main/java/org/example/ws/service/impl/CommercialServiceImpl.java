@@ -130,22 +130,22 @@ public class CommercialServiceImpl implements CommercialService {
 						.convert(commercial, CommercialDetailDto.class);
 				commercialDetailDto.setBudget("￥"
 						+ commercial.getBudget().toString());
-				if (commercial.getKind_id() != null) {
-					Kind kind2 = kindDao.getObjectById(commercial.getKind_id());
-					commercialDetailDto.setKind2(kind2.getKind_name());
-					Kind kind1 = kindDao.getObjectById(kind2.getParent_id());
-					commercialDetailDto.setKind1(kind1.getKind_name());
+				if (commercial.getKindId() != null) {
+					Kind kind2 = kindDao.getObjectById(commercial.getKindId());
+					commercialDetailDto.setKind2(kind2.getKindName());
+					Kind kind1 = kindDao.getObjectById(kind2.getParentId());
+					commercialDetailDto.setKind1(kind1.getKindName());
 				} else {
 					commercialDetailDto.setKind1("");
 					commercialDetailDto.setKind2("");
 				}
-				if (commercial.getRegion_id() != null) {
+				if (commercial.getRegionId() != null) {
 					Region region2 = regionDao.getObjectById(commercial
-							.getRegion_id());
-					commercialDetailDto.setRegion2(region2.getRegion_name());
+							.getRegionId());
+					commercialDetailDto.setRegion2(region2.getRegionName());
 					Region region1 = regionDao.getObjectById(region2
-							.getParent_id());
-					commercialDetailDto.setRegion1(region1.getRegion_name());
+							.getParentId());
+					commercialDetailDto.setRegion1(region1.getRegionName());
 				} else {
 					commercialDetailDto.setRegion1("");
 					commercialDetailDto.setRegion2("");
@@ -200,7 +200,7 @@ public class CommercialServiceImpl implements CommercialService {
 						}
 						// ------end------
 						PicturesDto picturesDto = new PicturesDto();
-						picturesDto.setPicture_list(pictureDtos);
+						picturesDto.setPictureList(pictureDtos);
 						picturesDto.setCount(pictureDtos.size());
 						pictureSetDto.setPicturesDto(picturesDto);
 						//
@@ -208,7 +208,7 @@ public class CommercialServiceImpl implements CommercialService {
 					}
 				}
 				PictureSetsDto pictureSetDto = new PictureSetsDto();
-				pictureSetDto.setPictureset_list(pictureSetDtos);
+				pictureSetDto.setPicturesetList(pictureSetDtos);
 				pictureSetDto.setCount(pictureSetDtos.size());
 				commercialDetailDto.setPictureSetsDto(pictureSetDto);
 				result.setCommercialDetailDto(commercialDetailDto);
@@ -376,22 +376,22 @@ public class CommercialServiceImpl implements CommercialService {
 						CommercialSummaryDto.class);
 				commercialSummaryDto.setBudget("￥"
 						+ commercial.getBudget().toString());
-				if (commercial.getKind_id() != null) {
-					Kind kind2 = kindDao.getObjectById(commercial.getKind_id());
-					commercialSummaryDto.setKind2(kind2.getKind_name());
-					Kind kind1 = kindDao.getObjectById(kind2.getParent_id());
-					commercialSummaryDto.setKind1(kind1.getKind_name());
+				if (commercial.getKindId() != null) {
+					Kind kind2 = kindDao.getObjectById(commercial.getKindId());
+					commercialSummaryDto.setKind2(kind2.getKindName());
+					Kind kind1 = kindDao.getObjectById(kind2.getParentId());
+					commercialSummaryDto.setKind1(kind1.getKindName());
 				} else {
 					commercialSummaryDto.setKind1("");
 					commercialSummaryDto.setKind2("");
 				}
-				if (commercial.getRegion_id() != null) {
+				if (commercial.getRegionId() != null) {
 					Region region2 = regionDao.getObjectById(commercial
-							.getRegion_id());
-					commercialSummaryDto.setRegion2(region2.getRegion_name());
+							.getRegionId());
+					commercialSummaryDto.setRegion2(region2.getRegionName());
 					Region region1 = regionDao.getObjectById(region2
-							.getParent_id());
-					commercialSummaryDto.setRegion1(region1.getRegion_name());
+							.getParentId());
+					commercialSummaryDto.setRegion1(region1.getRegionName());
 				} else {
 					commercialSummaryDto.setRegion1("");
 					commercialSummaryDto.setRegion2("");
@@ -457,14 +457,14 @@ public class CommercialServiceImpl implements CommercialService {
 				phoneNumber = pictureNumbers.get(i);
 				phoneNumberDto = dozerBeanUtil.convert(phoneNumber,
 						PhoneNumberDto.class);
-				if (phoneNumberDto.getPhone_desc() == null) {
-					phoneNumberDto.setPhone_desc("");
+				if (phoneNumberDto.getPhoneDesc() == null) {
+					phoneNumberDto.setPhoneDesc("");
 				}
 				phoneNumberDtoList.add(phoneNumberDto);
 			}
 		}
 		PhoneNumbersDto phoneNumberListDto = new PhoneNumbersDto();
-		phoneNumberListDto.setPhonenumber_list(phoneNumberDtoList);
+		phoneNumberListDto.setPhonenumberList(phoneNumberDtoList);
 		phoneNumberListDto.setCount(phoneNumberDtoList.size());
 		return phoneNumberListDto;
 	}
@@ -501,7 +501,7 @@ public class CommercialServiceImpl implements CommercialService {
 			}
 		}
 		CouponsDto couponsDto = new CouponsDto();
-		couponsDto.setCoupon_list(couponDtos);
+		couponsDto.setCouponList(couponDtos);
 		couponsDto.setCount(couponDtos.size());
 		return couponsDto;
 	}

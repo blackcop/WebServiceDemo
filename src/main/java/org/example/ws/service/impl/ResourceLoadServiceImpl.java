@@ -28,6 +28,7 @@ import org.example.ws.pojo.RegionDto;
 import org.example.ws.pojo.RegionInfoDto;
 import org.example.ws.service.ResourceLoadService;
 import org.example.ws.util.CategoryComparator;
+import org.example.ws.util.DateUtils;
 import org.example.ws.util.ObjectComparator;
 import org.example.ws.util.RegionComparator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -199,11 +200,11 @@ public class ResourceLoadServiceImpl implements ResourceLoadService {
 		AssociationDto assoDto = new AssociationDto();
 		List<AssociationInfoDto> assoList = new ArrayList<AssociationInfoDto>();
 		AssociationInfoDto assoInfo = new AssociationInfoDto();
-		List<Association>associations = associationDao.findAll();
+		List<Association> associations = associationDao.findAll();
 		for(Association association:associations){
 			assoInfo = new AssociationInfoDto();
 			assoInfo.setActivity(association.getActivity());
-			assoInfo.setCreateDate(association.getCreateDate());
+			assoInfo.setCreateDate(DateUtils.format(association.getCreateDate()));
 			assoInfo.setDetail(association.getActivity());
 			assoInfo.setGroupId(association.getGroupId());
 			assoInfo.setKind(association.getKind());

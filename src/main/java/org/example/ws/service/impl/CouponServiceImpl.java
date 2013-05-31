@@ -92,7 +92,7 @@ public class CouponServiceImpl implements CouponService {
 				recomdInfoDto.add(recomdInfo);
 			}
 		}
-		recomdCpnDto.setCoupon_list(recomdInfoDto);
+		recomdCpnDto.setCouponList(recomdInfoDto);
 		recomdCpnDto.setCount(ownCount);
 		Response resp = Response.status(Response.Status.OK)
 				.entity(recomdCpnDto).build();

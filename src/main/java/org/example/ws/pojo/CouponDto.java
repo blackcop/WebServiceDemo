@@ -1,7 +1,6 @@
 package org.example.ws.pojo;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -100,34 +99,6 @@ public class CouponDto implements Serializable {
 
 	public void setCommName(String commName) {
 		this.commName = commName;
-	}
-
-	public String formatDate() {
-		String test=null;
-		try {
-			SimpleDateFormat format = new SimpleDateFormat(
-					"yyyy/MM/dd ");
-			test = format.format(beginDate);
-	 
-			System.out.println(test);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return test;
-	}
-	
-	public String formatDate2() {
-		String test=null;
-		try {
-			SimpleDateFormat format = new SimpleDateFormat(
-					"yyyy/MM/dd ");
-			test = format.format(endDate);
-	 
-			System.out.println(test);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return test;
 	}
 
 	public void setBeginDate(Date beginDate) {

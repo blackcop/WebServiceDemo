@@ -171,7 +171,7 @@ public class CommercialServiceImpl implements CommercialService {
 				commercialDetailDto.setCouponsDto(couponsDto);
 
 				// get picture set
-				String hql3 = "from PictureSet where comm_id = ?";
+				String hql3 = "from PictureSet where commId = ?";
 				List<PictureSet> pictureSets = pictureSetDao.findListByParams(
 						hql3, new Object[] { commercial.getCommId() });
 				List<PictureSetDto> pictureSetDtos = new ArrayList<PictureSetDto>();
@@ -258,16 +258,16 @@ public class CommercialServiceImpl implements CommercialService {
 			StringBuilder sb = new StringBuilder("from Commercial where 1 = 1 ");
 			if (region_id != null && !region_id.equals("")) {
 				paramList.add(Integer.valueOf(region_id));
-				sb.append(" and region_id = ? ");
+				sb.append(" and regionId = ? ");
 			}
 			if (kind_id != null && !kind_id.equals("")) {
 				String[] kind_ids = kind_id.split(",");
 				for (int i = 0; i < kind_ids.length; i++) {
 					paramList.add(Integer.valueOf(kind_ids[i]));
 					if (i == 0) {
-						sb.append(" and kind_id = ? ");
+						sb.append(" and kindId = ? ");
 					} else {
-						sb.append(" or kind_id = ? ");
+						sb.append(" or kindId = ? ");
 					}
 				}
 			}
@@ -446,7 +446,7 @@ public class CommercialServiceImpl implements CommercialService {
 	 */
 	private PhoneNumbersDto getPhoneNumbersDtoByCommercialId(
 			Integer commercial_id) {
-		String hql = "from PhoneNumber where comm_id = ?";
+		String hql = "from PhoneNumber where commId = ?";
 		List<PhoneNumber> pictureNumbers = phoneNumberDao.findListByParams(hql,
 				new Object[] { commercial_id });
 		List<PhoneNumberDto> phoneNumberDtoList = new ArrayList<PhoneNumberDto>();
